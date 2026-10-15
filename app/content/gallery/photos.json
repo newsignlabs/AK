@@ -1,0 +1,437 @@
+[
+  {
+    "id": "wed-01",
+    "file": "wed-01.jpg",
+    "alt": "Placeholder image: a couple walking through a garden at dusk",
+    "category": "weddings",
+    "caption": "Wedding — placeholder 1",
+    "featured": true,
+    "w": 1600,
+    "h": 2400,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "lqip": "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAAeABQDASIAAhEBAxEB/8QAGQAAAwEBAQAAAAAAAAAAAAAAAAQFAwEG/8QAHhAAAgIDAQADAAAAAAAAAAAAAQIAAwQREiEFIjH/xAAWAQEBAQAAAAAAAAAAAAAAAAAAAwH/xAAVEQEBAAAAAAAAAAAAAAAAAAAAAf/aAAwDAQACEQMRAD8A9VQgVNyLn+5TyoMuojlW2ZL+TBW4MPwydqkie6fYwmpBb0CEwdxLGKnRjFjGxdMdxDFcquow9h1A0F3A5AHkIi9h6hA//9k="
+  },
+  {
+    "id": "wed-02",
+    "file": "wed-02.jpg",
+    "alt": "Placeholder image: hands and rings in soft window light",
+    "category": "weddings",
+    "caption": "Wedding — placeholder 2",
+    "featured": true,
+    "w": 2400,
+    "h": 1600,
+    "widths": [
+      480,
+      960,
+      1600,
+      2400
+    ],
+    "lqip": "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAANABQDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAQFAgP/xAAbEAACAwEBAQAAAAAAAAAAAAABAgADIQQREv/EABUBAQEAAAAAAAAAAAAAAAAAAAAD/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8A1xUqW3wSulFLV+EASLzOcyNm0gZJKOj8qhzohEXuf6hA/9k="
+  },
+  {
+    "id": "wed-03",
+    "file": "wed-03.jpg",
+    "alt": "Placeholder image: guests celebrating under string lights",
+    "category": "weddings",
+    "caption": "Wedding — placeholder 3",
+    "featured": false,
+    "w": 2400,
+    "h": 1600,
+    "widths": [
+      480,
+      960,
+      1600,
+      2400
+    ],
+    "lqip": "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAANABQDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAMFBP/EABwQAAIDAAMBAAAAAAAAAAAAAAECAAMSBBFBMf/EABUBAQEAAAAAAAAAAAAAAAAAAAAD/8QAFhEBAQEAAAAAAAAAAAAAAAAAAAER/9oADAMBAAIRAxEAPwCwtKBPkzEgswHkeLmwB0JOsvavRUDsmRsVlNetdQk5uZZryEYa/9k="
+  },
+  {
+    "id": "wed-04",
+    "file": "wed-04.jpg",
+    "alt": "Placeholder image: a bride by a sunlit doorway",
+    "category": "weddings",
+    "caption": "Wedding — placeholder 4",
+    "featured": false,
+    "w": 1920,
+    "h": 2400,
+    "widths": [
+      480,
+      960,
+      1600,
+      1920
+    ],
+    "lqip": "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAAZABQDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAMEAQb/xAAiEAABBAEEAgMAAAAAAAAAAAABAAIDBBESITFBEzI0UWH/xAAWAQEBAQAAAAAAAAAAAAAAAAAAAQL/xAAWEQEBAQAAAAAAAAAAAAAAAAAAARH/2gAMAwEAAhEDEQA/AOhoRBkQPZV4wdio6jg6Fv4tE7Rd0nPCw2JoB5ChZNfriQgu3CEQmo3STh2x6UtmR4tkMxn7Tq/Ckk+YVKsTSMeXknCE2T3KENf/2Q=="
+  },
+  {
+    "id": "wed-05",
+    "file": "wed-05.jpg",
+    "alt": "Placeholder image: a quiet moment before the ceremony",
+    "category": "weddings",
+    "caption": "Wedding — placeholder 5",
+    "featured": false,
+    "w": 2400,
+    "h": 1350,
+    "widths": [
+      480,
+      960,
+      1600,
+      2400
+    ],
+    "lqip": "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAALABQDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAMEBf/EAB0QAAEEAwEBAAAAAAAAAAAAAAIAAQMREiEiMjH/xAAVAQEBAAAAAAAAAAAAAAAAAAAAA//EABURAQEAAAAAAAAAAAAAAAAAAAAR/9oADAMBAAIRAxEAPwBxR7sdqiCKg6f6s2Iyr06ocyx9OoqnSADG90hZshlm/ToSFf/Z"
+  },
+  {
+    "id": "por-01",
+    "file": "por-01.jpg",
+    "alt": "Placeholder image: a portrait in soft north light",
+    "category": "portraits",
+    "caption": "Portrait — placeholder 1",
+    "featured": true,
+    "w": 1920,
+    "h": 2400,
+    "widths": [
+      480,
+      960,
+      1600,
+      1920
+    ],
+    "lqip": "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAAZABQDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAMEBQH/xAAgEAACAQQCAwEAAAAAAAAAAAABAgADBBEhBRITMUEz/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCZCiaJ3KUUMMjYirnj3o0/J27D7F8dVBYoTIp7UdwlRUZhA7XrqbZgx1iZPH48jH5H3f4GS2Pp4Rpi4UDBhIW9whX/2Q=="
+  },
+  {
+    "id": "por-02",
+    "file": "por-02.jpg",
+    "alt": "Placeholder image: a profile against a plain wall",
+    "category": "portraits",
+    "caption": "Portrait — placeholder 2",
+    "featured": false,
+    "w": 2400,
+    "h": 1350,
+    "widths": [
+      480,
+      960,
+      1600,
+      2400
+    ],
+    "lqip": "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAALABQDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAQFA//EAB8QAAICAgEFAAAAAAAAAAAAAAECAAMEESESMTJBUf/EABUBAQEAAAAAAAAAAAAAAAAAAAEA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8ArNfjikhXU7GpPOKqL1bHMm45P2M3MdDn1AtGqq35CES7wkH/2Q=="
+  },
+  {
+    "id": "por-03",
+    "file": "por-03.jpg",
+    "alt": "Placeholder image: a candid laugh in the studio",
+    "category": "portraits",
+    "caption": "Portrait — placeholder 3",
+    "featured": false,
+    "w": 1920,
+    "h": 2400,
+    "widths": [
+      480,
+      960,
+      1600,
+      1920
+    ],
+    "lqip": "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAAZABQDASIAAhEBAxEB/8QAGQAAAgMBAAAAAAAAAAAAAAAAAAUBAwYE/8QAJhAAAQMDAgUFAAAAAAAAAAAAAQACAwQRIQUxBhMUIjI0QVFxgf/EABUBAQEAAAAAAAAAAAAAAAAAAAAB/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AZarN0lDZuHPwswcm53Wg4jaTBE4bArOF3eoG9JqAZAGyZIwhKw0uyAhA3e81URY917pW6jlFTy7Z+V3U/kPtWSev/EVEUTIYww2J90KH+RQg/9k="
+  },
+  {
+    "id": "por-04",
+    "file": "por-04.jpg",
+    "alt": "Placeholder image: a seated portrait with deep shadows",
+    "category": "portraits",
+    "caption": "Portrait — placeholder 4",
+    "featured": false,
+    "w": 2400,
+    "h": 1600,
+    "widths": [
+      480,
+      960,
+      1600,
+      2400
+    ],
+    "lqip": "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAANABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAUCAwT/xAAcEAACAgMBAQAAAAAAAAAAAAABAgADBBEhMSL/xAAVAQEBAAAAAAAAAAAAAAAAAAAAAf/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AJ52a6qyg6XzUXC8MvT2ZbbnsALHcqLakUxSw6+TyEVG1gfYQP/Z"
+  },
+  {
+    "id": "fas-01",
+    "file": "fas-01.jpg",
+    "alt": "Placeholder image: a linen look against warm stone",
+    "category": "fashion",
+    "caption": "Fashion — placeholder 1",
+    "featured": true,
+    "w": 1920,
+    "h": 2400,
+    "widths": [
+      480,
+      960,
+      1600,
+      1920
+    ],
+    "lqip": "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAAZABQDASIAAhEBAxEB/8QAGQAAAwADAAAAAAAAAAAAAAAAAAMEAQIG/8QAIBAAAgICAgIDAAAAAAAAAAAAAQMAAhIxBBEhIjNhcf/EABcBAQEBAQAAAAAAAAAAAAAAAAABAgP/xAAVEQEBAAAAAAAAAAAAAAAAAAAAEf/aAAwDAQACEQMRAD8A6hNa1H3MsANfEjW02yt3qSL5mSWinYPeyZh0hzVDMwiV8nKgNtwkqwtHJFa2B0RI1NAWwDRMK6tEI+Fn7AfS/rCaDQhA/9k="
+  },
+  {
+    "id": "fas-02",
+    "file": "fas-02.jpg",
+    "alt": "Placeholder image: a model mid-stride on a quiet street",
+    "category": "fashion",
+    "caption": "Fashion — placeholder 2",
+    "featured": false,
+    "w": 2400,
+    "h": 1600,
+    "widths": [
+      480,
+      960,
+      1600,
+      2400
+    ],
+    "lqip": "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAANABQDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAIEBv/EACAQAAICAQMFAAAAAAAAAAAAAAECAAMhBAYREyMxUXH/xAAWAQEBAQAAAAAAAAAAAAAAAAACAAH/xAAWEQEBAQAAAAAAAAAAAAAAAAAAARH/2gAMAwEAAhEDEQA/AGO4H6fFVAU+zM3qrGt1Dux5YnMuq8SBsWN9hh2EFbHIEJZQO2IS1uP/2Q=="
+  },
+  {
+    "id": "fas-03",
+    "file": "fas-03.jpg",
+    "alt": "Placeholder image: an editorial close-up in shadow",
+    "category": "fashion",
+    "caption": "Fashion — placeholder 3",
+    "featured": false,
+    "w": 2400,
+    "h": 1350,
+    "widths": [
+      480,
+      960,
+      1600,
+      2400
+    ],
+    "lqip": "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAALABQDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAABQACA//EAB0QAAICAwADAAAAAAAAAAAAAAECAAQDEiERMUH/xAAWAQEBAQAAAAAAAAAAAAAAAAAAAgP/xAAWEQEBAQAAAAAAAAAAAAAAAAAAEQH/2gAMAwEAAhEDEQA/AMoQi7qODsTrX8djErOCDCEYms3fk6VCRW4ZDWEsmbBtweZQl2O3uUEx/9k="
+  },
+  {
+    "id": "fas-04",
+    "file": "fas-04.jpg",
+    "alt": "Placeholder image: a lookbook frame on seamless paper",
+    "category": "fashion",
+    "caption": "Fashion — placeholder 4",
+    "featured": false,
+    "w": 1600,
+    "h": 2400,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "lqip": "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAAeABQDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAQFA//EACEQAAEDBAIDAQAAAAAAAAAAAAEAAgMEERIhBVETFEEx/8QAFwEAAwEAAAAAAAAAAAAAAAAAAAEDAv/EABcRAQEBAQAAAAAAAAAAAAAAAAABESH/2gAMAwEAAhEDEQA/ALxIgpS8fttKX5TJkHm90zLMfRax4N+1MZJeqDctdKasjUtINkJrxF2wEJhrVFr6UEfFKpY8+VaE3Cc4y0pejJbyZPQRhbxcOLdD4hLvkOSE2X//2Q=="
+  },
+  {
+    "id": "com-01",
+    "file": "com-01.jpg",
+    "alt": "Placeholder image: ceramics arranged on a neutral table",
+    "category": "commercial",
+    "caption": "Commercial — placeholder 1",
+    "featured": true,
+    "w": 1600,
+    "h": 2400,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "lqip": "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAAeABQDASIAAhEBAxEB/8QAGQAAAgMBAAAAAAAAAAAAAAAAAAQBAgUG/8QAIRAAAgICAgEFAAAAAAAAAAAAAAECAwQSESIFISVBQnH/xAAVAQEBAAAAAAAAAAAAAAAAAAAAAv/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AOixopuPoMZUU6yMevTh/JXKt1ujDdJP6kjNsq7sBma7AA7TNOKZneRfuFZbGufAnn3N58PwBqyxbgIztezAD//Z"
+  },
+  {
+    "id": "com-02",
+    "file": "com-02.jpg",
+    "alt": "Placeholder image: a coffee bag in morning light",
+    "category": "commercial",
+    "caption": "Commercial — placeholder 2",
+    "featured": false,
+    "w": 1600,
+    "h": 2400,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "lqip": "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAAeABQDASIAAhEBAxEB/8QAGQAAAwEBAQAAAAAAAAAAAAAAAAQFAwIG/8QAIBAAAgIDAAEFAAAAAAAAAAAAAQIAAxESIQQFE0FRcf/EABYBAQEBAAAAAAAAAAAAAAAAAAABAv/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AG6FCgGPYDqJBVmwBsQJZKvZQldZxzpmRy9S7HohMm9POe2tCAgtDlVJXAzPQUppUD9iS7bD7C/sqByfGX45AwscbQitjNuewlH/2Q=="
+  },
+  {
+    "id": "com-03",
+    "file": "com-03.jpg",
+    "alt": "Placeholder image: skincare bottles on stone",
+    "category": "commercial",
+    "caption": "Commercial — placeholder 3",
+    "featured": false,
+    "w": 2400,
+    "h": 1600,
+    "widths": [
+      480,
+      960,
+      1600,
+      2400
+    ],
+    "lqip": "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAANABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAQCAwX/xAAcEAABBQEBAQAAAAAAAAAAAAACAAEDESExBCL/xAAWAQEBAQAAAAAAAAAAAAAAAAABAAL/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwBgwKMPluKmP0FetiiExnHbk/EqZlurIOEYO9viFmFKV9Qov//Z"
+  },
+  {
+    "id": "com-04",
+    "file": "com-04.jpg",
+    "alt": "Placeholder image: a still life of fruit and glass",
+    "category": "commercial",
+    "caption": "Commercial — placeholder 4",
+    "featured": false,
+    "w": 2400,
+    "h": 1600,
+    "widths": [
+      480,
+      960,
+      1600,
+      2400
+    ],
+    "lqip": "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAANABQDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAUGA//EAB4QAAIDAQACAwAAAAAAAAAAAAECAAMRBCEiMUFx/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAL/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCgNqc9YJzyYWdIJxSMk70ddtlahm0bNVtYKPySGjt7fUIobps35hA//9k="
+  },
+  {
+    "id": "eve-01",
+    "file": "eve-01.jpg",
+    "alt": "Placeholder image: a speaker on a dark stage",
+    "category": "events",
+    "caption": "Event — placeholder 1",
+    "featured": true,
+    "w": 2400,
+    "h": 1600,
+    "widths": [
+      480,
+      960,
+      1600,
+      2400
+    ],
+    "lqip": "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAANABQDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAQFA//EAB8QAAIDAAEFAQAAAAAAAAAAAAECAAMREgQFEyIyQf/EABYBAQEBAAAAAAAAAAAAAAAAAAMBAv/EABcRAQEBAQAAAAAAAAAAAAAAAAARMRL/2gAMAwEAAhEDEQA/AJA711HDiFzf3InbXZb7DdMeRgR8ia+UquBRCswmob02K2EGEqPYS2kCE10kf//Z"
+  },
+  {
+    "id": "eve-02",
+    "file": "eve-02.jpg",
+    "alt": "Placeholder image: a launch evening in warm light",
+    "category": "events",
+    "caption": "Event — placeholder 2",
+    "featured": false,
+    "w": 2000,
+    "h": 2000,
+    "widths": [
+      480,
+      960,
+      1600,
+      2000
+    ],
+    "lqip": "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAAUABQDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAAMEAv/EACAQAAICAgICAwAAAAAAAAAAAAABAhEDBBMhEiIxQXH/xAAWAQEBAQAAAAAAAAAAAAAAAAABAAP/xAAWEQEBAQAAAAAAAAAAAAAAAAAAEUH/2gAMAwEAAhEDEQA/AMzxSrpWy+LPk14eE1d/Bl5HSpnW7JxlBp/RhGy0tmLduIMPImCiqcJPotvyfp+ADoY1JgAQ/9k="
+  },
+  {
+    "id": "eve-03",
+    "file": "eve-03.jpg",
+    "alt": "Placeholder image: dancers blurred in motion",
+    "category": "events",
+    "caption": "Event — placeholder 3",
+    "featured": false,
+    "w": 1600,
+    "h": 2400,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "lqip": "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAAeABQDASIAAhEBAxEB/8QAGQAAAgMBAAAAAAAAAAAAAAAAAAQBAwUC/8QAHxAAAgICAgMBAAAAAAAAAAAAAAECAwQRJUESEyFR/8QAFwEAAwEAAAAAAAAAAAAAAAAAAQIDAP/EABYRAQEBAAAAAAAAAAAAAAAAAAABAv/aAAwDAQACEQMRAD8Azcp6x2Zc3seyrV6nHsVsjrHhLwab7/SWVNKEvgEgOVzZdKW22O5b4ypmZJj+VLjKkCtCauaQFOwGB//Z"
+  },
+  {
+    "id": "eve-04",
+    "file": "eve-04.jpg",
+    "alt": "Placeholder image: a long table set for dinner",
+    "category": "events",
+    "caption": "Event — placeholder 4",
+    "featured": false,
+    "w": 1600,
+    "h": 2400,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "lqip": "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAAeABQDASIAAhEBAxEB/8QAGQAAAwEBAQAAAAAAAAAAAAAAAAQFAwEC/8QAIRAAAgIBBAIDAAAAAAAAAAAAAAECAxEEEhMhBSIjMXH/xAAVAQEBAAAAAAAAAAAAAAAAAAABA//EABcRAQEBAQAAAAAAAAAAAAAAAAASARH/2gAMAwEAAhEDEQA/AInA1o3hGXj4brn+Feqpce1rpnqrSQqhmEMNv7I0rKZdp/kfQFKVOXnADQ4aUMRTGa4bqUhacsQQzRZ6IlquMp1pSA7Ofs+gEP/Z"
+  },
+  {
+    "id": "mat-01",
+    "file": "mat-01.jpg",
+    "alt": "Placeholder image: a maternity portrait by a window",
+    "category": "maternity",
+    "caption": "Maternity — placeholder 1",
+    "featured": true,
+    "w": 2400,
+    "h": 1600,
+    "widths": [
+      480,
+      960,
+      1600,
+      2400
+    ],
+    "lqip": "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAANABQDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAMEBf/EABwQAAEEAwEAAAAAAAAAAAAAAAEAAgMEERJBIf/EABYBAQEBAAAAAAAAAAAAAAAAAAECA//EABURAQEAAAAAAAAAAAAAAAAAAAAR/9oADAMBAAIRAxEAPwCxtKzEdj4B1aUcWWAnqS+dxrEFURSEVWnCiNKW+uzZCTJO7coSK//Z"
+  },
+  {
+    "id": "mat-02",
+    "file": "mat-02.jpg",
+    "alt": "Placeholder image: tiny feet wrapped in linen",
+    "category": "maternity",
+    "caption": "Maternity — placeholder 2",
+    "featured": false,
+    "w": 1600,
+    "h": 2400,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "lqip": "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAAeABQDASIAAhEBAxEB/8QAGgAAAgIDAAAAAAAAAAAAAAAAAAQBAgMFBv/EACAQAAIDAAIBBQAAAAAAAAAAAAABAgMRBBIFEyEjMVH/xAAWAQEBAQAAAAAAAAAAAAAAAAAAAgH/xAAVEQEBAAAAAAAAAAAAAAAAAAAAEf/aAAwDAQACEQMRAD8A6TjQUUmx3E1gl2yG/iJp5i9Byl9olcUup+RgJ286bm32SAUhR+QlKnE/dlYchutxbNTXa8LyteGLZrbsm1ugIym+wBj/2Q=="
+  },
+  {
+    "id": "mat-03",
+    "file": "mat-03.jpg",
+    "alt": "Placeholder image: a family resting together at home",
+    "category": "maternity",
+    "caption": "Maternity — placeholder 3",
+    "featured": false,
+    "w": 1600,
+    "h": 2400,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "lqip": "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAAeABQDASIAAhEBAxEB/8QAGQAAAgMBAAAAAAAAAAAAAAAAAAQCAwUB/8QAHhAAAwACAwADAAAAAAAAAAAAAAECAxEEEhMhIlH/xAAWAQEBAQAAAAAAAAAAAAAAAAABAAP/xAAVEQEBAAAAAAAAAAAAAAAAAAAAAf/aAAwDAQACEQMRAD8Ab48KYJ1KpnZWkiUrb0Ztil4fsBpeC0AhUs2Pz31+Sn2X4LPI1KI3kegqhiua5ek2Bm3kfYBT/9k="
+  },
+  {
+    "id": "hero",
+    "file": "hero.jpg",
+    "alt": "Placeholder hero image: soft light in the studio",
+    "category": "site",
+    "caption": "",
+    "featured": false,
+    "hidden": true,
+    "w": 2400,
+    "h": 1350,
+    "widths": [
+      480,
+      960,
+      1600,
+      2400
+    ],
+    "lqip": "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAALABQDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAABQD/xAAeEAABBQACAwAAAAAAAAAAAAABAAIDBBETIQUSQf/EABUBAQEAAAAAAAAAAAAAAAAAAAAC/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8APbWAZ7fE14uw2CrxuaSN3QEUCeE9pOo4io3tSpTzQOlJO6pH2HEzO7Ug/9k="
+  },
+  {
+    "id": "about-portrait",
+    "file": "about-portrait.jpg",
+    "alt": "Placeholder portrait of the photographer",
+    "category": "site",
+    "caption": "",
+    "featured": false,
+    "hidden": true,
+    "w": 1600,
+    "h": 2400,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "lqip": "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAAeABQDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAUGBAL/xAAhEAACAgICAgMBAAAAAAAAAAABAgADBBIRQQUhEzFRIv/EABYBAQEBAAAAAAAAAAAAAAAAAAEAAv/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AKvHqCrzM2SVr2Nh4A7M3oOFEn/PZBKmvcHk/Q6mS6ISz+kYEHuES15LVLqPqEit6mDVyT8sp+dm62j7GvOsWmpct8itvXv0fyIISGJ5AhHdWJXQmhGx/YST/9k="
+  }
+]

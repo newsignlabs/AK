@@ -1,0 +1,43 @@
+{
+  "currency": "INR",
+  "locale": "en-IN",
+  "showPrices": true,
+  "rangeSpread": 0.15,
+  "roundTo": 500,
+  "services": {
+    "wedding":   { "label": "Wedding",              "base": 60000, "includedHours": 6, "perHour": 5000, "unitLabel": "guests (approx.)", "includedUnits": 1000, "perUnit": 0, "defaultUnits": 200 },
+    "prewedding":{ "label": "Pre-wedding",          "base": 25000, "includedHours": 3, "perHour": 4000, "unitLabel": "people",          "includedUnits": 2,    "perUnit": 0, "defaultUnits": 2 },
+    "portrait":  { "label": "Portrait",             "base": 8000,  "includedHours": 1, "perHour": 3000, "unitLabel": "people",          "includedUnits": 1,    "perUnit": 1500, "defaultUnits": 1 },
+    "fashion":   { "label": "Fashion / Editorial",  "base": 20000, "includedHours": 3, "perHour": 5000, "unitLabel": "looks",           "includedUnits": 5,    "perUnit": 1500, "defaultUnits": 5 },
+    "product":   { "label": "Product / Commercial", "base": 10000, "includedHours": 2, "perHour": 3000, "unitLabel": "products",        "includedUnits": 10,   "perUnit": 600, "defaultUnits": 10 },
+    "event":     { "label": "Event",                "base": 15000, "includedHours": 3, "perHour": 4000, "unitLabel": "guests (approx.)", "includedUnits": 1000, "perUnit": 0, "defaultUnits": 100 },
+    "maternity": { "label": "Maternity / Newborn",  "base": 12000, "includedHours": 2, "perHour": 3000, "unitLabel": "people",          "includedUnits": 3,    "perUnit": 1000, "defaultUnits": 2 },
+    "other":     { "label": "Something else",       "base": null,  "includedHours": 0, "perHour": 0,    "unitLabel": "people",          "includedUnits": 0,    "perUnit": 0, "defaultUnits": 1 }
+  },
+  "editedPhotos": { "included": 100, "step": 25, "perStep": 2000, "max": 600 },
+  "albums": {
+    "none":     { "label": "No album",        "price": 0 },
+    "standard": { "label": "Standard album",  "price": 12000 },
+    "premium":  { "label": "Premium album",   "price": 25000 }
+  },
+  "addons": {
+    "reel":           { "label": "Video / reel",         "price": 15000 },
+    "express":        { "label": "Express delivery",     "price": 8000 },
+    "second_shooter": { "label": "Extra photographer",   "price": 10000 },
+    "hair_makeup":    { "label": "Hair & makeup",        "price": 7000 }
+  },
+  "locationMultiplier": {
+    "studio":      { "label": "Studio",      "value": 1.0 },
+    "outdoor":     { "label": "Outdoor",     "value": 1.1 },
+    "destination": { "label": "Destination", "value": 1.35 }
+  },
+  "budgets": {
+    "under_25k": "Under ₹25,000",
+    "25_50k": "₹25,000 – ₹50,000",
+    "50_100k": "₹50,000 – ₹1,00,000",
+    "100_200k": "₹1,00,000 – ₹2,00,000",
+    "over_200k": "Above ₹2,00,000",
+    "unsure": "Not sure yet"
+  },
+  "note": "Indicative only. Final quote confirmed after a short call."
+}

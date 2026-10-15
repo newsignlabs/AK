@@ -1,0 +1,17 @@
+{
+  "deployment": {
+    "name": "enquiry",
+    "stack": "node20",
+    "type": "advancedio",
+    "env_variables": {
+      "STUDIO_EMAIL": "hello@akstudio.example",
+      "MAIL_FROM": "noreply@akstudio.example",
+      "ALLOWED_ORIGINS": "https://www.akstudio.example",
+      "TURNSTILE_SECRET": "",
+      "RATE_LIMIT_PER_HOUR": "5"
+    }
+  },
+  "execution": {
+    "main": "index.js"
+  }
+}

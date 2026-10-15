@@ -1,0 +1,68 @@
+:root {
+  /* Colour (spec §3.2) */
+  --bg: #fafaf8;
+  --bg-2: #f1f0ec;
+  --fg: #111111;
+  --muted: #6f6f6b; /* darker than spec's #8A8A86 to pass AA on --bg */
+  --line: #e6e6e2;
+  --accent: #111111;
+  --on-accent: #fafaf8;
+  --overlay: rgb(14 14 14 / 0.94);
+  --error: #a3261b;
+
+  /* Type */
+  --font-display: 'Fraunces Variable', 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Inter Variable', 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --fs-display: clamp(2.75rem, 7vw, 6.5rem);
+  --fs-h2: clamp(2rem, 4.2vw, 3.75rem);
+  --fs-h3: clamp(1.25rem, 2vw, 1.6rem);
+  --fs-lead: clamp(1.05rem, 1.4vw, 1.25rem);
+  --fs-body: clamp(1rem, 0.95rem + 0.2vw, 1.125rem);
+  --fs-small: 0.8125rem;
+  --tracking: 0.12em;
+
+  /* Spacing scale */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 16px;
+  --s-4: 24px;
+  --s-5: 40px;
+  --s-6: 64px;
+  --s-7: 104px;
+  --s-8: 168px;
+  --section: clamp(var(--s-6), 10vw, var(--s-8));
+
+  /* Layout */
+  --max: 1440px;
+  --gutter: 16px;
+  --header-h: 72px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 200ms;
+  --dur-base: 600ms;
+
+  color-scheme: light dark;
+}
+
+@media (min-width: 768px) {
+  :root { --gutter: 32px; }
+}
+@media (min-width: 1024px) {
+  :root { --gutter: 48px; --header-h: 88px; }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0e0e0e;
+    --bg-2: #171717;
+    --fg: #f2f2f0;
+    --muted: #9a9a96;
+    --line: #262626;
+    --accent: #f2f2f0;
+    --on-accent: #0e0e0e;
+    --overlay: rgb(8 8 8 / 0.96);
+    --error: #ff8a7a;
+  }
+}
