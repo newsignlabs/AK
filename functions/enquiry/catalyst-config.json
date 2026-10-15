@@ -1,0 +1,17 @@
+{
+  "deployment": {
+    "name": "enquiry",
+    "stack": "node20",
+    "type": "advancedio",
+    "env_variables": {
+      "STUDIO_EMAIL": "nkkmails@zohomail.in",
+      "MAIL_FROM": "nkkmails@zohomail.in",
+      "ALLOWED_ORIGINS": "https://ak-hhckkpvv.onslate.in",
+      "TURNSTILE_SECRET": "",
+      "RATE_LIMIT_PER_HOUR": "5"
+    }
+  },
+  "execution": {
+    "main": "index.js"
+  }
+}

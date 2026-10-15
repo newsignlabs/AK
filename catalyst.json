@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "targets": ["enquiry"],
+    "ignore": [],
+    "source": "functions"
+  }
+}

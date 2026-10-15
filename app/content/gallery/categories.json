@@ -1,0 +1,8 @@
+[
+  { "slug": "weddings",   "title": "Weddings",   "cover": "wed-01" },
+  { "slug": "portraits",  "title": "Portraits",  "cover": "por-01" },
+  { "slug": "fashion",    "title": "Fashion",    "cover": "fas-01" },
+  { "slug": "commercial", "title": "Commercial", "cover": "com-01" },
+  { "slug": "events",     "title": "Events",     "cover": "eve-01" },
+  { "slug": "maternity",  "title": "Maternity",  "cover": "mat-01" }
+]

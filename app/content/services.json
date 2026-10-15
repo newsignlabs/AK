@@ -1,0 +1,8 @@
+[
+  { "slug": "weddings",   "name": "Weddings",            "blurb": "Unhurried, honest coverage of the whole day." },
+  { "slug": "portraits",  "name": "Portraits",           "blurb": "Studio and natural-light portraits with quiet direction." },
+  { "slug": "fashion",    "name": "Fashion / Editorial", "blurb": "Lookbooks, campaigns and editorials with a clean eye." },
+  { "slug": "commercial", "name": "Products / Commercial","blurb": "Product, food and brand imagery that sells softly." },
+  { "slug": "events",     "name": "Events",              "blurb": "Launches, conferences and celebrations, documented." },
+  { "slug": "maternity",  "name": "Maternity & Newborn", "blurb": "Gentle sessions at the studio or at home." }
+]
