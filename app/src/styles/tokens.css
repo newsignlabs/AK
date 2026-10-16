@@ -1,25 +1,31 @@
+/* Rich black & white (spec §3, revised): a black stage with inverted ivory bands. */
 :root {
-  /* Colour (spec §3.2) */
-  --bg: #fafaf8;
-  --bg-2: #f1f0ec;
-  --fg: #111111;
-  --muted: #6f6f6b; /* darker than spec's #8A8A86 to pass AA on --bg */
-  --line: #e6e6e2;
-  --accent: #111111;
-  --on-accent: #fafaf8;
-  --overlay: rgb(14 14 14 / 0.94);
-  --error: #a3261b;
+  --black: #0a0a0a;
+  --ink: #111111;
+  --ivory: #f4f3ef;
+  --white: #ffffff;
+
+  --bg: var(--black);
+  --bg-2: #161616;
+  --fg: var(--ivory);
+  --muted: #8f8f8a;
+  --line: rgb(244 243 239 / 0.16);
+  --line-strong: rgb(244 243 239 / 0.6);
+  --accent: var(--ivory);
+  --on-accent: var(--black);
+  --overlay: rgb(8 8 8 / 0.96);
+  --error: #ff8a7a;
 
   /* Type */
   --font-display: 'Fraunces Variable', 'Cormorant Garamond', Georgia, serif;
   --font-body: 'Inter Variable', 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --fs-display: clamp(2.75rem, 7vw, 6.5rem);
-  --fs-h2: clamp(2rem, 4.2vw, 3.75rem);
+  --fs-display: clamp(3rem, 8.5vw, 8.5rem);
+  --fs-h2: clamp(2.25rem, 5.4vw, 5rem);
   --fs-h3: clamp(1.25rem, 2vw, 1.6rem);
   --fs-lead: clamp(1.05rem, 1.4vw, 1.25rem);
   --fs-body: clamp(1rem, 0.95rem + 0.2vw, 1.125rem);
   --fs-small: 0.8125rem;
-  --tracking: 0.12em;
+  --tracking: 0.18em;
 
   /* Spacing scale */
   --s-1: 4px;
@@ -30,10 +36,10 @@
   --s-6: 64px;
   --s-7: 104px;
   --s-8: 168px;
-  --section: clamp(var(--s-6), 10vw, var(--s-8));
+  --section: clamp(var(--s-6), 11vw, var(--s-8));
 
   /* Layout */
-  --max: 1440px;
+  --max: 1520px;
   --gutter: 16px;
   --header-h: 72px;
 
@@ -43,7 +49,23 @@
   --dur-fast: 200ms;
   --dur-base: 600ms;
 
-  color-scheme: light dark;
+  color-scheme: dark;
+}
+
+/* Inverted band: same components, ivory ground, black ink. */
+.invert {
+  --bg: var(--ivory);
+  --bg-2: #e9e8e3;
+  --fg: var(--black);
+  --muted: #5c5c58;
+  --line: rgb(10 10 10 / 0.14);
+  --line-strong: rgb(10 10 10 / 0.6);
+  --accent: var(--black);
+  --on-accent: var(--ivory);
+  --error: #a3261b;
+  background: var(--bg);
+  color: var(--fg);
+  color-scheme: light;
 }
 
 @media (min-width: 768px) {
@@ -51,18 +73,4 @@
 }
 @media (min-width: 1024px) {
   :root { --gutter: 48px; --header-h: 88px; }
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0e0e0e;
-    --bg-2: #171717;
-    --fg: #f2f2f0;
-    --muted: #9a9a96;
-    --line: #262626;
-    --accent: #f2f2f0;
-    --on-accent: #0e0e0e;
-    --overlay: rgb(8 8 8 / 0.96);
-    --error: #ff8a7a;
-  }
 }

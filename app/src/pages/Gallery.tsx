@@ -21,6 +21,10 @@ export default function Gallery() {
   const [count, setCount] = useState(BATCH);
   const [open, setOpen] = useState<{ index: number; openedAt: number } | null>(null);
   const sentinel = useRef<HTMLDivElement>(null);
+  // The first paint shows photos immediately (prerendered, no wait for JS — fast LCP);
+  // after mount, newly shown photos animate in (filters, load more).
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   useEffect(() => setCount(BATCH), [slug]);
 
@@ -64,7 +68,7 @@ export default function Gallery() {
     <div className="gallery">
       <header className="page-head container">
         <p className="eyebrow">Gallery — {list.length} frames</p>
-        <RevealText as="h1" className="display" lines={[category ? category.title : 'Selected work']} immediate />
+        <RevealText as="h1" className="display" lines={[category ? category.title : 'Selected *work*']} immediate />
       </header>
 
       <nav className="filters" aria-label="Filter by category">
@@ -97,7 +101,7 @@ export default function Gallery() {
                 key={p.id}
                 layout
                 className="masonry__item"
-                initial={{ opacity: 0, y: 30 }}
+                initial={mounted ? { opacity: 0, y: 30 } : false}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.96 }}
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: (i % BATCH) * 0.04 }}

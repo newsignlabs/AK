@@ -1,6 +1,7 @@
 import { m, useScroll, useTransform, type MotionValue } from 'motion/react';
 import { useRef, type ReactNode, type ElementType } from 'react';
 import { dur, ease, stagger } from '../lib/motion';
+import { accent, plain } from '../lib/rich';
 import { useDesktop, useReducedMotionPref } from '../lib/hooks';
 
 const viewport = { once: true, margin: '0px 0px -10% 0px' } as const;
@@ -24,7 +25,7 @@ export function RevealText({
 }) {
   const trigger = immediate ? { animate: 'shown' } : { whileInView: 'shown', viewport };
   return (
-    <Tag id={id} className={`reveal-text ${className}`} aria-label={lines.join(' ')}>
+    <Tag id={id} className={`reveal-text ${className}`} aria-label={plain(lines.join(' '))}>
       <m.span initial="hidden" {...trigger} transition={{ staggerChildren: stagger, delayChildren: delay }} style={{ display: 'block' }} aria-hidden>
         {lines.map((line, i) => (
           <span className="reveal-text__mask" key={i}>
@@ -34,7 +35,7 @@ export function RevealText({
               variants={{ hidden: { y: '105%' }, shown: { y: '0%' } }}
               transition={{ duration: dur.slow, ease: ease.out }}
             >
-              {line}
+              {accent(line)}
             </m.span>
           </span>
         ))}

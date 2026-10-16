@@ -7,7 +7,7 @@ import { Button, TextLink } from '../components/Button';
 import { Marquee } from '../components/Marquee';
 import { CountUp } from '../components/CountUp';
 import { Arrow, WhatsApp, ArrowLeft } from '../components/Icons';
-import { categories, featuredPhotos, getPhoto, instagram, services, site, testimonials } from '../lib/content';
+import { categories, featuredPhotos, galleryPhotos, getPhoto, instagram, services, site, testimonials } from '../lib/content';
 import { waLink } from '../lib/whatsapp';
 import { track } from '../lib/analytics';
 import { useFinePointer } from '../lib/hooks';
@@ -18,6 +18,7 @@ export default function Home() {
     <>
       <Hero />
       <section className="section container intro" aria-label="Our philosophy">
+        <Num n={1} />
         <p className="eyebrow">(01) — Studio</p>
         <ScrollWords text="We make calm, considered photographs of weddings, people and the things they make. Less direction, more attention. Images that feel the way the moment felt." />
       </section>
@@ -26,7 +27,9 @@ export default function Home() {
       <About />
       <Process />
       <Testimonials />
-      <Marquee items={site.marquee} />
+      <div className="invert">
+        <Marquee items={site.marquee} />
+      </div>
       <InstagramStrip />
       <Cta />
     </>
@@ -36,33 +39,54 @@ export default function Home() {
 function Hero() {
   const [first, ...rest] = site.tagline.split(' ');
   const lines = [first + ' ' + rest.slice(0, 1).join(' '), rest.slice(1).join(' ')].filter(Boolean);
+  const total = String(galleryPhotos.length).padStart(3, '0');
   return (
     <section className="hero">
       <Parallax className="hero__media" speed={0.08}>
         <Img photo="hero" priority sizes="100vw" cover />
       </Parallax>
       <div className="hero__shade" aria-hidden />
+      <div className="hero__frame" aria-hidden>
+        <span className="crop crop--tl" />
+        <span className="crop crop--tr" />
+        <span className="crop crop--bl" />
+        <span className="crop crop--br" />
+      </div>
       <div className="hero__content container">
-        <m.p
-          className="eyebrow hero__eyebrow"
+        <m.div
+          className="hero__top"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6, duration: 0.8 }}
         >
-          {site.name} — Photography
-        </m.p>
+          <span className="eyebrow">{site.name} — Photography</span>
+          <span className="eyebrow hero__counter">Fr. 001 / {total}</span>
+        </m.div>
         <RevealText as="h1" className="display hero__title" lines={lines} immediate delay={0.2} />
         <m.div
-          className="hero__cue"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2, duration: 0.8 }}
+          className="hero__meta"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.1, duration: 0.8 }}
         >
-          <span>Scroll</span>
-          <span className="hero__cue-line" aria-hidden />
+          <span>{site.address.city}, {site.address.country}</span>
+          <span>Est. {site.established}</span>
+          <span className="hero__services">{site.marquee.slice(0, 3).join(' · ')}</span>
+          <span className="hero__cue">
+            Scroll <span className="hero__cue-line" aria-hidden />
+          </span>
         </m.div>
       </div>
     </section>
+  );
+}
+
+/** Oversized outlined section numeral (decorative). */
+function Num({ n }: { n: number }) {
+  return (
+    <span className="section__num" aria-hidden>
+      {String(n).padStart(2, '0')}
+    </span>
   );
 }
 
@@ -71,8 +95,9 @@ function SelectedWork() {
   return (
     <section className="section container work" aria-labelledby="work-title">
       <div className="section__head">
+        <Num n={2} />
         <p className="eyebrow">(02) — Selected work</p>
-        <RevealText id="work-title" lines={['A few frames', 'we keep returning to.']} className="h2" />
+        <RevealText id="work-title" lines={['A few frames', 'we keep *returning* to.']} className="h2" />
       </div>
       <div className="work__grid">
         {items.map((p, i) => {
@@ -83,8 +108,9 @@ function SelectedWork() {
                 <Img photo={p} sizes="(min-width: 1024px) 40vw, 90vw" cover />
               </RevealImage>
               <span className="work__label">
+                <span>Fr. {String(i + 1).padStart(3, '0')}</span>
                 <span>{cat?.title}</span>
-                <span>{String(i + 1).padStart(2, '0')}</span>
+                <span>{p.w > p.h ? 'Landscape' : 'Portrait'}</span>
               </span>
             </Link>
           );
@@ -108,16 +134,18 @@ function Services() {
 
   return (
     <section
-      className="section container services"
+      className="section services invert"
       aria-labelledby="services-title"
       onPointerMove={(e) => {
         x.set(e.clientX);
         y.set(e.clientY);
       }}
     >
+      <div className="container">
       <div className="section__head">
+        <Num n={3} />
         <p className="eyebrow">(03) — Services</p>
-        <RevealText id="services-title" lines={['What we photograph']} className="h2" />
+        <RevealText id="services-title" lines={['What we *photograph*']} className="h2" />
       </div>
       <ol className="services__list">
         {services.map((s, i) => (
@@ -136,6 +164,7 @@ function Services() {
           </FadeUp>
         ))}
       </ol>
+      </div>
       {fine && (
         <m.div className="services__preview" style={{ x: sx, y: sy }} aria-hidden>
           <AnimatePresence>
@@ -167,6 +196,7 @@ function About() {
         </RevealImage>
       </div>
       <div className="about__body">
+        <Num n={4} />
         <p className="eyebrow">(04) — About</p>
         <RevealText id="about-title" lines={[site.about.heading]} className="h2" />
         {site.about.body.map((p, i) => (
@@ -191,10 +221,12 @@ function About() {
 
 function Process() {
   return (
-    <section className="section container process" aria-labelledby="process-title">
+    <section className="section process invert" aria-labelledby="process-title">
+      <div className="container">
       <div className="section__head">
+        <Num n={5} />
         <p className="eyebrow">(05) — Process</p>
-        <RevealText id="process-title" lines={['How we work']} className="h2" />
+        <RevealText id="process-title" lines={['How we *work*']} className="h2" />
       </div>
       <ol className="process__list">
         {site.process.map((s, i) => (
@@ -205,6 +237,7 @@ function Process() {
           </FadeUp>
         ))}
       </ol>
+      </div>
     </section>
   );
 }
@@ -229,6 +262,7 @@ function Testimonials() {
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
     >
+      <span className="testimonials__mark" aria-hidden>“</span>
       <p className="eyebrow">(06) — Kind words</p>
       <div className="testimonials__stage" aria-live={paused ? 'polite' : 'off'}>
         <AnimatePresence mode="wait">
@@ -239,7 +273,7 @@ function Testimonials() {
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.6, ease: ease.out }}
           >
-            <blockquote className="display testimonials__quote">“{t.quote}”</blockquote>
+            <blockquote className="display testimonials__quote">{t.quote}</blockquote>
             <figcaption>
               <strong>{t.name}</strong> — {t.role}
             </figcaption>
@@ -288,7 +322,7 @@ function InstagramStrip() {
 function Cta() {
   return (
     <section className="section container cta">
-      <RevealText lines={["Let's create", 'something.']} className="display cta__title" />
+      <RevealText lines={["Let's create", '*something.*']} className="display cta__title" />
       <FadeUp className="cta__actions">
         <Button to="/quote" icon={<Arrow />}>Get a quote</Button>
         <Button

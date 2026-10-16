@@ -1,6 +1,6 @@
 # AK Studio — Website Specification
 
-> Animated, minimal website for a photography studio.
+> Animated, rich black & white website for a photography studio.
 > Hosting: **Zoho Catalyst Slate** (frontend) + **Catalyst Serverless / Data Store** (forms backend).
 > Status: Draft v1.0 · Working name "AK Studio" (replace with final brand name).
 
@@ -35,31 +35,33 @@ Global elements on every page: header/nav, footer (socials, quick links, copyrig
 
 ---
 
-## 3. Design System (Minimal)
+## 3. Design System (Rich Black & White)
 
 ### 3.1 Principles
-- **Photos are the colour.** UI is monochrome; nothing competes with the images.
-- **Generous whitespace**, strict grid, few elements per screen.
-- **Motion is quiet and purposeful** — it reveals, it never decorates.
+- **Pure monochrome, high drama.** A black stage with inverted ivory bands; every photograph is rendered in true black & white.
+- **Editorial richness.** Oversized serif type with italic accent words, outlined numerals, crop marks, frame counters and film grain give depth without colour.
+- **Rhythm through contrast.** Sections alternate black ↔ ivory as you scroll; motion stays purposeful.
 
 ### 3.2 Colour tokens
 
-| Token | Light | Dark (optional, follows `prefers-color-scheme`) |
+| Token | Black stage (default) | Ivory band (`.invert`) |
 |---|---|---|
-| `--bg` | `#FAFAF8` (warm off‑white) | `#0E0E0E` |
-| `--fg` | `#111111` | `#F2F2F0` |
-| `--muted` | `#8A8A86` | `#7A7A76` |
-| `--line` | `#E6E6E2` | `#262626` |
-| `--accent` | `#111111` (accent = ink; no brand colour) | `#F2F2F0` |
+| `--bg` | `#0A0A0A` | `#F4F3EF` |
+| `--fg` | `#F4F3EF` | `#0A0A0A` |
+| `--muted` | `#8F8F8A` | `#5C5C58` |
+| `--line` | ivory at 16% | black at 14% |
+| `--line-strong` | ivory at 60% | black at 60% |
 
-WCAG AA contrast for all text. No gradients, no drop shadows (except lightbox backdrop).
+No hues, no gradients except photographic vignettes. Photos use `grayscale(1) contrast(1.12)`. A fixed film-grain layer (SVG noise, 6% opacity, animated; static under reduced motion) sits over everything. Text meets WCAG AA on both grounds. The design is a fixed theme (no light/dark switch).
+
+Home page band order: hero (photo) → studio intro (black) → selected work (black) → services (ivory) → about + stats (black) → process (ivory) → testimonials (black) → marquee (ivory) → Instagram (black) → CTA (black) → footer (black).
 
 ### 3.3 Typography
-- **Display:** a high-contrast serif (e.g. *Cormorant Garamond* or *Fraunces*) for headlines.
-- **Body/UI:** a neutral grotesk (e.g. *Inter* or *Manrope*).
-- Fluid scale with `clamp()`: H1 `clamp(2.75rem, 7vw, 6.5rem)`, body `1rem–1.125rem`, line-height 1.5 body / 1.05 display.
-- Uppercase, letter-spaced (`0.12em`) micro-labels for section tags and nav.
-- Fonts self-hosted (WOFF2, subset, `font-display: swap`) to avoid third-party requests.
+- **Display:** *Fraunces* (variable, light 300) at large sizes with tight tracking (−0.035em); words wrapped in `*asterisks*` in content render as **italic accents** (e.g. "Quiet images of *loud* moments.").
+- **Outlined type:** section numerals (01–06), process numbers, alternate marquee words, the footer "studio" and the testimonial quote mark use a 1px text stroke with transparent fill.
+- **Body/UI:** *Inter* (variable). Labels and buttons are uppercase with wide tracking (0.18em).
+- Fluid scale with `clamp()`: H1 up to `11rem` in the hero, H2 `clamp(2.25rem, 5.4vw, 5rem)`.
+- Fonts self-hosted (WOFF2 via Fontsource, `font-display: swap`).
 
 ### 3.4 Layout & spacing
 - 12-column grid, max content width 1440px, side gutter 16px (mobile) → 48px (desktop).
@@ -67,7 +69,7 @@ WCAG AA contrast for all text. No gradients, no drop shadows (except lightbox ba
 - Breakpoints: 480 / 768 / 1024 / 1440.
 
 ### 3.5 Components
-Header, Nav overlay (mobile), Button (solid / ghost / text-link with animated underline), Input / Select / Date / Textarea, Stepper, Chip (filter), Image (with blur-up placeholder), Lightbox, Toast, Social icon row, Floating WhatsApp button, Footer.
+Header (white ink in `mix-blend-mode: difference`, legible over black, ivory and photos), Nav overlay (mobile, black), Button (square; solid / ghost with a fill that sweeps up on hover; text-link with animated underline), Input / Select / Date / Textarea, Stepper, Chip (filter), Image (black & white with blur-up placeholder, framed with offset outlines and "Fr. 001" captions), Lightbox, Toast, Social icon row (square), Floating WhatsApp button (ivory disc), Stats band (ruled grid), Footer (giant "AK *studio*" wordmark).
 
 ---
 

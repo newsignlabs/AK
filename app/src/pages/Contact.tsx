@@ -57,7 +57,7 @@ export default function Contact() {
     <div className="contact">
       <header className="page-head container">
         <p className="eyebrow">Contact</p>
-        <RevealText as="h1" className="display" lines={['Say hello.']} immediate />
+        <RevealText as="h1" className="display" lines={['Say *hello.*']} immediate />
       </header>
 
       <div className="container contact__layout">
@@ -176,7 +176,7 @@ export default function Contact() {
       <section className="container section contact__faq" aria-labelledby="faq-title">
         <div className="section__head">
           <p className="eyebrow">Questions</p>
-          <RevealText id="faq-title" lines={['Good to know']} className="h2" />
+          <RevealText id="faq-title" lines={['Good to *know*']} className="h2" />
         </div>
         <Accordion items={faq} />
       </section>
