@@ -206,7 +206,7 @@ export default function Quote() {
     <div className="quote container" ref={top}>
       <header className="page-head">
         <p className="eyebrow">Quotation</p>
-        <RevealText as="h1" className="display" lines={['Tell us about', 'your shoot.']} immediate />
+        <RevealText as="h1" className="display" lines={['Tell us about', 'your *shoot.*']} immediate />
       </header>
 
       <ol className="stepper" aria-label="Progress">
@@ -252,7 +252,10 @@ export default function Quote() {
                         <input
                           type="radio"
                           value={k}
-                          {...register('service', { onChange: () => setValue('units', pricing.services[k].defaultUnits) })}
+                          {...register('service', {
+                            // Options are per field name, so read the picked value from the event.
+                            onChange: (e) => setValue('units', pricing.services[e.target.value as ServiceKey].defaultUnits),
+                          })}
                           className="visually-hidden"
                         />
                         <span className="service-card__img">{cover ? <Img photo={cover} sizes="240px" cover /> : <span className="service-card__blank">+</span>}</span>

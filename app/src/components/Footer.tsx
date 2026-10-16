@@ -49,6 +49,10 @@ export function Footer() {
             <SocialLinks withLabels />
           </div>
         </div>
+        <p className="footer__wordmark" aria-hidden>
+          {site.shortName}
+          <em className="accent">studio</em>
+        </p>
         <div className="footer__bottom">
           <p>© {new Date().getFullYear()} {site.name}. All rights reserved.</p>
           <Link className="text-link" to="/privacy">Privacy</Link>

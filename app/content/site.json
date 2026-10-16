@@ -1,7 +1,7 @@
 {
   "name": "AK Studio",
   "shortName": "AK",
-  "tagline": "Quiet images of loud moments.",
+  "tagline": "Quiet images of *loud* moments.",
   "description": "AK Studio is a photography studio for weddings, portraits, fashion and commercial work. Minimal, honest images made with care.",
   "url": "https://www.akstudio.example",
   "email": "hello@akstudio.example",
@@ -13,11 +13,23 @@
     "postalCode": "560001",
     "country": "IN"
   },
-  "geo": { "lat": 12.9716, "lng": 77.5946 },
+  "geo": {
+    "lat": 12.9716,
+    "lng": 77.5946
+  },
   "hours": [
-    { "days": "Monday – Friday", "time": "10:00 – 19:00" },
-    { "days": "Saturday", "time": "10:00 – 16:00" },
-    { "days": "Sunday", "time": "By appointment" }
+    {
+      "days": "Monday – Friday",
+      "time": "10:00 – 19:00"
+    },
+    {
+      "days": "Saturday",
+      "time": "10:00 – 16:00"
+    },
+    {
+      "days": "Sunday",
+      "time": "By appointment"
+    }
   ],
   "appointmentNote": "Studio visits are by appointment only.",
   "whatsapp": {
@@ -36,12 +48,24 @@
   "googleBusinessUrl": "",
   "defaultCountryCode": "+91",
   "stats": [
-    { "value": 8, "suffix": "", "label": "Years behind the lens" },
-    { "value": 300, "suffix": "+", "label": "Shoots delivered" },
-    { "value": 40, "suffix": "", "label": "Brands & publications" }
+    {
+      "value": 8,
+      "suffix": "",
+      "label": "Years behind the lens"
+    },
+    {
+      "value": 300,
+      "suffix": "+",
+      "label": "Shoots delivered"
+    },
+    {
+      "value": 40,
+      "suffix": "",
+      "label": "Brands & publications"
+    }
   ],
   "about": {
-    "heading": "A small studio with a slow eye.",
+    "heading": "A small studio with a *slow* eye.",
     "body": [
       "AK Studio was founded on a simple idea: the best photographs happen when people forget the camera. We work quietly, plan carefully and edit with restraint, so the images feel like the day felt.",
       "Based in Bengaluru and travelling wherever the story is, we photograph weddings, portraits, fashion and commercial work for people and brands who value calm, considered imagery."
@@ -49,10 +73,30 @@
     "portraitId": "about-portrait"
   },
   "process": [
-    { "title": "Enquire", "text": "Tell us about your day or project. We reply within 24 hours." },
-    { "title": "Plan", "text": "A short call to shape the brief, timeline, locations and mood." },
-    { "title": "Shoot", "text": "Calm direction, natural light where we can, no fuss." },
-    { "title": "Deliver", "text": "A carefully edited online gallery, plus albums and prints." }
+    {
+      "title": "Enquire",
+      "text": "Tell us about your day or project. We reply within 24 hours."
+    },
+    {
+      "title": "Plan",
+      "text": "A short call to shape the brief, timeline, locations and mood."
+    },
+    {
+      "title": "Shoot",
+      "text": "Calm direction, natural light where we can, no fuss."
+    },
+    {
+      "title": "Deliver",
+      "text": "A carefully edited online gallery, plus albums and prints."
+    }
   ],
-  "marquee": ["Weddings", "Portraits", "Fashion", "Commercial", "Events", "Maternity & Newborn"]
+  "marquee": [
+    "Weddings",
+    "Portraits",
+    "Fashion",
+    "Commercial",
+    "Events",
+    "Maternity & Newborn"
+  ],
+  "established": 2018
 }

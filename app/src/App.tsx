@@ -112,6 +112,7 @@ function Shell() {
       <TransitionPanel k={key} />
       <Footer />
       <WhatsAppButton />
+      <div className="grain" aria-hidden />
     </>
   );
 }

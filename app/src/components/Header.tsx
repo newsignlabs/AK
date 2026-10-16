@@ -40,7 +40,7 @@ export function Header() {
   return (
     <>
       <m.header
-        className={`header ${scrolled ? 'header--scrolled' : ''} ${open ? 'header--open' : ''} ${location.pathname === '/' && !scrolled ? 'header--over-hero' : ''}`}
+        className={`header ${scrolled ? 'header--scrolled' : ''} ${open ? 'header--open' : ''}`}
         animate={{ y: hidden ? '-100%' : '0%' }}
         transition={{ duration: 0.45, ease: ease.out }}
       >

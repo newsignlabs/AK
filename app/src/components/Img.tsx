@@ -39,7 +39,7 @@ export function Img({ photo, sizes = '100vw', priority, className = '', style, l
   return (
     <m.div
       layoutId={layoutId}
-      className={`img ${cover ? 'img--cover' : ''} ${loaded ? 'is-loaded' : ''} ${className}`}
+      className={`img ${cover ? 'img--cover' : ''} ${priority ? 'img--priority' : ''} ${loaded ? 'is-loaded' : ''} ${className}`}
       style={{ ...(cover ? {} : { aspectRatio: `${p.w} / ${p.h}` }), backgroundImage: `url(${p.lqip})`, ...style }}
     >
       <picture>

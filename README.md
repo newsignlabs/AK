@@ -1,6 +1,6 @@
 # AK Studio website
 
-Minimal, animated website for a photography studio: Home/About, Gallery,
+Rich black & white, animated website for a photography studio: Home/About, Gallery,
 Quotation and Contact, with social links and WhatsApp click-to-chat. Hosted on
 **Zoho Catalyst Slate** with a Catalyst serverless function for enquiries.
 
