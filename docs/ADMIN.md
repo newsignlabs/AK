@@ -120,7 +120,10 @@ Open each function → **Configuration / Environment variables**:
 | `RATE_LIMIT_PER_HOUR` | `5` |
 | `TURNSTILE_SECRET` | optional, Cloudflare Turnstile secret |
 
-The site's domain must also be listed under **Authorized Domains (CORS)**. That's
+The site's domain must also be listed under **Authorized Domains (CORS)**:
+Catalyst adds the CORS headers itself, so the functions deliberately don't
+(sending them twice makes browsers reject the reply). Only on a host without
+gateway CORS, set `CORS_HEADERS=on` on the functions. That's
 already done for `ak-ccnxaodr.onslate.in`.
 
 ### 6. Use it

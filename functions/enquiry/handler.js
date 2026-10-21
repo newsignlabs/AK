@@ -80,7 +80,10 @@ function createHandler({ env, fetch, services, now = () => new Date(), log = con
   return async function handle(req, res) {
     const origin = req.headers.origin;
     const headers = { 'Content-Type': 'application/json', Vary: 'Origin' };
-    if (origin && allowed.includes(origin)) {
+    // On Catalyst, the gateway adds CORS headers for Authorized Domains; adding
+    // them here too duplicates Access-Control-Allow-Origin and browsers reject
+    // the reply. Set CORS_HEADERS=on only on hosts without gateway CORS.
+    if (env.CORS_HEADERS === 'on' && origin && allowed.includes(origin)) {
       headers['Access-Control-Allow-Origin'] = origin;
       headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS';
       headers['Access-Control-Allow-Headers'] = 'Content-Type';

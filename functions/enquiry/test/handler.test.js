@@ -52,7 +52,7 @@ test('stores a valid quote, recalculates the estimate and sends both emails', as
   const r = await call(handler, { body: { ...quote, data: { ...quote.data } } });
   assert.equal(r.status, 201);
   assert.match(r.json.ref, /^AKQ-\d{4}-[0-9A-Z]{4}$/);
-  assert.equal(r.headers['Access-Control-Allow-Origin'], 'https://site.test');
+  assert.equal(r.headers['Access-Control-Allow-Origin'], undefined, 'Catalyst adds CORS headers; the function must not duplicate them');
   assert.equal(rows.length, 1);
   const row = rows[0];
   assert.equal(row.ref_no, r.json.ref);
@@ -98,7 +98,10 @@ test('rejects invalid JSON, wrong methods and unknown origins; answers preflight
   assert.equal((await call(handler, { body: quote, origin: 'https://evil.test' })).status, 403);
   const pre = await call(handler, { method: 'OPTIONS' });
   assert.equal(pre.status, 204);
-  assert.equal(pre.headers['Access-Control-Allow-Methods'], 'POST, OPTIONS');
+  const own = setup({ env: { CORS_HEADERS: 'on' } });
+  const ownPre = await call(own.handler, { method: 'OPTIONS' });
+  assert.equal(ownPre.headers['Access-Control-Allow-Origin'], 'https://site.test');
+  assert.equal(ownPre.headers['Access-Control-Allow-Methods'], 'POST, OPTIONS');
 });
 
 test('rate limits per IP', async () => {

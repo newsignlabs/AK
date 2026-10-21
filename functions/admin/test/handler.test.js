@@ -180,3 +180,23 @@ test('accepts PBKDF2 hashes from the browser setup page', async () => {
   assert.equal(verifyPassword('wrong', stored), false);
   assert.equal(verifyPassword('browser made pw', `pbkdf2$1000$${salt.toString('hex')}$${hash.toString('hex')}`), false, 'too few iterations');
 });
+
+test('accepts the session token in the body and sends no duplicate CORS headers', async () => {
+  const { handler } = setup();
+  const token = await login(handler);
+  const r = await call(handler, { url: '/content', body: { token } });
+  assert.equal(r.status, 200);
+  assert.equal(r.headers['Access-Control-Allow-Origin'], undefined);
+  assert.equal((await call(handler, { url: '/content', body: { token: 'forged.x' } })).status, 401);
+});
+
+test('does not rewrite files whose content is unchanged but formatted differently', async () => {
+  const { handler, github } = setup();
+  github.repo['app/content/services.json'] = JSON.stringify(FILES['app/content/services.json']); // compact formatting
+  const token = await login(handler);
+  const { content, shas } = (await call(handler, { method: 'GET', url: '/content', token })).json;
+  content.faq[0].a = 'Changed answer.';
+  const r = await call(handler, { url: '/publish', token, body: { content, shas } });
+  assert.equal(r.status, 200);
+  assert.deepEqual(r.json.files, ['app/content/faq.json']);
+});

@@ -52,7 +52,10 @@ function createHandler({ env, services, github, now = () => Date.now(), log = co
   return async function handle(req, res) {
     const origin = req.headers.origin;
     const headers = { 'Content-Type': 'application/json', Vary: 'Origin', 'Cache-Control': 'no-store' };
-    if (origin && allowed.includes(origin)) {
+    // On Catalyst, the gateway adds CORS headers for Authorized Domains; adding
+    // them here too duplicates Access-Control-Allow-Origin and browsers reject
+    // the reply. Set CORS_HEADERS=on only on hosts without gateway CORS.
+    if (env.CORS_HEADERS === 'on' && origin && allowed.includes(origin)) {
       headers['Access-Control-Allow-Origin'] = origin;
       headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS';
       headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization';
@@ -105,11 +108,13 @@ function createHandler({ env, services, github, now = () => Date.now(), log = co
     }
 
     // ---- everything else needs a valid session ----
-    const auth = String(req.headers.authorization || '');
-    if (!verifyToken(auth.replace(/^Bearer\s+/i, ''), secret, now())) return send(401, { error: 'unauthorized' });
+    // The site sends the token in the body (a "simple" request with no CORS
+    // preflight); an Authorization header is accepted too.
+    const token = String(req.headers.authorization || '').replace(/^Bearer\s+/i, '') || (typeof body.token === 'string' ? body.token : '');
+    if (!verifyToken(token, secret, now())) return send(401, { error: 'unauthorized' });
 
     try {
-      if (name === 'content' && req.method === 'GET') {
+      if (name === 'content' && (req.method === 'GET' || req.method === 'POST')) {
         const files = await github.readJson(Object.values(BUNDLE_KEYS));
         const content = {};
         const shas = {};
@@ -127,14 +132,14 @@ function createHandler({ env, services, github, now = () => Date.now(), log = co
         if (issues.length) return send(400, { error: 'validation', issues });
 
         const tip = await github.head();
-        const current = await github.blobShas(Object.values(BUNDLE_KEYS), tip.tree);
+        const current = await github.readJson(Object.values(BUNDLE_KEYS));
         const files = [];
         for (const [key, path] of Object.entries(BUNDLE_KEYS)) {
-          const text = JSON.stringify(content[key], null, 2) + '\n';
-          const blobSha = gitBlobSha(text);
-          if (blobSha === current[path]) continue; // unchanged
-          if (shas[path] !== current[path]) return send(409, { error: 'conflict', file: key });
-          files.push({ path, content: text });
+          // Compare content, not text, so files formatted differently by hand
+          // aren't rewritten when nothing in them changed.
+          if (JSON.stringify(current[path].data) === JSON.stringify(content[key])) continue;
+          if (shas[path] !== current[path].sha) return send(409, { error: 'conflict', file: key });
+          files.push({ path, content: JSON.stringify(content[key], null, 2) + '\n' });
         }
         if (!files.length) return send(200, { unchanged: true });
         const names = files.map((f) => f.path.split('/').pop()).join(', ');
