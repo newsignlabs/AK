@@ -215,7 +215,7 @@ function Editor({ onSignOut }: { onSignOut: () => void }) {
         setLoaded((l) => (l ? { ...l, content: structuredClone(content) } : l));
         setStatus({
           kind: 'ok',
-          text: r.unchanged ? 'Nothing to publish.' : 'Published. The live site updates after the next Slate build (usually 1–10 minutes).',
+          text: r.unchanged ? 'Nothing to publish.' : 'Published. The live site updates after the next Slate build (usually within 20 minutes).',
           url: r.url,
         });
         if (!r.unchanged && import.meta.env.VITE_API_MOCK !== 'true') loadContent().then((l) => setLoaded((cur) => (cur ? { ...cur, shas: l.shas } : cur))).catch(() => {});
