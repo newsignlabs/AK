@@ -29,7 +29,8 @@ export async function submitEnquiry(body: EnquiryRequest): Promise<SubmitResult>
   try {
     const res = await fetch(ENDPOINT, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      // text/plain keeps this a "simple" request (no CORS preflight); the function parses JSON regardless.
+      headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
       body: JSON.stringify(payload),
     });
     const json = await res.json().catch(() => ({}));

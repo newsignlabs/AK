@@ -31,14 +31,17 @@ export function getSession(): Session | null {
 }
 export const logout = () => remove(TOKEN_KEY, 'session');
 
-async function request<T>(name: string, init: RequestInit = {}): Promise<{ status: number; json: T }> {
+/**
+ * Every call is a "simple" cross-origin request: POST with a text/plain body
+ * and the session token inside it. No custom headers means no CORS preflight;
+ * Catalyst's Authorized Domains supply the CORS response headers.
+ */
+async function request<T>(name: string, payload: Record<string, unknown> = {}): Promise<{ status: number; json: T }> {
   const s = getSession();
   const res = await fetch(`${BASE}/${name}`, {
-    ...init,
-    headers: {
-      ...(init.body ? { 'Content-Type': 'application/json' } : {}),
-      ...(s ? { Authorization: `Bearer ${s.token}` } : {}),
-    },
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+    body: JSON.stringify(s ? { ...payload, token: s.token } : payload),
   });
   const json = (await res.json().catch(() => ({}))) as T;
   if (res.status === 401 && name !== 'login') {
@@ -55,10 +58,7 @@ export async function login(password: string): Promise<{ ok: true } | { ok: fals
     return { ok: true };
   }
   try {
-    const { status, json } = await request<{ token?: string; expires?: number; error?: string }>('login', {
-      method: 'POST',
-      body: JSON.stringify({ password }),
-    });
+    const { status, json } = await request<{ token?: string; expires?: number; error?: string }>('login', { password });
     if (status === 200 && json.token) {
       save(TOKEN_KEY, { token: json.token, expires: json.expires }, 'session');
       return { ok: true };
@@ -99,10 +99,7 @@ export async function publish(content: ContentBundle, shas: Record<string, strin
     return { ok: true, url: 'https://github.com/' };
   }
   try {
-    const { status, json } = await request<{ url?: string; unchanged?: boolean; issues?: ContentIssue[]; file?: string }>('publish', {
-      method: 'POST',
-      body: JSON.stringify({ content, shas, note }),
-    });
+    const { status, json } = await request<{ url?: string; unchanged?: boolean; issues?: ContentIssue[]; file?: string }>('publish', { content, shas, note });
     if (status === 200) return { ok: true, url: json.url, unchanged: json.unchanged };
     if (status === 400) return { ok: false, status, issues: json.issues, message: 'Some fields are invalid.' };
     if (status === 409)
@@ -142,10 +139,7 @@ export async function uploadPhoto(name: string, base64: string): Promise<{ id: s
     const id = `${name.toLowerCase().replace(/\.[a-z0-9]+$/, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'photo'}-${Math.random().toString(16).slice(2, 8)}`;
     return { id, file: `${id}.jpg` };
   }
-  const { status, json } = await request<{ id?: string; file?: string; error?: string }>('upload', {
-    method: 'POST',
-    body: JSON.stringify({ name, data: base64 }),
-  });
+  const { status, json } = await request<{ id?: string; file?: string; error?: string }>('upload', { name, data: base64 });
   if (status === 201 && json.id && json.file) return { id: json.id, file: json.file };
   throw new Error(status === 413 ? 'That photo is too large.' : status === 415 ? 'Only JPEG, PNG or WebP photos.' : 'Upload failed.');
 }
