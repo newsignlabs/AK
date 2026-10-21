@@ -318,6 +318,11 @@ export function GallerySection() {
                 <div className="a-photo__img">
                   <img src={thumb(p, previews)} alt="" loading="lazy" onError={(e) => ((e.target as HTMLImageElement).style.opacity = '0')} />
                   {previews[p.id] && <span className="a-badge">New</span>}
+                  {(content.site.heroId === p.id || content.site.about.portraitId === p.id) && (
+                    <span className="a-badge a-badge--bottom-left">
+                      {[content.site.heroId === p.id && 'Hero', content.site.about.portraitId === p.id && 'Portrait'].filter(Boolean).join(' · ')}
+                    </span>
+                  )}
                   {p.featured && <span className="a-badge a-badge--right">Featured</span>}
                 </div>
                 <div className="a-photo__fields">
@@ -334,6 +339,25 @@ export function GallerySection() {
                   )}
                   <Toggle label="Featured on Home" checked={p.featured} onChange={(v) => edit('photos', (d) => void (d[i].featured = v))} />
                   <Toggle label="Site-only (not in gallery)" checked={Boolean(p.hidden)} onChange={(v) => edit('photos', (d) => void (v ? (d[i].hidden = true) : delete d[i].hidden))} />
+                  <div className="a-photo__use">
+                    {/* One-click placement: the previous hero/portrait stays in the library. */}
+                    <button
+                      type="button"
+                      className="a-btn a-btn--ghost a-btn--sm"
+                      disabled={content.site.heroId === p.id}
+                      onClick={() => edit('site', (d) => void (d.heroId = p.id))}
+                    >
+                      {content.site.heroId === p.id ? '✓ Hero photo' : 'Use as hero'}
+                    </button>
+                    <button
+                      type="button"
+                      className="a-btn a-btn--ghost a-btn--sm"
+                      disabled={content.site.about.portraitId === p.id}
+                      onClick={() => edit('site', (d) => void (d.about.portraitId = p.id))}
+                    >
+                      {content.site.about.portraitId === p.id ? '✓ About portrait' : 'Use as About portrait'}
+                    </button>
+                  </div>
                   <div className="a-photo__actions">
                     <button type="button" onClick={() => edit('photos', (d) => void (i > 0 && ([d[i - 1], d[i]] = [d[i], d[i - 1]])))} disabled={i === 0} aria-label="Move earlier">←</button>
                     <button type="button" onClick={() => edit('photos', (d) => void (i < d.length - 1 && ([d[i + 1], d[i]] = [d[i], d[i + 1]])))} disabled={i === content.photos.length - 1} aria-label="Move later">→</button>
