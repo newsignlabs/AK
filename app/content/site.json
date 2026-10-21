@@ -98,5 +98,6 @@
     "Events",
     "Maternity & Newborn"
   ],
-  "established": 2018
+  "established": 2018,
+  "heroId": "hero"
 }

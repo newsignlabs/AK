@@ -6,6 +6,7 @@ The site has two parts that live in one Catalyst project:
 |---|---|---|
 | Website (prerendered static site) | `app/` | **Slate** |
 | Enquiry API (`POST /server/enquiry/`) | `functions/enquiry/` | **Serverless → Advanced I/O function**, **Data Store**, **Mail**, **Cache** |
+| Admin API (`/server/admin/*`) for the `/admin` editor | `functions/admin/` | **Serverless → Advanced I/O function**, **Cache**; commits to GitHub (setup: [ADMIN.md](ADMIN.md)) |
 
 > Catalyst's console and CLI change over time. If a menu or option below has a
 > different name, follow the current Zoho Catalyst docs; the settings are the same.
@@ -62,6 +63,7 @@ leads progress).
 ```bash
 cd app && npm ci && npm run sync:function   # refresh the bundled schema + pricing
 cd ../functions/enquiry && npm install --omit=dev && npm test
+cd ../admin && npm install --omit=dev && npm test
 cd ../.. && catalyst deploy --only functions
 ```
 
@@ -75,6 +77,7 @@ Then set the function's **environment variables** (console → Functions →
 | `ALLOWED_ORIGINS` | `https://www.akstudio.in,https://akstudio-xxxx.onslate.in` | comma-separated site origins (production + Slate preview) |
 | `TURNSTILE_SECRET` | `0x4AAA…` | Cloudflare Turnstile secret; empty disables the check |
 | `RATE_LIMIT_PER_HOUR` | `5` | submissions per IP per hour |
+| `PRICING_URL` | `https://<slate-domain>/pricing.json` | prices quotes with the latest pricing published from the admin panel (falls back to the bundled copy) |
 
 Also add the same origins under **Authorized Domains (CORS)** in the
 Catalyst console so browser requests from the site reach the function.

@@ -1,0 +1,18 @@
+{
+  "deployment": {
+    "name": "admin",
+    "stack": "node20",
+    "type": "advancedio",
+    "env_variables": {
+      "ALLOWED_ORIGINS": "https://ak-ccnxaodr.onslate.in",
+      "GITHUB_REPO": "newsignlabs/AK",
+      "GITHUB_BRANCH": "main",
+      "GITHUB_TOKEN": "",
+      "ADMIN_PASSWORD_HASH": "",
+      "ADMIN_TOKEN_SECRET": ""
+    }
+  },
+  "execution": {
+    "main": "index.js"
+  }
+}

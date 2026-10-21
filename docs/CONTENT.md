@@ -1,6 +1,9 @@
 # Updating content
 
-Everything editable lives in `app/content/`. Edit, commit and push: Slate rebuilds
+**Easiest:** use the admin panel at `/admin` (see [ADMIN.md](ADMIN.md)): it edits
+these same files for you and publishes in about a minute.
+
+Everything editable lives in `app/content/`. You can also edit the files directly, commit and push: Slate rebuilds
 the site automatically.
 
 | File | What it controls |

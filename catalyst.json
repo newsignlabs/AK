@@ -1,6 +1,9 @@
 {
   "functions": {
-    "targets": ["enquiry"],
+    "targets": [
+      "enquiry",
+      "admin"
+    ],
     "ignore": [],
     "source": "functions"
   }

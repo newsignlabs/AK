@@ -27,6 +27,7 @@ export function preloadRoute(path: string): Promise<void> {
 }
 import Privacy from './pages/Privacy';
 import NotFound from './pages/NotFound';
+import AdminRoute from './admin/AdminRoute';
 
 const loadFeatures = () => import('./lib/motion-features').then((r) => r.default);
 
@@ -77,10 +78,14 @@ function Shell() {
   const { scrollTo } = useUI();
   const reduced = useReducedMotionPref();
   useDocumentTitle(location.pathname);
+  const isAdmin = location.pathname.startsWith('/admin');
   useEffect(() => {
     document.documentElement.classList.replace('no-js', 'js');
-    loadAnalytics();
-  }, []);
+    if (!isAdmin) loadAnalytics();
+  }, [isAdmin]);
+
+  // The admin panel is a separate, chrome-free app.
+  if (isAdmin) return <AdminRoute />;
 
   return (
     <>

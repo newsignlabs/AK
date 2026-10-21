@@ -405,8 +405,23 @@ Techniques: route-level code splitting, preload hero image + display font, lazy-
 
 ---
 
+## 13a. Admin Panel
+
+`/admin` is a password-protected editor for all site text, photos and prices (setup: `docs/ADMIN.md`).
+
+- **Storage:** content stays in `app/content/*.json` in GitHub. The `admin` Catalyst function commits edits, Slate rebuilds on push to `main`, and changes go live in about a minute. Every edit is versioned and can be reverted.
+- **Tabs:** Studio, Contact & social, About, Services, Gallery (categories; photo upload, alt text, caption, category, featured, order, delete), Testimonials, FAQ, Instagram, Pricing.
+- **Validation:** shared content schemas (`app/src/lib/content-schema.ts`) check every field and the links between files (photo ids, category slugs) in the browser and again on the server before commit.
+- **Photos:** resized in the browser to a 2,400px long edge and committed as originals. The Slate build generates the responsive sizes; photos that fail processing are left out instead of failing the build.
+- **Security:**
+  - Sign-in checks the password against a scrypt hash, with at most 10 attempts per IP per hour.
+  - Sessions are HMAC-signed tokens that expire after 12 hours, and requests are accepted only from the CORS allow-list.
+  - The GitHub token is fine-grained, limited to this repository with contents write access.
+  - A publish is refused if a file changed elsewhere since the editor loaded it.
+- **Visibility:** the page is client-only and code-split, excluded from the sitemap and search engines (`Disallow: /admin`, `noindex`), and has no site chrome or analytics.
+- **Pricing:** quote estimates use the published `/pricing.json`, so price edits reach the enquiry API without redeploying it.
+
 ## 14. Future Enhancements (out of scope v1)
-- Headless CMS or a small admin panel (Catalyst Authentication + Data Store) to manage gallery and pricing without commits.
 - Online booking with deposit (Razorpay/Stripe via Catalyst function).
 - Client proofing galleries (password-protected albums).
 - Blog / journal for SEO.

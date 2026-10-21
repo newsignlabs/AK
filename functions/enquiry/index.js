@@ -1,13 +1,14 @@
 'use strict';
 
 const catalyst = require('zcatalyst-sdk-node');
-const { createHandler } = require('./handler');
+const { createHandler, createPricingSource } = require('./handler');
 
 const TABLE = 'Enquiries';
 
 const handle = createHandler({
   env: process.env,
   fetch: globalThis.fetch,
+  loadPricing: createPricingSource({ url: process.env.PRICING_URL, fetch: globalThis.fetch }),
   services(req) {
     const app = catalyst.initialize(req);
     const segment = app.cache().segment();

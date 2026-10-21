@@ -129,3 +129,32 @@ test('returns 500 when storage fails, and still succeeds when email fails', asyn
   });
   assert.equal((await call(failing, { body: quote, origin: undefined })).status, 201);
 });
+
+test('prices quotes with published pricing when available, else the bundled copy', async () => {
+  const { createPricingSource } = require('../handler');
+  const bundled = JSON.parse(require('node:fs').readFileSync(require('node:path').resolve(__dirname, '../../../app/content/pricing.json'), 'utf8'));
+  const live = structuredClone(bundled);
+  live.services.wedding.base = 100000;
+  let calls = 0;
+  const source = createPricingSource({
+    url: 'https://site.test/pricing.json',
+    fetch: async () => (calls++, { ok: true, json: async () => live }),
+    log: { error() {} },
+  });
+  const rows = [];
+  const handler = createHandler({
+    env: {},
+    fetch,
+    loadPricing: source,
+    services: () => ({ insertRow: async (r) => rows.push(r), sendMail: async () => {}, cacheGet: async () => null, cachePut: async () => {} }),
+    log: { info() {}, error() {} },
+  });
+  await call(handler, { body: quote, origin: undefined });
+  await call(handler, { body: quote, origin: undefined, ip: '9.9.9.9' });
+  // (100000 + 10000 + 4000 + 25000 + 15000) × 1.1 = 169400 → 169500
+  assert.equal(rows[0].estimate_min, 169500);
+  assert.equal(calls, 1, 'cached between requests');
+
+  const broken = createPricingSource({ url: 'https://site.test/pricing.json', fetch: async () => ({ ok: true, json: async () => ({ nope: 1 }) }), log: { error() {} } });
+  assert.equal((await broken()).services.wedding.base, bundled.services.wedding.base);
+});
