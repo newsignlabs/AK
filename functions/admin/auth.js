@@ -13,12 +13,25 @@ function hashPassword(password, salt = crypto.randomBytes(16)) {
   return `scrypt$${salt.toString('hex')}$${hash.toString('hex')}`;
 }
 
+/**
+ * Accepts "scrypt$<saltHex>$<hashHex>" (from hash-password.js) or
+ * "pbkdf2$<iterations>$<saltHex>$<hashHex>" (PBKDF2-SHA256, from the
+ * browser-based generator at /admin?setup).
+ */
 function verifyPassword(password, stored) {
-  const [alg, saltHex, hashHex] = String(stored || '').split('$');
-  if (alg !== 'scrypt' || !saltHex || !hashHex) return false;
-  const expected = Buffer.from(hashHex, 'hex');
-  const actual = crypto.scryptSync(String(password), Buffer.from(saltHex, 'hex'), expected.length, { N: 16384, r: 8, p: 1 });
-  return crypto.timingSafeEqual(actual, expected);
+  const parts = String(stored || '').trim().split('$');
+  let expected;
+  let actual;
+  if (parts[0] === 'scrypt' && parts.length === 3) {
+    expected = Buffer.from(parts[2], 'hex');
+    actual = crypto.scryptSync(String(password), Buffer.from(parts[1], 'hex'), expected.length, { N: 16384, r: 8, p: 1 });
+  } else if (parts[0] === 'pbkdf2' && parts.length === 4) {
+    const iterations = Number(parts[1]);
+    if (!Number.isInteger(iterations) || iterations < 100_000) return false;
+    expected = Buffer.from(parts[3], 'hex');
+    actual = crypto.pbkdf2Sync(String(password), Buffer.from(parts[2], 'hex'), iterations, expected.length, 'sha256');
+  } else return false;
+  return expected.length >= 32 && crypto.timingSafeEqual(actual, expected);
 }
 
 function sign(payload, secret) {

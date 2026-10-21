@@ -60,6 +60,12 @@ leads progress).
 
 ## 4. Deploy the function
 
+**Manual (console):** run `functions/package.sh` (or use the provided zips), then
+in Functions → Create Function choose Advanced I/O, Node.js 20, and upload
+`enquiry.zip` / `admin.zip`. Step-by-step: [ADMIN.md](ADMIN.md#one-time-setup-manual-in-the-catalyst-console).
+
+**CLI:**
+
 ```bash
 cd app && npm ci && npm run sync:function   # refresh the bundled schema + pricing
 cd ../functions/enquiry && npm install --omit=dev && npm test

@@ -169,3 +169,14 @@ test('uploads images after checking the file signature', async () => {
   const html = Buffer.from('<html><script>alert(1)</script>');
   assert.equal((await call(handler, { url: '/upload', token, body: { name: 'x.jpg', data: html.toString('base64') } })).status, 415);
 });
+
+test('accepts PBKDF2 hashes from the browser setup page', async () => {
+  const crypto = require('node:crypto');
+  const salt = crypto.randomBytes(16);
+  const hash = crypto.pbkdf2Sync('browser made pw', salt, 310000, 32, 'sha256');
+  const { verifyPassword } = require('../auth');
+  const stored = `pbkdf2$310000$${salt.toString('hex')}$${hash.toString('hex')}`;
+  assert.equal(verifyPassword('browser made pw', stored), true);
+  assert.equal(verifyPassword('wrong', stored), false);
+  assert.equal(verifyPassword('browser made pw', `pbkdf2$1000$${salt.toString('hex')}$${hash.toString('hex')}`), false, 'too few iterations');
+});

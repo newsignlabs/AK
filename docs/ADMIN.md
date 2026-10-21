@@ -45,50 +45,91 @@ An edit that would break the site is refused, and the field is highlighted.
 - **Conflicts:** if a file was changed on GitHub after you opened the editor, publishing is refused. Reload,
   then edit again.
 
-## One-time setup
+## One-time setup (manual, in the Catalyst console)
 
-### 1. GitHub token
+No GitHub App and no command line are needed. You need a GitHub **access token**,
+the two zip files, and about 10 minutes.
 
-Create a **fine-grained personal access token** at GitHub → Settings → Developer settings:
-- Repository access: **only** `newsignlabs/AK`
-- Permissions: **Contents → Read and write** (nothing else)
-- An expiry you will remember to renew (e.g. 1 year)
+### 1. Create a GitHub access token
 
-### 2. Admin password
+1. On GitHub, open your profile picture → **Settings** → **Developer settings** →
+   **Personal access tokens** → **Fine-grained tokens** → **Generate new token**.
+2. **Token name:** `AK Studio admin`. **Expiration:** e.g. 1 year (renew it before it expires).
+3. **Resource owner:** `newsignlabs`. **Repository access:** *Only select repositories* → `AK`.
+4. **Permissions** → Repository permissions → **Contents: Read and write**. Leave everything else as is.
+5. **Generate token** and copy it (it starts with `github_pat_`). It's shown only once.
 
-```bash
-node functions/admin/hash-password.js
-```
+If `newsignlabs` is an organization, an owner may need to approve the token
+(Organization settings → Personal access tokens).
 
-Enter a strong password (10+ characters). It prints `ADMIN_PASSWORD_HASH=…` and a
-random `ADMIN_TOKEN_SECRET=…`. Never commit these.
+### 2. Get the function zips
 
-### 3. Deploy the function
+Download `enquiry.zip` and `admin.zip`, or build them yourself with
+`functions/package.sh`, which writes them to `functions/dist/`. Each zip already
+contains its dependencies.
 
-```bash
-cd functions/admin && npm install --omit=dev && npm test && cd ../..
-catalyst deploy --only functions
-```
+### 3. Create the functions in Catalyst
 
-Then in the Catalyst console → Functions → `admin` → Environment variables, set:
+In the Catalyst console, open the **Ak** project → **Serverless** → **Functions** →
+**Create Function**, once per zip:
+
+| Setting | enquiry | admin |
+|---|---|---|
+| Function name | `enquiry` | `admin` |
+| Type | Advanced I/O | Advanced I/O |
+| Stack | Node.js 20 | Node.js 20 |
+| Upload | `enquiry.zip` | `admin.zip` |
+
+To update a function later, open it and upload the new zip.
+
+### 4. Choose the admin password
+
+Open `https://<your-site>/admin?setup`, e.g. https://ak-ccnxaodr.onslate.in/admin?setup.
+Type your password twice and press **Generate values**. The page shows two values;
+it runs only in your browser and sends nothing.
+
+### 5. Environment variables
+
+Open each function → **Configuration / Environment variables**:
+
+**admin**
 
 | Variable | Value |
 |---|---|
 | `GITHUB_TOKEN` | the token from step 1 |
-| `ADMIN_PASSWORD_HASH` | from step 2 |
-| `ADMIN_TOKEN_SECRET` | from step 2 |
+| `ADMIN_PASSWORD_HASH` | from step 4 |
+| `ADMIN_TOKEN_SECRET` | from step 4 |
 | `GITHUB_REPO` | `newsignlabs/AK` |
 | `GITHUB_BRANCH` | `main` |
-| `ALLOWED_ORIGINS` | your Slate URL, e.g. `https://ak-ccnxaodr.onslate.in` (comma-separate several, add your custom domain later) |
+| `ALLOWED_ORIGINS` | `https://ak-ccnxaodr.onslate.in` (comma-separate several; add your custom domain later) |
 
-The site's Slate domain must also be listed under Catalyst **Authorized Domains (CORS)**.
+**enquiry**
 
-### 4. Use it
+| Variable | Value |
+|---|---|
+| `STUDIO_EMAIL` | `nkkmails@zohomail.in` |
+| `MAIL_FROM` | `nkkmails@zohomail.in` (must be verified under Catalyst Mail) |
+| `ALLOWED_ORIGINS` | `https://ak-ccnxaodr.onslate.in` |
+| `PRICING_URL` | `https://ak-ccnxaodr.onslate.in/pricing.json` |
+| `RATE_LIMIT_PER_HOUR` | `5` |
+| `TURNSTILE_SECRET` | optional, Cloudflare Turnstile secret |
 
-Open `https://<your-site>/admin`, sign in, edit, and press **Publish**.
+The site's domain must also be listed under **Authorized Domains (CORS)**. That's
+already done for `ak-ccnxaodr.onslate.in`.
 
-To change the password, run step 2 again and replace both variables (this also
-signs out existing sessions).
+### 6. Use it
+
+Open `/admin`, sign in, edit, and press **Publish**. The site updates about a minute later.
+
+To change the password, repeat step 4 and replace both values (this also signs out
+existing sessions). If the token expires, create a new one (step 1) and replace `GITHUB_TOKEN`.
+
+<details>
+<summary>Prefer the command line?</summary>
+
+`node functions/admin/hash-password.js` prints the same two variables, and
+`catalyst deploy --only functions` deploys both functions from the repo.
+</details>
 
 ## Local development
 

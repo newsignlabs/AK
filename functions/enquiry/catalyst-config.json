@@ -7,7 +7,6 @@
       "STUDIO_EMAIL": "nkkmails@zohomail.in",
       "MAIL_FROM": "nkkmails@zohomail.in",
       "ALLOWED_ORIGINS": "https://ak-ccnxaodr.onslate.in",
-      "TURNSTILE_SECRET": "",
       "RATE_LIMIT_PER_HOUR": "5",
       "PRICING_URL": "https://ak-ccnxaodr.onslate.in/pricing.json"
     }

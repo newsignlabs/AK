@@ -36,7 +36,74 @@ export default function AdminApp() {
   useEffect(() => {
     document.title = 'Admin';
   }, []);
+  if (new URLSearchParams(window.location.search).has('setup')) return <Setup />;
   return authed ? <Editor onSignOut={() => (logout(), setAuthed(false))} /> : <Login onDone={() => setAuthed(true)} />;
+}
+
+const hex = (b: ArrayBuffer | Uint8Array) => [...new Uint8Array(b)].map((x) => x.toString(16).padStart(2, '0')).join('');
+
+/**
+ * /admin?setup — creates ADMIN_PASSWORD_HASH (PBKDF2-SHA256) and a random
+ * ADMIN_TOKEN_SECRET entirely in the browser, for pasting into the Catalyst
+ * console. Nothing is sent anywhere.
+ */
+function Setup() {
+  const [pw, setPw] = useState('');
+  const [pw2, setPw2] = useState('');
+  const [out, setOut] = useState<{ hash: string; secret: string } | null>(null);
+  const [busy, setBusy] = useState(false);
+  const error = pw && pw.length < 10 ? 'Use at least 10 characters.' : pw2 && pw !== pw2 ? 'Passwords do not match.' : '';
+
+  async function generate() {
+    setBusy(true);
+    const salt = crypto.getRandomValues(new Uint8Array(16));
+    const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveBits']);
+    const bits = await crypto.subtle.deriveBits({ name: 'PBKDF2', hash: 'SHA-256', salt, iterations: 310000 }, key, 256);
+    setOut({ hash: `pbkdf2$310000$${hex(salt)}$${hex(bits)}`, secret: hex(crypto.getRandomValues(new Uint8Array(32))) });
+    setBusy(false);
+  }
+
+  return (
+    <main className="a-login">
+      <form
+        className="a-setup"
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (!error && pw && pw === pw2) generate();
+        }}
+      >
+        <p className="a-eyebrow">Admin setup</p>
+        <h1>Password</h1>
+        <p className="a-hint">Choose the admin password. This page turns it into two values for the Catalyst console. It runs in your browser only; nothing is sent or stored.</p>
+        <label className="a-label" htmlFor="npw">New password</label>
+        <input id="npw" type="password" autoComplete="new-password" value={pw} onChange={(e) => (setPw(e.target.value), setOut(null))} />
+        <label className="a-label" htmlFor="npw2">Repeat password</label>
+        <input id="npw2" type="password" autoComplete="new-password" value={pw2} onChange={(e) => (setPw2(e.target.value), setOut(null))} />
+        {error && <p className="a-error">{error}</p>}
+        <button className="a-btn" disabled={busy || !!error || !pw || pw !== pw2}>{busy ? 'Generating…' : 'Generate values'}</button>
+        {out && (
+          <div className="a-setup__out">
+            <p className="a-hint">In Catalyst console → Functions → admin → Environment variables, add:</p>
+            {(
+              [
+                ['ADMIN_PASSWORD_HASH', out.hash],
+                ['ADMIN_TOKEN_SECRET', out.secret],
+              ] as const
+            ).map(([k, v]) => (
+              <div key={k} className="a-field">
+                <span className="a-label">{k}</span>
+                <div className="a-copy">
+                  <input readOnly value={v} onFocus={(e) => e.target.select()} aria-label={k} />
+                  <button type="button" className="a-btn a-btn--ghost a-btn--sm" onClick={() => navigator.clipboard?.writeText(v)}>Copy</button>
+                </div>
+              </div>
+            ))}
+            <p className="a-hint">Then sign in at <a href="/admin">/admin</a> with this password. To change it later, repeat these steps.</p>
+          </div>
+        )}
+      </form>
+    </main>
+  );
 }
 
 function Login({ onDone }: { onDone: () => void }) {

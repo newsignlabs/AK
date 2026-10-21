@@ -137,3 +137,7 @@ details.a-item > summary::-webkit-details-marker { display: none; }
 .a-login h1 { font-family: var(--font-display); font-weight: 300; font-style: italic; font-size: 56px; letter-spacing: -0.03em; margin-bottom: 12px; }
 .a-eyebrow { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
 .a-back { font-size: 13px; color: var(--muted); margin-top: 8px; }
+.a-setup { width: min(560px, 100%) !important; }
+.a-setup__out { display: grid; gap: 12px; margin-top: 12px; padding-top: 16px; border-top: 1px solid var(--line); }
+.a-copy { display: flex; gap: 8px; }
+.a-copy input { font-family: ui-monospace, monospace; font-size: 12px; }
