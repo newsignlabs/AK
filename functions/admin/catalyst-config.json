@@ -1,6 +1,6 @@
 {
   "deployment": {
-    "name": "admin",
+    "name": "studio_keys_admin",
     "stack": "node20",
     "type": "advancedio",
     "env_variables": {

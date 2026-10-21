@@ -10,7 +10,9 @@ import instagram from '../../content/instagram.json';
 import categories from '../../content/gallery/categories.json';
 import photos from '../../content/gallery/photos.json';
 
-const BASE = `${(import.meta.env.VITE_API_BASE ?? '').replace(/\/$/, '')}/server/admin`;
+// Catalyst function name (its URL is /server/<name>/); set per environment in .env.production.
+const FUNCTION = import.meta.env.VITE_ADMIN_FUNCTION || 'admin';
+const BASE = `${(import.meta.env.VITE_API_BASE ?? '').replace(/\/$/, '')}/server/${FUNCTION}`;
 const MOCK = import.meta.env.VITE_API_MOCK === 'true';
 const TOKEN_KEY = 'ak:admin-token';
 

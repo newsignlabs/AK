@@ -88,10 +88,10 @@ Then set the function's **environment variables** (console → Functions →
 Also add the same origins under **Authorized Domains (CORS)** in the
 Catalyst console so browser requests from the site reach the function.
 
-The function URL is `https://<project-domain>/server/enquiry/`. Check it with:
+The function URL is `https://<project-domain>/server/<function name>/` (here `studio_keys_enquiry`; names are set in `app/.env.production`). Check it with:
 
 ```bash
-curl -i -X OPTIONS https://<project-domain>/server/enquiry/ -H "Origin: https://www.akstudio.in"
+curl -i -X OPTIONS https://<project-domain>/server/studio_keys_enquiry/ -H "Origin: https://www.akstudio.in"
 ```
 
 ## 5. Deploy the website on Slate
