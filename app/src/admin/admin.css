@@ -141,3 +141,4 @@ details.a-item > summary::-webkit-details-marker { display: none; }
 .a-setup__out { display: grid; gap: 12px; margin-top: 12px; padding-top: 16px; border-top: 1px solid var(--line); }
 .a-copy { display: flex; gap: 8px; }
 .a-copy input { font-family: ui-monospace, monospace; font-size: 12px; }
+.a-warn { font-size: 12px; color: #f2c46d; border-left: 2px solid #f2c46d; padding-left: 8px; }

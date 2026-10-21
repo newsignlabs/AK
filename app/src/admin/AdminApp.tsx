@@ -213,7 +213,11 @@ function Editor({ onSignOut }: { onSignOut: () => void }) {
         setNote('');
         // The published content is the new baseline; fresh shas come from a reload later.
         setLoaded((l) => (l ? { ...l, content: structuredClone(content) } : l));
-        setStatus({ kind: 'ok', text: r.unchanged ? 'Nothing to publish.' : 'Published. The live site updates in about a minute.', url: r.url });
+        setStatus({
+          kind: 'ok',
+          text: r.unchanged ? 'Nothing to publish.' : 'Published. The live site updates after the next Slate build (usually within 20 minutes).',
+          url: r.url,
+        });
         if (!r.unchanged && import.meta.env.VITE_API_MOCK !== 'true') loadContent().then((l) => setLoaded((cur) => (cur ? { ...cur, shas: l.shas } : cur))).catch(() => {});
       } else {
         setIssues(r.issues ?? []);

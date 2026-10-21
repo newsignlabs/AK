@@ -3,7 +3,7 @@
 `https://<your-site>/admin` is a password-protected editor for all site text and
 photos. It is part of the website; edits are saved by the `admin` Catalyst
 function, which commits them to this GitHub repository. Slate rebuilds the site
-on every push to `main`, so **published changes go live in about a minute**.
+on every push to `main`, so **published changes go live after the next Slate build (usually within 20 minutes)**.
 Every change is a normal Git commit, so it can be reviewed and undone.
 
 ## What you can edit
