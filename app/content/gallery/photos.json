@@ -2,10 +2,11 @@
   {
     "id": "pic-fr-insta-copy-432dd4",
     "file": "pic-fr-insta-copy-432dd4.jpg",
-    "alt": "Hero image AK studio",
+    "alt": "Placeholder portrait of the photographer",
     "category": "portraits",
     "caption": "",
-    "featured": true
+    "featured": false,
+    "hidden": true
   },
   {
     "id": "wed-01",
