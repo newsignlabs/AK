@@ -142,3 +142,6 @@ details.a-item > summary::-webkit-details-marker { display: none; }
 .a-copy { display: flex; gap: 8px; }
 .a-copy input { font-family: ui-monospace, monospace; font-size: 12px; }
 .a-warn { font-size: 12px; color: #f2c46d; border-left: 2px solid #f2c46d; padding-left: 8px; }
+.a-photo__use { display: flex; flex-wrap: wrap; gap: 6px; }
+.a-photo__use .a-btn:disabled { opacity: 1; cursor: default; background: var(--ivory); color: var(--black); border-color: var(--ivory); }
+.a-badge--bottom-left { top: auto; bottom: 6px; }
