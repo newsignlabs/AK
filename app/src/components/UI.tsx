@@ -30,7 +30,8 @@ export function UIProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const touch = window.matchMedia('(pointer: coarse)').matches;
-    if (reduced || touch) return;
+    // No smooth scrolling in the admin panel (long forms, inner scroll areas).
+    if (reduced || touch || window.location.pathname.startsWith('/admin')) return;
     const l = new Lenis({ lerp: 0.1, anchors: true });
     lenis.current = l;
     let raf = requestAnimationFrame(function loop(t) {

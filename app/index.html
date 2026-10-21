@@ -11,7 +11,7 @@
       (function (d) {
         d.className = d.className.replace('no-js', 'js');
         try {
-          if (sessionStorage.getItem('ak:preloaded') || matchMedia('(prefers-reduced-motion: reduce)').matches)
+          if (location.pathname.indexOf('/admin') === 0 || sessionStorage.getItem('ak:preloaded') || matchMedia('(prefers-reduced-motion: reduce)').matches)
             d.dataset.preloaded = 'true';
         } catch (e) {
           d.dataset.preloaded = 'true';

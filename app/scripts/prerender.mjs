@@ -8,7 +8,7 @@ import { pathToFileURL } from 'node:url';
 const root = path.resolve(import.meta.dirname, '..');
 const dist = path.join(root, 'dist');
 const ssr = await import(pathToFileURL(path.join(root, 'dist-ssr/entry-server.js')).href);
-const { render, pages, notFoundMeta, site, categories } = ssr;
+const { render, pages, notFoundMeta, adminMeta, site, categories } = ssr;
 const template = await readFile(path.join(dist, 'index.html'), 'utf8');
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
@@ -47,7 +47,7 @@ function head(meta) {
   return [
     `<title>${esc(meta.title)}</title>`,
     `<meta name="description" content="${esc(meta.description)}" />`,
-    meta.path === '/404' ? '<meta name="robots" content="noindex" />' : `<link rel="canonical" href="${url}" />`,
+    meta.path === '/404' || meta.path === '/admin' ? '<meta name="robots" content="noindex, nofollow" />' : `<link rel="canonical" href="${url}" />`,
     `<meta property="og:type" content="website" />`,
     `<meta property="og:site_name" content="${esc(site.name)}" />`,
     `<meta property="og:title" content="${esc(meta.title)}" />`,
@@ -86,6 +86,7 @@ async function write(route, meta) {
 
 for (const meta of pages) await write(meta.path, meta);
 await write('/404', notFoundMeta);
+await write('/admin', adminMeta); // client-only editor shell; not in the sitemap
 
 const today = new Date().toISOString().slice(0, 10);
 await writeFile(
@@ -94,6 +95,8 @@ await writeFile(
     .map((p) => `  <url><loc>${abs(p.path)}</loc><lastmod>${today}</lastmod></url>`)
     .join('\n')}\n</urlset>\n`,
 );
-await writeFile(path.join(dist, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${abs('/sitemap.xml')}\n`);
+await writeFile(path.join(dist, 'robots.txt'), `User-agent: *\nAllow: /\nDisallow: /admin\n\nSitemap: ${abs('/sitemap.xml')}\n`);
+// Published so the enquiry function prices quotes with the latest admin edits.
+await writeFile(path.join(dist, 'pricing.json'), await readFile(path.join(root, 'content/pricing.json'), 'utf8'));
 await rm(path.join(root, 'dist-ssr'), { recursive: true, force: true });
 console.log(`Prerendered ${pages.length + 1} pages (${categories.length} gallery categories).`);

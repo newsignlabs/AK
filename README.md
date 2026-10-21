@@ -6,7 +6,8 @@ Quotation and Contact, with social links and WhatsApp click-to-chat. Hosted on
 
 - **Spec:** [docs/SPEC.md](docs/SPEC.md)
 - **Deploying to Catalyst:** [docs/DEPLOY.md](docs/DEPLOY.md)
-- **Updating photos, prices and text:** [docs/CONTENT.md](docs/CONTENT.md)
+- **Admin panel (`/admin`) for text, photos and prices:** [docs/ADMIN.md](docs/ADMIN.md)
+- **Editing content files directly:** [docs/CONTENT.md](docs/CONTENT.md)
 
 ## Structure
 
@@ -17,6 +18,7 @@ app/                     Website (Vite + React + TypeScript), deployed to Slate
   scripts/               Image pipeline, OG image, prerender, function bundle
   src/                   Components, pages, motion, validation and pricing logic
 functions/enquiry/       Catalyst Advanced I/O function: POST /server/enquiry/
+functions/admin/         Catalyst Advanced I/O function behind the /admin editor (commits to GitHub)
 catalyst.json            Catalyst project config
 docs/                    Spec, deployment and content guides
 ```

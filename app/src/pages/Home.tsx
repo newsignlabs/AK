@@ -43,7 +43,7 @@ function Hero() {
   return (
     <section className="hero">
       <Parallax className="hero__media" speed={0.08}>
-        <Img photo="hero" priority sizes="100vw" cover />
+        <Img photo={site.heroId} priority sizes="100vw" cover />
       </Parallax>
       <div className="hero__shade" aria-hidden />
       <div className="hero__frame" aria-hidden>

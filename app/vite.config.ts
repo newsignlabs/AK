@@ -5,7 +5,8 @@ export default defineConfig({
   plugins: [react()],
   build: {
     target: 'es2020',
-    cssCodeSplit: false,
+    // Split CSS so the admin panel's styles load only with the admin chunk.
+    cssCodeSplit: true,
   },
   ssr: {
     // Bundle these into the SSR build so the prerender step runs without

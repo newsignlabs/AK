@@ -23,23 +23,27 @@ export type Photo = {
 
 export type Category = { slug: string; title: string; cover: string };
 
+// Photos without generated sizes (e.g. an upload whose build-time processing
+// failed) are left out rather than breaking the page.
+export const photos = (photosJson as Partial<Photo>[]).filter((p): p is Photo => Boolean(p.widths?.length && p.w && p.h && p.lqip));
+const byId = new Map(photos.map((p) => [p.id, p]));
+
 export const site = siteJson;
 export const pricing = pricingJson;
 export const services = servicesJson;
 export const testimonials = testimonialsJson;
 export const faq = faqJson;
 export const categories: Category[] = categoriesJson;
-export const photos = photosJson as Photo[];
-export const instagram: { photoId: string; url: string }[] = instagramJson;
+export const instagram: { photoId: string; url: string }[] = instagramJson.filter((x) => byId.has(x.photoId));
 
 export const galleryPhotos = photos.filter((p) => !p.hidden);
 export const featuredPhotos = galleryPhotos.filter((p) => p.featured);
 
-const byId = new Map(photos.map((p) => [p.id, p]));
 export function getPhoto(id: string): Photo {
   const p = byId.get(id);
-  if (!p) throw new Error(`Unknown photo id "${id}" — check content/gallery/photos.json`);
-  return p;
+  if (p) return p;
+  console.warn(`Photo "${id}" is missing or not processed yet; using a fallback.`);
+  return photos[0];
 }
 
 export type SocialKey = keyof typeof site.socials;

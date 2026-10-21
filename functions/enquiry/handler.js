@@ -1,7 +1,7 @@
 'use strict';
 
 const crypto = require('node:crypto');
-const { enquirySchema, fieldErrors, estimate, formatRange, quoteMessage, waLink, pricing, site } = require('./lib/shared');
+const { enquirySchema, fieldErrors, estimate, formatRange, waLink, pricing, site } = require('./lib/shared');
 const { studioEmail, clientEmail } = require('./mail');
 
 const MAX_BODY = 32 * 1024;
@@ -37,7 +37,40 @@ function makeRef(type, now) {
  * Builds the request handler. Catalyst services, env and fetch are injected so
  * the logic can be tested without the Catalyst runtime.
  */
-function createHandler({ env, fetch, services, now = () => new Date(), log = console }) {
+/** Minimal shape check for pricing fetched at runtime (falls back to the bundled copy). */
+function isPricing(p) {
+  return (
+    p && typeof p === 'object' && p.services && typeof p.services === 'object' &&
+    Object.values(p.services).every((s) => s && (s.base === null || typeof s.base === 'number') && typeof s.perHour === 'number') &&
+    p.addons && p.albums && p.locationMultiplier && p.editedPhotos && typeof p.rangeSpread === 'number'
+  );
+}
+
+/**
+ * Prices quotes with the site's published pricing.json (edited in the admin
+ * panel) when PRICING_URL is set; cached for 10 minutes.
+ */
+function createPricingSource({ url, fetch, ttlMs = 10 * 60 * 1000, now = () => Date.now(), log = console }) {
+  let cached = null;
+  let at = 0;
+  return async function loadPricing() {
+    if (!url) return pricing;
+    if (cached && now() - at < ttlMs) return cached;
+    try {
+      const r = await fetch(url, { signal: AbortSignal.timeout(2500) });
+      const j = await r.json();
+      if (!r.ok || !isPricing(j)) throw new Error(`bad pricing (${r.status})`);
+      cached = j;
+      at = now();
+    } catch (err) {
+      log.error('enquiry: using bundled pricing:', err && err.message);
+      if (!cached) return pricing;
+    }
+    return cached;
+  };
+}
+
+function createHandler({ env, fetch, services, now = () => new Date(), log = console, loadPricing = async () => pricing }) {
   const allowed = String(env.ALLOWED_ORIGINS || '')
     .split(',')
     .map((s) => s.trim())
@@ -100,9 +133,11 @@ function createHandler({ env, fetch, services, now = () => new Date(), log = con
     const ref = makeRef(enquiry.type, now());
     const d = enquiry.data;
     let est = null;
+    const priceList = await loadPricing();
     if (enquiry.type === 'quote') {
       // Never trust a client-side number: recalculate from pricing.json.
-      est = estimate({
+      est = estimate(
+        {
         service: d.service,
         hours: d.hours,
         units: d.units,
@@ -110,7 +145,9 @@ function createHandler({ env, fetch, services, now = () => new Date(), log = con
         album: d.album,
         addons: d.addons,
         locationType: d.locationType,
-      });
+        },
+        priceList,
+      );
     }
 
     const row = {
@@ -153,7 +190,7 @@ function createHandler({ env, fetch, services, now = () => new Date(), log = con
         to_email: [env.STUDIO_EMAIL],
         reply_to: [d.email],
         subject: `${enquiry.type === 'quote' ? 'Quote request' : 'Message'} ${ref} — ${d.name}`,
-        content: studioEmail({ enquiry, ref, est, estText: est ? formatRange(est) : '', replyWa, pricing, summary: enquiry.type === 'quote' ? quoteMessage(d) : '' }),
+        content: studioEmail({ enquiry, ref, est, estText: est ? formatRange(est, priceList) : '', replyWa, pricing: priceList }),
         html_mode: true,
       });
       mails.push({
@@ -161,7 +198,7 @@ function createHandler({ env, fetch, services, now = () => new Date(), log = con
         to_email: [d.email],
         reply_to: [env.STUDIO_EMAIL],
         subject: `We've received your ${enquiry.type === 'quote' ? 'quote request' : 'message'} (${ref})`,
-        content: clientEmail({ enquiry, ref, est, estText: est ? formatRange(est) : '', pricing, site }),
+        content: clientEmail({ enquiry, ref, est, estText: est ? formatRange(est, priceList) : '', pricing: priceList, site }),
         html_mode: true,
       });
     }
@@ -181,4 +218,4 @@ async function verifyTurnstile(fetch, secret, token, ip) {
   return Boolean(j.success);
 }
 
-module.exports = { createHandler, makeRef };
+module.exports = { createHandler, createPricingSource, makeRef };

@@ -22,9 +22,11 @@ export const pages: PageMeta[] = [
 ];
 
 export const notFoundMeta: PageMeta = { path: '/404', title: `Page not found — ${s.name}`, description: s.description };
+export const adminMeta: PageMeta = { path: '/admin', title: `Admin — ${s.name}`, description: 'Content editor' };
 
 export function metaFor(path: string): PageMeta {
   const clean = path.replace(/\/+$/, '') || '/';
+  if (clean.startsWith('/admin')) return adminMeta;
   return pages.find((p) => p.path === clean) ?? notFoundMeta;
 }
 
