@@ -4,7 +4,9 @@ export type SubmitResult =
   | { ok: true; ref: string }
   | { ok: false; status: number; errors?: Record<string, string>; message: string };
 
-const ENDPOINT = `${(import.meta.env.VITE_API_BASE ?? '').replace(/\/$/, '')}/server/enquiry/`;
+// Catalyst function name (its URL is /server/<name>/); set per environment in .env.production.
+const FUNCTION = import.meta.env.VITE_ENQUIRY_FUNCTION || 'enquiry';
+const ENDPOINT = `${(import.meta.env.VITE_API_BASE ?? '').replace(/\/$/, '')}/server/${FUNCTION}/`;
 
 function utm(): string {
   const params = new URLSearchParams(window.location.search);

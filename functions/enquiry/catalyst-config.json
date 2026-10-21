@@ -1,6 +1,6 @@
 {
   "deployment": {
-    "name": "enquiry",
+    "name": "studio_keys_enquiry",
     "stack": "node20",
     "type": "advancedio",
     "env_variables": {

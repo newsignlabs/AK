@@ -75,12 +75,18 @@ In the Catalyst console, open the **Ak** project → **Serverless** → **Functi
 
 | Setting | enquiry | admin |
 |---|---|---|
-| Function name | `enquiry` | `admin` |
+| Function name | `studio_keys_enquiry` | `studio_keys_admin` |
 | Type | Advanced I/O | Advanced I/O |
 | Stack | Node.js 20 | Node.js 20 |
 | Upload | `enquiry.zip` | `admin.zip` |
 
 To update a function later, open it and upload the new zip.
+
+If you use different function names, set `VITE_ENQUIRY_FUNCTION` and
+`VITE_ADMIN_FUNCTION` in `app/.env.production` to match (the site calls
+`/server/<name>/`). Authentication on both functions must be **optional**, because
+the public site calls them without a Catalyst login; the admin function checks
+its own password.
 
 ### 4. Choose the admin password
 
@@ -92,7 +98,7 @@ it runs only in your browser and sends nothing.
 
 Open each function → **Configuration / Environment variables**:
 
-**admin**
+**studio_keys_admin**
 
 | Variable | Value |
 |---|---|
@@ -103,7 +109,7 @@ Open each function → **Configuration / Environment variables**:
 | `GITHUB_BRANCH` | `main` |
 | `ALLOWED_ORIGINS` | `https://ak-ccnxaodr.onslate.in` (comma-separate several; add your custom domain later) |
 
-**enquiry**
+**studio_keys_enquiry**
 
 | Variable | Value |
 |---|---|
