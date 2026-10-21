@@ -348,6 +348,13 @@ export function GallerySection() {
                     </button>
                   </div>
                   {refs.length > 0 && <p className="a-hint">Used by {refs.join(', ')}.</p>}
+                  {p.hidden && refs.length === 0 && (
+                    <p className="a-warn">
+                      Not shown anywhere. Site-only photos appear only where you choose them: as the hero (Studio tab), the
+                      About portrait (About tab), a category cover or in the Instagram strip. To show it in the gallery, turn off
+                      "Site-only".
+                    </p>
+                  )}
                 </div>
               </li>
             );
