@@ -21,10 +21,12 @@ Every change is a normal Git commit, so it can be reviewed and undone.
 
 Wrap a word in `*asterisks*` in headings to show it in italic.
 
-**Logo:** upload a PNG (ideally transparent) in the Studio tab. It replaces the text
-monogram in the header and is shown in its own colours. The header passes over dark
-and ivory sections, so the admin previews the logo on both; a logo that reads well on
-both (or has its own background) works best. Remove it to go back to the monogram.
+**Logo:** upload the white / light version of your logo in the Studio tab: a transparent
+PNG, ideally **800 × 200 px**, cropped to the artwork (the build also trims empty
+transparent borders). It replaces the text monogram and is shown in its own colours.
+The header is always dark (see-through over the dark top of each page, solid black
+once you scroll), so a light logo is always readable. Remove it to go back to the
+monogram.
 
 Before committing, everything is checked against the same rules the site is built with:
 - Required fields and lengths.

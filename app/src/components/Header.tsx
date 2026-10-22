@@ -43,15 +43,19 @@ export function Header() {
     <>
       <m.header className={`header ${scrolled ? 'header--scrolled' : ''} ${open ? 'header--open' : ''}`} {...slide}>
         <div className="header__inner container">
-          {logo ? (
-            // The logo lives in its own layer (below) so the header's inverting blend doesn't recolour it.
-            <span className="logo-spacer" aria-hidden />
-          ) : (
-            <Link to="/" className="logo" aria-label={`${site.name} — home`}>
-              <span className="logo__mark">{site.shortName}</span>
-              <span className="logo__word">Studio</span>
-            </Link>
-          )}
+          <Link to="/" className="logo" aria-label={`${site.name} — home`}>
+            {logo ? (
+              <picture className="logo__img">
+                <source type="image/webp" srcSet={`/images/${logo.id}-logo.webp`} />
+                <img src={`/images/${logo.id}-logo.png`} width={logo.w} height={logo.h} alt="" />
+              </picture>
+            ) : (
+              <>
+                <span className="logo__mark">{site.shortName}</span>
+                <span className="logo__word">Studio</span>
+              </>
+            )}
+          </Link>
           <nav className="nav" aria-label="Main">
             <ul>
               {NAV.map((n) => (
@@ -76,19 +80,6 @@ export function Header() {
         </div>
       </m.header>
 
-      {logo && (
-        // Same position and hide-on-scroll motion as the header, but no blend: the logo keeps its own colours.
-        <m.div className="header-brand" {...slide}>
-          <div className="header-brand__inner container">
-            <Link to="/" className="logo" aria-label={`${site.name} — home`}>
-              <picture className="logo__img">
-                <source type="image/webp" srcSet={`/images/${logo.id}-logo.webp`} />
-                <img src={`/images/${logo.id}-logo.png`} width={logo.w} height={logo.h} alt="" />
-              </picture>
-            </Link>
-          </div>
-        </m.div>
-      )}
 
       <AnimatePresence>
         {open && (

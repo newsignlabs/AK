@@ -108,20 +108,21 @@
   inset: 0 0 auto;
   z-index: 50;
   height: var(--header-h);
-  /* White ink in difference mode stays legible over black, ivory and photos. */
-  color: #fff;
-  mix-blend-mode: difference;
+  /* See-through over the dark top of every page; solid black once scrolled,
+     so white links and the (light) logo always have a dark background. */
+  color: var(--ivory);
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition: background-color 0.35s var(--ease-out), border-color 0.35s var(--ease-out);
 }
+.header--scrolled { background: var(--black); border-bottom-color: rgb(244 243 239 / 0.12); }
+.header--open { background: transparent; border-bottom-color: transparent; }
 .header__inner { height: 100%; display: flex; align-items: center; justify-content: space-between; }
 .logo { display: inline-flex; align-items: baseline; gap: 0.4em; font-size: 1.125rem; }
 .logo__mark { font-family: var(--font-display); font-style: italic; font-size: 1.9rem; font-weight: 300; letter-spacing: -0.03em; }
 .logo__word { font-size: var(--fs-small); letter-spacing: var(--tracking); text-transform: uppercase; }
 .logo__img { display: block; }
 .logo__img img { height: 34px; width: auto; max-width: 180px; object-fit: contain; }
-/* Uploaded logo: its own fixed layer above the header, outside the difference blend. */
-.header-brand { position: fixed; inset: 0 0 auto; z-index: 51; height: var(--header-h); pointer-events: none; }
-.header-brand__inner { height: 100%; display: flex; align-items: center; }
-.header-brand .logo { pointer-events: auto; }
 @media (min-width: 1024px) { .logo__img img { height: 40px; max-width: 220px; } }
 .nav ul { display: none; gap: var(--s-5); }
 .nav__link { font-size: var(--fs-small); letter-spacing: var(--tracking); text-transform: uppercase; position: relative; padding-block: var(--s-2); }

@@ -69,7 +69,7 @@ Home page band order: hero (photo) → studio intro (black) → selected work (b
 - Breakpoints: 480 / 768 / 1024 / 1440.
 
 ### 3.5 Components
-Header (white ink in `mix-blend-mode: difference`, legible over black, ivory and photos), Nav overlay (mobile, black), Button (square; solid / ghost with a fill that sweeps up on hover; text-link with animated underline), Input / Select / Date / Textarea, Stepper, Chip (filter), Image (black & white with blur-up placeholder, framed with offset outlines and "Fr. 001" captions), Lightbox, Toast, Social icon row (square), Floating WhatsApp button (ivory disc), Stats band (ruled grid), Footer (giant "AK *studio*" wordmark).
+Header (ivory ink; see-through over the dark top of each page, solid black once scrolled, so the links and an uploaded light logo are always legible), Nav overlay (mobile, black), Button (square; solid / ghost with a fill that sweeps up on hover; text-link with animated underline), Input / Select / Date / Textarea, Stepper, Chip (filter), Image (black & white with blur-up placeholder, framed with offset outlines and "Fr. 001" captions), Lightbox, Toast, Social icon row (square), Floating WhatsApp button (ivory disc), Stats band (ruled grid), Footer (giant "AK *studio*" wordmark).
 
 ---
 
