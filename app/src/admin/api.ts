@@ -115,17 +115,22 @@ export async function publish(content: ContentBundle, shas: Record<string, strin
   }
 }
 
-/** Shrinks a photo in the browser (max 2400px, JPEG) before uploading it. */
-export async function prepareImage(file: File): Promise<{ base64: string; blob: Blob }> {
+/**
+ * Shrinks an image in the browser before uploading it: photos become JPEG
+ * (max 2400px); with keepAlpha (logos) PNG/WebP sources stay PNG so
+ * transparency survives.
+ */
+export async function prepareImage(file: File, { max = 2400, keepAlpha = false } = {}): Promise<{ base64: string; blob: Blob }> {
   const bitmap = await createImageBitmap(file, { imageOrientation: 'from-image' });
-  const scale = Math.min(1, 2400 / Math.max(bitmap.width, bitmap.height));
+  const scale = Math.min(1, max / Math.max(bitmap.width, bitmap.height));
+  const type = keepAlpha && /png|webp/.test(file.type) ? 'image/png' : 'image/jpeg';
   const canvas = document.createElement('canvas');
   canvas.width = Math.round(bitmap.width * scale);
   canvas.height = Math.round(bitmap.height * scale);
   canvas.getContext('2d')!.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
   bitmap.close();
   const blob = await new Promise<Blob>((resolve, reject) =>
-    canvas.toBlob((b) => (b ? resolve(b) : reject(new Error('encode failed'))), 'image/jpeg', 0.9),
+    canvas.toBlob((b) => (b ? resolve(b) : reject(new Error('encode failed'))), type, 0.9),
   );
   const bytes = new Uint8Array(await blob.arrayBuffer());
   let bin = '';

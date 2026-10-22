@@ -59,6 +59,18 @@ export const siteSchema = z
     marquee: z.array(text(40, 1)).min(1).max(16),
     established: z.number().int().min(1900).max(2100),
     heroId: id,
+    // Optional logo (shown in the header instead of the text monogram).
+    // w/h are filled in by the image build.
+    logo: z
+      .object({
+        id,
+        file: z.string().regex(/^[a-z0-9][a-z0-9-]{0,62}\.(jpe?g|png|webp)$/i),
+        w: z.number().int().positive().optional(),
+        h: z.number().int().positive().optional(),
+      })
+      .strict()
+      .nullable()
+      .optional(),
   })
   .strict();
 

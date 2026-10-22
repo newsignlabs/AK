@@ -29,6 +29,12 @@ export const photos = (photosJson as Partial<Photo>[]).filter((p): p is Photo =>
 const byId = new Map(photos.map((p) => [p.id, p]));
 
 export const site = siteJson;
+export type Logo = { id: string; file: string; w?: number; h?: number };
+/** The uploaded logo once the build has processed it, otherwise null (text monogram is shown). */
+export const logo: (Logo & { w: number; h: number }) | null = (() => {
+  const l = (siteJson as { logo?: Logo | null }).logo;
+  return l && l.w && l.h ? (l as Logo & { w: number; h: number }) : null;
+})();
 export const pricing = pricingJson;
 export const services = servicesJson;
 export const testimonials = testimonialsJson;
