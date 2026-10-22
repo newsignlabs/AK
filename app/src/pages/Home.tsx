@@ -20,8 +20,9 @@ export default function Home() {
       <section className="section container intro" aria-label="Our philosophy">
         <div className={`intro__badge ${mascot ? 'intro__badge--mascot' : ''}`}>
           <Num n={1} />
+          {mascot && <span className="intro__shadow" aria-hidden />}
           {mascot && (
-            // Brand mascot sitting in front of the "01" (own colours, not greyscale).
+            // Brand mascot floating in front of the "01" (own colours, not greyscale).
             <picture className="intro__mascot">
               <source type="image/webp" srcSet={`/images/${mascot.id}-mascot.webp`} />
               <img src={`/images/${mascot.id}-mascot.png`} width={mascot.w} height={mascot.h} alt="" loading="lazy" decoding="async" />
