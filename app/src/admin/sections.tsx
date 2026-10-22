@@ -60,7 +60,7 @@ export function StudioSection() {
   );
 }
 
-/** Logo upload: kept as PNG with transparency; shown in the header as a white silhouette. */
+/** Logo upload: kept as PNG with transparency; shown in the header in its own colours. */
 function LogoField() {
   const { content, edit, previews, addPreview } = useEditor();
   const [busy, setBusy] = useState(false);
@@ -89,15 +89,22 @@ function LogoField() {
     <div className="a-field">
       <span className="a-label">Logo</span>
       <div className="a-logo">
-        <div className="a-logo__preview">
-          {logo ? (
-            <img src={previews[logo.id] ?? `/images/${logo.id}-logo.png`} alt="Logo preview" />
-          ) : (
+        {logo ? (
+          // The site has dark and ivory backgrounds; preview the logo on both.
+          <div className="a-logo__previews">
+            {(['dark', 'light'] as const).map((bg) => (
+              <div key={bg} className={`a-logo__preview a-logo__preview--${bg}`}>
+                <img src={previews[logo.id] ?? `/images/${logo.id}-logo.png`} alt={bg === 'dark' ? 'Logo on dark' : 'Logo on ivory'} />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="a-logo__preview">
             <span className="a-logo__text">
               <em>{content.site.shortName}</em> STUDIO
             </span>
-          )}
-        </div>
+          </div>
+        )}
         <div className="a-logo__actions">
           <input ref={input} type="file" accept="image/png,image/webp,image/jpeg" hidden onChange={(e) => onFile(e.target.files?.[0])} />
           <button type="button" className="a-btn a-btn--ghost a-btn--sm" onClick={() => input.current?.click()} disabled={busy}>
@@ -114,8 +121,10 @@ function LogoField() {
         <p className="a-error">{error}</p>
       ) : (
         <p className="a-hint">
-          {logo ? 'Shown in the header as a white silhouette, like the preview.' : 'No logo: the header shows the monogram text.'} A transparent
-          PNG works best.
+          {logo
+            ? 'Shown in the header in its own colours. The header sits over dark and ivory sections, so check both previews.'
+            : 'No logo: the header shows the monogram text.'}{' '}
+          A transparent PNG works best.
         </p>
       )}
     </div>
