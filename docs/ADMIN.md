@@ -50,17 +50,39 @@ An edit that would break the site is refused, and the field is highlighted.
 No GitHub App and no command line are needed. You need a GitHub **access token**,
 the two zip files, and about 10 minutes.
 
-### 1. Create a GitHub access token
+### 1. Create the GitHub App
 
-1. On GitHub, open your profile picture → **Settings** → **Developer settings** →
-   **Personal access tokens** → **Fine-grained tokens** → **Generate new token**.
-2. **Token name:** `AK Studio admin`. **Expiration:** e.g. 1 year (renew it before it expires).
-3. **Resource owner:** `newsignlabs`. **Repository access:** *Only select repositories* → `AK`.
-4. **Permissions** → Repository permissions → **Contents: Read and write**. Leave everything else as is.
-5. **Generate token** and copy it (it starts with `github_pat_`). It's shown only once.
+The admin signs in to GitHub as a dedicated **GitHub App**. Its tokens are short-lived
+(renewed every hour automatically), it isn't tied to a personal account, and there's no
+yearly token to renew.
 
-If `newsignlabs` is an organization, an owner may need to approve the token
-(Organization settings → Personal access tokens).
+GitHub → your profile or the `newsignlabs` organization → **Settings → Developer settings →
+GitHub Apps → New GitHub App**:
+
+| Setting | Value |
+|---|---|
+| Name | e.g. `ak-studio-admin` |
+| Homepage URL | the site URL, e.g. `https://ak-ccnxaodr.onslate.in` |
+| Webhook | untick **Active** |
+| Repository permissions → Contents | **Read and write** |
+| Repository permissions → Metadata | Read-only (always on) |
+| Everything else | No access |
+| Where can it be installed? | Only on this account |
+
+Then, on the app's page:
+1. Note the **App ID**.
+2. **Generate a private key**. A `.pem` file downloads.
+3. **Install App** → **Only select repositories** → `AK`. The installation page URL ends in
+   `/installations/<number>`: that number is the **Installation ID**.
+
+If you protect `main` later, add the app to the branch rule's bypass list.
+
+<details>
+<summary>Alternative: a personal access token</summary>
+
+A fine-grained token with **Contents: Read and write** on `AK` only also works: set it as
+`GITHUB_TOKEN` instead of the three `GH_*` variables. If both are set, the app is used.
+</details>
 
 ### 2. Get the function zips
 
@@ -102,7 +124,9 @@ Open each function → **Configuration / Environment variables**:
 
 | Variable | Value |
 |---|---|
-| `GITHUB_TOKEN` | the token from step 1 |
+| `GH_APP_ID` | App ID from step 1 |
+| `GH_INSTALLATION_ID` | Installation ID from step 1 |
+| `GH_PRIVATE_KEY` | the whole `.pem` file, from `-----BEGIN` to `-----END … KEY-----` (line breaks turned into spaces are fine) |
 | `ADMIN_PASSWORD_HASH` | from step 4 |
 | `ADMIN_TOKEN_SECRET` | from step 4 |
 | `GITHUB_REPO` | `newsignlabs/AK` |
@@ -131,7 +155,8 @@ already done for `ak-ccnxaodr.onslate.in`.
 Open `/admin`, sign in, edit, and press **Publish**. The site updates about a minute later.
 
 To change the password, repeat step 4 and replace both values (this also signs out
-existing sessions). If the token expires, create a new one (step 1) and replace `GITHUB_TOKEN`.
+existing sessions). To rotate the app's key, generate a new private key on the app's page, replace
+`GH_PRIVATE_KEY`, then delete the old key on GitHub.
 
 <details>
 <summary>Prefer the command line?</summary>

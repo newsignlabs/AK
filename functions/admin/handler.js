@@ -3,6 +3,7 @@
 const crypto = require('node:crypto');
 const { validateBundle, BUNDLE_KEYS, ORIGINALS_DIR } = require('./lib/shared');
 const { verifyPassword, sign, verifyToken } = require('./auth');
+const { hasAppConfig } = require('./app-auth');
 
 const MAX_BODY = 15 * 1024 * 1024; // base64 photo uploads (resized in the browser first)
 const MAX_IMAGE = 10 * 1024 * 1024;
@@ -68,8 +69,8 @@ function createHandler({ env, services, github, now = () => Date.now(), log = co
 
     if (req.method === 'OPTIONS') return send(204);
     if (origin && allowed.length && !allowed.includes(origin)) return send(403, { error: 'origin_not_allowed' });
-    if (!secret || secret.length < 32 || !env.ADMIN_PASSWORD_HASH || !env.GITHUB_TOKEN) {
-      log.error('admin: missing configuration (ADMIN_TOKEN_SECRET, ADMIN_PASSWORD_HASH, GITHUB_TOKEN)');
+    if (!secret || secret.length < 32 || !env.ADMIN_PASSWORD_HASH || !(hasAppConfig(env) || env.GITHUB_TOKEN)) {
+      log.error('admin: missing configuration (ADMIN_TOKEN_SECRET, ADMIN_PASSWORD_HASH, and GH_APP_ID/GH_INSTALLATION_ID/GH_PRIVATE_KEY or GITHUB_TOKEN)');
       return send(503, { error: 'not_configured' });
     }
 

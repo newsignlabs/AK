@@ -1,14 +1,19 @@
 'use strict';
 
-/** Minimal GitHub REST client for reading files and committing several at once. */
+/**
+ * Minimal GitHub REST client for reading files and committing several at once.
+ * `token` is either a fixed token (personal access token) or an async function
+ * returning one (GitHub App installation tokens, renewed automatically).
+ */
 function createGitHub({ token, repo, branch, fetch }) {
+  const getToken = typeof token === 'function' ? token : async () => token;
   const base = `https://api.github.com/repos/${repo}`;
 
   async function call(method, url, body) {
     const res = await fetch(url.startsWith('http') ? url : base + url, {
       method,
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${await getToken()}`,
         Accept: 'application/vnd.github+json',
         'X-GitHub-Api-Version': '2022-11-28',
         'User-Agent': 'ak-studio-admin',
