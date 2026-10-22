@@ -55,6 +55,9 @@ export function Footer() {
         </p>
         <div className="footer__bottom">
           <p>© {new Date().getFullYear()} {site.name}. All rights reserved.</p>
+          <a className="text-link" href="https://www.newsignlabs.in" target="_blank" rel="noopener noreferrer">
+            Made by Newsign Labs
+          </a>
           <Link className="text-link" to="/privacy">Privacy</Link>
           {site.googleBusinessUrl && (
             <a className="text-link" href={site.googleBusinessUrl} target="_blank" rel="noopener noreferrer">Google reviews</a>

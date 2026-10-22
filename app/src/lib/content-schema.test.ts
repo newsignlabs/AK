@@ -39,3 +39,15 @@ describe('validateBundle', () => {
     expect(files).toContain('photos');
   });
 });
+
+describe('logo', () => {
+  it('is optional and validated when present', () => {
+    const b = bundle() as ReturnType<typeof bundle> & { site: Record<string, unknown> };
+    b.site.logo = { id: 'logo-mark-a1b2c3', file: 'logo-mark-a1b2c3.png' };
+    expect(validateBundle(b)).toEqual([]);
+    b.site.logo = null;
+    expect(validateBundle(b)).toEqual([]);
+    b.site.logo = { id: 'logo', file: '../evil.svg' };
+    expect(validateBundle(b).some((i) => i.path.startsWith('logo'))).toBe(true);
+  });
+});

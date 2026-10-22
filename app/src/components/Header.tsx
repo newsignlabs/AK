@@ -1,7 +1,7 @@
 import { AnimatePresence, m, useMotionValueEvent, useScroll } from 'motion/react';
 import { useEffect, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router';
-import { site } from '../lib/content';
+import { logo, site } from '../lib/content';
 import { ease, stagger } from '../lib/motion';
 import { SocialLinks } from './Social';
 import { useUI } from './UI';
@@ -46,8 +46,18 @@ export function Header() {
       >
         <div className="header__inner container">
           <Link to="/" className="logo" aria-label={`${site.name} — home`}>
-            <span className="logo__mark">{site.shortName}</span>
-            <span className="logo__word">Studio</span>
+            {logo ? (
+              // Rendered as a white silhouette so it inverts with the header over any background.
+              <picture className="logo__img">
+                <source type="image/webp" srcSet={`/images/${logo.id}-logo.webp`} />
+                <img src={`/images/${logo.id}-logo.png`} width={logo.w} height={logo.h} alt="" />
+              </picture>
+            ) : (
+              <>
+                <span className="logo__mark">{site.shortName}</span>
+                <span className="logo__word">Studio</span>
+              </>
+            )}
           </Link>
           <nav className="nav" aria-label="Main">
             <ul>

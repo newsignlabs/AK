@@ -40,6 +40,7 @@ export function StudioSection() {
         <Text label="Description (search engines & link previews)" value={s.description} multiline onChange={(v) => edit('site', (d) => void (d.description = v))} error={err('site', 'description')} maxLength={300} />
       </div>
       <PhotoPicker label="Hero photo" value={s.heroId} onChange={(v) => edit('site', (d) => void (d.heroId = v))} photos={content.photos} previews={previews} error={err('site', 'heroId')} />
+      <LogoField />
       <Text label="Website address" value={s.url} type="url" onChange={(v) => edit('site', (d) => void (d.url = v))} error={err('site', 'url')} hint="Used for search engines and link previews." />
       <div className="a-span">
         <List
@@ -55,6 +56,68 @@ export function StudioSection() {
           )}
         />
       </div>
+    </div>
+  );
+}
+
+/** Logo upload: kept as PNG with transparency; shown in the header as a white silhouette. */
+function LogoField() {
+  const { content, edit, previews, addPreview } = useEditor();
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState('');
+  const input = useRef<HTMLInputElement>(null);
+  const logo = content.site.logo;
+
+  async function onFile(file: File | undefined) {
+    if (!file) return;
+    setBusy(true);
+    setError('');
+    try {
+      const { base64, blob } = await prepareImage(file, { max: 800, keepAlpha: true });
+      const { id, file: name } = await uploadPhoto(`logo-${file.name}`, base64);
+      addPreview(id, URL.createObjectURL(blob));
+      edit('site', (d) => void (d.logo = { id, file: name }));
+    } catch (e) {
+      setError((e as Error).message);
+    } finally {
+      setBusy(false);
+      if (input.current) input.current.value = '';
+    }
+  }
+
+  return (
+    <div className="a-field">
+      <span className="a-label">Logo</span>
+      <div className="a-logo">
+        <div className="a-logo__preview">
+          {logo ? (
+            <img src={previews[logo.id] ?? `/images/${logo.id}-logo.png`} alt="Logo preview" />
+          ) : (
+            <span className="a-logo__text">
+              <em>{content.site.shortName}</em> STUDIO
+            </span>
+          )}
+        </div>
+        <div className="a-logo__actions">
+          <input ref={input} type="file" accept="image/png,image/webp,image/jpeg" hidden onChange={(e) => onFile(e.target.files?.[0])} />
+          <button type="button" className="a-btn a-btn--ghost a-btn--sm" onClick={() => input.current?.click()} disabled={busy}>
+            {busy ? 'Uploading…' : logo ? 'Replace logo' : 'Upload logo'}
+          </button>
+          {logo && (
+            <button type="button" className="a-btn a-btn--ghost a-btn--sm" onClick={() => edit('site', (d) => void (d.logo = null))}>
+              Remove
+            </button>
+          )}
+        </div>
+      </div>
+      {error ? (
+        <p className="a-error">{error}</p>
+      ) : (
+        <p className="a-hint">
+          {logo ? 'Shown in the header as a white silhouette, like the preview.' : 'No logo: the header shows the monogram text.'} A transparent
+          PNG works best.
+        </p>
+      )}
     </div>
   );
 }

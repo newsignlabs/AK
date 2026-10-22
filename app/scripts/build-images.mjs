@@ -75,3 +75,28 @@ for (const photo of photos) {
 console.log(`Images: ${processed} processed, ${photos.length - processed} up to date.`);
 
 await writeFile(manifestPath, JSON.stringify(photos, null, 2) + '\n');
+
+// Logo (site.json → logo): kept as PNG + WebP with transparency, no grey
+// filter; sized for the header. Files: public/images/<id>-logo.{png,webp}.
+const sitePath = path.join(root, 'content/site.json');
+const site = JSON.parse(await readFile(sitePath, 'utf8'));
+if (site.logo?.file) {
+  const input = path.join(srcDir, site.logo.file);
+  const outPng = path.join(outDir, `${site.logo.id}-logo.png`);
+  const outWebp = path.join(outDir, `${site.logo.id}-logo.webp`);
+  const done = site.logo.w && site.logo.h && (await exists(outPng)) && (await exists(outWebp));
+  if (all || !done) {
+    try {
+      await access(input);
+      const resized = sharp(input).rotate().resize({ width: 800, height: 200, fit: 'inside', withoutEnlargement: true });
+      const info = await resized.clone().png({ compressionLevel: 9 }).toFile(outPng);
+      await resized.clone().webp({ quality: 90, alphaQuality: 100 }).toFile(outWebp);
+      site.logo.w = info.width;
+      site.logo.h = info.height;
+      await writeFile(sitePath, JSON.stringify(site, null, 2) + '\n');
+      console.log(`✓ logo ${site.logo.id} ${info.width}×${info.height}`);
+    } catch (err) {
+      console.warn(`! could not process logo ${site.logo.file}: ${err.message} — showing the text monogram`);
+    }
+  }
+}

@@ -116,6 +116,9 @@
 .logo { display: inline-flex; align-items: baseline; gap: 0.4em; font-size: 1.125rem; }
 .logo__mark { font-family: var(--font-display); font-style: italic; font-size: 1.9rem; font-weight: 300; letter-spacing: -0.03em; }
 .logo__word { font-size: var(--fs-small); letter-spacing: var(--tracking); text-transform: uppercase; }
+.logo__img { display: block; }
+.logo__img img { height: 34px; width: auto; max-width: 180px; object-fit: contain; filter: brightness(0) invert(1); }
+@media (min-width: 1024px) { .logo__img img { height: 40px; max-width: 220px; } }
 .nav ul { display: none; gap: var(--s-5); }
 .nav__link { font-size: var(--fs-small); letter-spacing: var(--tracking); text-transform: uppercase; position: relative; padding-block: var(--s-2); }
 .nav__link::after {

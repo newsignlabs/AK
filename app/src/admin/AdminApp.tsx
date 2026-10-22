@@ -299,12 +299,6 @@ function Editor({ onSignOut }: { onSignOut: () => void }) {
                 : dirtyKeys.length
                   ? `Unpublished changes: ${dirtyKeys.join(', ')}`
                   : 'All changes published'}
-            {status.url && (
-              <>
-                {' '}
-                <a href={status.url} target="_blank" rel="noopener">View change ↗</a>
-              </>
-            )}
           </span>
           <input className="a-bar__note" placeholder="What changed? (optional)" value={note} onChange={(e) => setNote(e.target.value)} maxLength={200} />
           <button className="a-btn a-btn--ghost" disabled={!dirtyKeys.length || status.kind === 'busy'} onClick={() => confirm('Discard all unpublished changes?') && (setContent(structuredClone(loaded!.content)), setIssues([]))}>

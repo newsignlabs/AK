@@ -10,7 +10,7 @@ Every change is a normal Git commit, so it can be reviewed and undone.
 
 | Tab | Content |
 |---|---|
-| Studio | Name, monogram, hero tagline, description, hero photo, website address, scrolling words |
+| Studio | Name, monogram, hero tagline, description, hero photo, **logo**, website address, scrolling words |
 | Contact & social | Email, phone, WhatsApp number and message, address, map position, opening hours, social links |
 | About | Heading, paragraphs, portrait, stats, process steps |
 | Services | Services list on Home and which gallery category each links to |
@@ -20,6 +20,11 @@ Every change is a normal Git commit, so it can be reviewed and undone.
 | Pricing | Quote estimate rates, add-ons, albums, multipliers, budgets, show/hide prices |
 
 Wrap a word in `*asterisks*` in headings to show it in italic.
+
+**Logo:** upload a PNG (ideally transparent) in the Studio tab. It replaces the text
+monogram in the header and is shown as a white silhouette that inverts with the
+header over dark, light and photo backgrounds, matching the black-and-white design.
+Remove it to go back to the monogram.
 
 Before committing, everything is checked against the same rules the site is built with:
 - Required fields and lengths.
