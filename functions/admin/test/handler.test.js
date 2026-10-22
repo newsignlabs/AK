@@ -200,3 +200,10 @@ test('does not rewrite files whose content is unchanged but formatted differentl
   assert.equal(r.status, 200);
   assert.deepEqual(r.json.files, ['app/content/faq.json']);
 });
+
+test('is configured with GitHub App settings and no personal token', async () => {
+  const { handler } = setup({ GITHUB_TOKEN: '', GH_APP_ID: '1', GH_INSTALLATION_ID: '2', GH_PRIVATE_KEY: 'k' });
+  assert.equal((await call(handler, { body: { password: 'correct horse battery' } })).status, 200);
+  const none = setup({ GITHUB_TOKEN: '' });
+  assert.equal((await call(none.handler, { body: { password: 'correct horse battery' } })).status, 503);
+});

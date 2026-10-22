@@ -416,7 +416,7 @@ Techniques: route-level code splitting, preload hero image + display font, lazy-
 - **Security:**
   - Sign-in checks the password against a scrypt hash, with at most 10 attempts per IP per hour.
   - Sessions are HMAC-signed tokens that expire after 12 hours, and requests are accepted only from the CORS allow-list.
-  - The GitHub token is fine-grained, limited to this repository with contents write access.
+  - GitHub access is through a dedicated GitHub App (contents write on this repository only), with installation tokens that expire after an hour; a fine-grained personal token is supported as a fallback.
   - A publish is refused if a file changed elsewhere since the editor loaded it.
 - **Visibility:** the page is client-only and code-split, excluded from the sitemap and search engines (`Disallow: /admin`, `noindex`), and has no site chrome or analytics.
 - **Pricing:** quote estimates use the published `/pricing.json`, so price edits reach the enquiry API without redeploying it.
