@@ -22,9 +22,9 @@ Every change is a normal Git commit, so it can be reviewed and undone.
 Wrap a word in `*asterisks*` in headings to show it in italic.
 
 **Logo:** upload a PNG (ideally transparent) in the Studio tab. It replaces the text
-monogram in the header and is shown as a white silhouette that inverts with the
-header over dark, light and photo backgrounds, matching the black-and-white design.
-Remove it to go back to the monogram.
+monogram in the header and is shown in its own colours. The header passes over dark
+and ivory sections, so the admin previews the logo on both; a logo that reads well on
+both (or has its own background) works best. Remove it to go back to the monogram.
 
 Before committing, everything is checked against the same rules the site is built with:
 - Required fields and lengths.

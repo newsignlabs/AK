@@ -147,7 +147,10 @@ details.a-item > summary::-webkit-details-marker { display: none; }
 .a-badge--bottom-left { top: auto; bottom: 6px; }
 .a-logo { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
 .a-logo__preview { width: 200px; height: 72px; display: grid; place-items: center; padding: 12px; background: #000 repeating-conic-gradient(#1a1a1a 0% 25%, #000 0% 50%) 0 0 / 16px 16px; border: 1px solid var(--line); }
-.a-logo__preview img { max-width: 100%; max-height: 48px; object-fit: contain; filter: brightness(0) invert(1); }
+.a-logo__preview img { max-width: 100%; max-height: 48px; object-fit: contain; }
+.a-logo__previews { display: flex; gap: 6px; flex-wrap: wrap; }
+.a-logo__preview--dark { background: #0a0a0a; }
+.a-logo__preview--light { background: #f4f3ef; }
 .a-logo__text { font-size: 12px; letter-spacing: 0.18em; }
 .a-logo__text em { font-family: var(--font-display); font-size: 26px; letter-spacing: -0.02em; margin-right: 6px; }
 .a-logo__actions { display: flex; gap: 6px; }

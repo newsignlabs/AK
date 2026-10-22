@@ -42,7 +42,7 @@ describe('validateBundle', () => {
 
 describe('logo', () => {
   it('is optional and validated when present', () => {
-    const b = bundle() as ReturnType<typeof bundle> & { site: Record<string, unknown> };
+    const b = bundle() as unknown as { site: Record<string, unknown> } & Record<string, unknown>;
     b.site.logo = { id: 'logo-mark-a1b2c3', file: 'logo-mark-a1b2c3.png' };
     expect(validateBundle(b)).toEqual([]);
     b.site.logo = null;
