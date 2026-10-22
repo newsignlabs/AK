@@ -90,13 +90,9 @@ function LogoField() {
       <span className="a-label">Logo</span>
       <div className="a-logo">
         {logo ? (
-          // The site has dark and ivory backgrounds; preview the logo on both.
-          <div className="a-logo__previews">
-            {(['dark', 'light'] as const).map((bg) => (
-              <div key={bg} className={`a-logo__preview a-logo__preview--${bg}`}>
-                <img src={previews[logo.id] ?? `/images/${logo.id}-logo.png`} alt={bg === 'dark' ? 'Logo on dark' : 'Logo on ivory'} />
-              </div>
-            ))}
+          // The header is always dark (see-through over dark page tops, black once scrolled).
+          <div className="a-logo__preview a-logo__preview--dark">
+            <img src={previews[logo.id] ?? `/images/${logo.id}-logo.png`} alt="Logo on the header" />
           </div>
         ) : (
           <div className="a-logo__preview">
@@ -121,10 +117,8 @@ function LogoField() {
         <p className="a-error">{error}</p>
       ) : (
         <p className="a-hint">
-          {logo
-            ? 'Shown in the header in its own colours. The header sits over dark and ivory sections, so check both previews.'
-            : 'No logo: the header shows the monogram text.'}{' '}
-          A transparent PNG works best.
+          {logo ? 'Shown in the header in its own colours.' : 'No logo: the header shows the monogram text.'} The header is always
+          dark, so upload the white / light version: a transparent PNG, ideally 800 × 200 px, cropped to the artwork.
         </p>
       )}
     </div>
