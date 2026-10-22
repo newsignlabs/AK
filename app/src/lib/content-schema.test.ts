@@ -51,3 +51,15 @@ describe('logo', () => {
     expect(validateBundle(b).some((i) => i.path.startsWith('logo'))).toBe(true);
   });
 });
+
+describe('mascot', () => {
+  it('is optional and validated like the logo', () => {
+    const b = bundle() as unknown as { site: Record<string, unknown> } & Record<string, unknown>;
+    b.site.mascot = { id: 'mascot-ak-baby-7c41d2', file: 'mascot-ak-baby-7c41d2.webp' };
+    expect(validateBundle(b)).toEqual([]);
+    delete b.site.mascot;
+    expect(validateBundle(b)).toEqual([]);
+    b.site.mascot = { id: 'Bad Id', file: 'x.gif' };
+    expect(validateBundle(b).some((i) => i.path.startsWith('mascot'))).toBe(true);
+  });
+});

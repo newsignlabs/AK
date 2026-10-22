@@ -150,6 +150,8 @@ details.a-item > summary::-webkit-details-marker { display: none; }
 .a-logo__preview img { max-width: 100%; max-height: 48px; object-fit: contain; }
 .a-logo__previews { display: flex; gap: 6px; flex-wrap: wrap; }
 .a-logo__preview--dark { background: #0a0a0a; }
+.a-logo__preview--mascot { width: 140px; height: 140px; }
+.a-logo__preview--mascot img { max-height: 116px; }
 .a-logo__preview--light { background: #f4f3ef; }
 .a-logo__text { font-size: 12px; letter-spacing: 0.18em; }
 .a-logo__text em { font-family: var(--font-display); font-size: 26px; letter-spacing: -0.02em; margin-right: 6px; }

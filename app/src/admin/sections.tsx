@@ -1,4 +1,4 @@
-import { createContext, useContext, useRef, useState } from 'react';
+import { createContext, useContext, useRef, useState, type ReactNode } from 'react';
 import type { ContentBundle, ContentIssue } from '../lib/content-schema';
 import { List, Num, PhotoPicker, Select, Text, Toggle, thumb } from './fields';
 import { prepareImage, uploadPhoto } from './api';
@@ -41,6 +41,7 @@ export function StudioSection() {
       </div>
       <PhotoPicker label="Hero photo" value={s.heroId} onChange={(v) => edit('site', (d) => void (d.heroId = v))} photos={content.photos} previews={previews} error={err('site', 'heroId')} />
       <LogoField />
+      <MascotField />
       <Text label="Website address" value={s.url} type="url" onChange={(v) => edit('site', (d) => void (d.url = v))} error={err('site', 'url')} hint="Used for search engines and link previews." />
       <div className="a-span">
         <List
@@ -60,23 +61,36 @@ export function StudioSection() {
   );
 }
 
-/** Logo upload: kept as PNG with transparency; shown in the header in its own colours. */
-function LogoField() {
+/**
+ * Brand image upload (logo, mascot): kept as PNG with transparency and its own
+ * colours; replaces the previous image on publish.
+ */
+function BrandImageField({
+  slot,
+  label,
+  empty,
+  hint,
+}: {
+  slot: 'logo' | 'mascot';
+  label: string;
+  empty: ReactNode;
+  hint: string;
+}) {
   const { content, edit, previews, addPreview } = useEditor();
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const input = useRef<HTMLInputElement>(null);
-  const logo = content.site.logo;
+  const img = content.site[slot];
 
   async function onFile(file: File | undefined) {
     if (!file) return;
     setBusy(true);
     setError('');
     try {
-      const { base64, blob } = await prepareImage(file, { max: 800, keepAlpha: true });
-      const { id, file: name } = await uploadPhoto(`logo-${file.name}`, base64);
+      const { base64, blob } = await prepareImage(file, { max: slot === 'logo' ? 800 : 1200, keepAlpha: true });
+      const { id, file: name } = await uploadPhoto(`${slot}-${file.name}`, base64);
       addPreview(id, URL.createObjectURL(blob));
-      edit('site', (d) => void (d.logo = { id, file: name }));
+      edit('site', (d) => void (d[slot] = { id, file: name }));
     } catch (e) {
       setError((e as Error).message);
     } finally {
@@ -87,41 +101,52 @@ function LogoField() {
 
   return (
     <div className="a-field">
-      <span className="a-label">Logo</span>
+      <span className="a-label">{label}</span>
       <div className="a-logo">
-        {logo ? (
-          // The header is always dark (see-through over dark page tops, black once scrolled).
-          <div className="a-logo__preview a-logo__preview--dark">
-            <img src={previews[logo.id] ?? `/images/${logo.id}-logo.png`} alt="Logo on the header" />
-          </div>
-        ) : (
-          <div className="a-logo__preview">
-            <span className="a-logo__text">
-              <em>{content.site.shortName}</em> STUDIO
-            </span>
-          </div>
-        )}
+        <div className={`a-logo__preview a-logo__preview--dark a-logo__preview--${slot}`}>
+          {img ? <img src={previews[img.id] ?? `/images/${img.id}-${slot}.png`} alt={`${label} preview`} /> : empty}
+        </div>
         <div className="a-logo__actions">
           <input ref={input} type="file" accept="image/png,image/webp,image/jpeg" hidden onChange={(e) => onFile(e.target.files?.[0])} />
           <button type="button" className="a-btn a-btn--ghost a-btn--sm" onClick={() => input.current?.click()} disabled={busy}>
-            {busy ? 'Uploading…' : logo ? 'Replace logo' : 'Upload logo'}
+            {busy ? 'Uploading…' : img ? `Replace ${slot}` : `Upload ${slot}`}
           </button>
-          {logo && (
-            <button type="button" className="a-btn a-btn--ghost a-btn--sm" onClick={() => edit('site', (d) => void (d.logo = null))}>
+          {img && (
+            <button type="button" className="a-btn a-btn--ghost a-btn--sm" onClick={() => edit('site', (d) => void (d[slot] = null))}>
               Remove
             </button>
           )}
         </div>
       </div>
-      {error ? (
-        <p className="a-error">{error}</p>
-      ) : (
-        <p className="a-hint">
-          {logo ? 'Shown in the header in its own colours.' : 'No logo: the header shows the monogram text.'} The header is always
-          dark, so upload the white / light version: a transparent PNG, ideally 800 × 200 px, cropped to the artwork.
-        </p>
-      )}
+      {error ? <p className="a-error">{error}</p> : <p className="a-hint">{hint}</p>}
     </div>
+  );
+}
+
+function LogoField() {
+  const { content } = useEditor();
+  return (
+    <BrandImageField
+      slot="logo"
+      label="Logo"
+      empty={
+        <span className="a-logo__text">
+          <em>{content.site.shortName}</em> STUDIO
+        </span>
+      }
+      hint="Shown in the header in its own colours. The header is always dark, so upload the white / light version: a transparent PNG, ideally 800 × 200 px, cropped to the artwork. No logo: the header shows the monogram text."
+    />
+  );
+}
+
+function MascotField() {
+  return (
+    <BrandImageField
+      slot="mascot"
+      label="Intro mascot (sits in front of the “01” on Home)"
+      empty={<span className="a-logo__text">01</span>}
+      hint="Shown in its own colours on the dark intro section. A transparent PNG or WebP, about 1200 px tall, works best; empty borders are trimmed automatically. Remove it to show just the “01”."
+    />
   );
 }
 

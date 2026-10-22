@@ -125,7 +125,7 @@ Only `transform` and `opacity` are animated (GPU-friendly; no layout thrash).
 Single long-scroll page; sections in order:
 
 1. **Hero** — full-viewport image or short muted looping video (≤ 4 MB, MP4/WebM, poster image). Studio name + one-line tagline (e.g. *"Quiet images of loud moments."*). Scroll cue. Animations: M3, M5.
-2. **Intro statement** — 2–3 sentence studio philosophy in large serif type; words fade from `--muted` to `--fg` as they scroll into view.
+2. **Intro statement** — 2–3 sentence studio philosophy in large serif type; words fade from `--muted` to `--fg` as they scroll into view. An optional brand mascot (admin: Studio → Intro mascot) sits in front of the large outlined "01", in its own colours.
 3. **Selected work** — 5–7 featured images in an asymmetric editorial grid; each links to its category in the Gallery. M4 reveals. CTA: *View full gallery →*.
 4. **Services** — list of services (Weddings, Portraits, Fashion/Editorial, Products/Commercial, Events, Maternity & Newborn — configurable). Each row: number, name, short line; hover reveals a floating preview image following the cursor (desktop).
 5. **About the studio** — portrait of the photographer(s), short bio, years of experience, location, approach. Optional stats with count-up animation (e.g. *8 years · 300+ shoots · 40 brands*).

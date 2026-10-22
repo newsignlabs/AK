@@ -7,7 +7,7 @@ import { Button, TextLink } from '../components/Button';
 import { Marquee } from '../components/Marquee';
 import { CountUp } from '../components/CountUp';
 import { Arrow, WhatsApp, ArrowLeft } from '../components/Icons';
-import { categories, featuredPhotos, galleryPhotos, getPhoto, instagram, services, site, testimonials } from '../lib/content';
+import { categories, featuredPhotos, galleryPhotos, getPhoto, instagram, mascot, services, site, testimonials } from '../lib/content';
 import { waLink } from '../lib/whatsapp';
 import { track } from '../lib/analytics';
 import { useFinePointer } from '../lib/hooks';
@@ -18,7 +18,16 @@ export default function Home() {
     <>
       <Hero />
       <section className="section container intro" aria-label="Our philosophy">
-        <Num n={1} />
+        <div className={`intro__badge ${mascot ? 'intro__badge--mascot' : ''}`}>
+          <Num n={1} />
+          {mascot && (
+            // Brand mascot sitting in front of the "01" (own colours, not greyscale).
+            <picture className="intro__mascot">
+              <source type="image/webp" srcSet={`/images/${mascot.id}-mascot.webp`} />
+              <img src={`/images/${mascot.id}-mascot.png`} width={mascot.w} height={mascot.h} alt="" loading="lazy" decoding="async" />
+            </picture>
+          )}
+        </div>
         <p className="eyebrow">(01) — Studio</p>
         <ScrollWords text="We make calm, considered photographs of weddings, people and the things they make. Less direction, more attention. Images that feel the way the moment felt." />
       </section>

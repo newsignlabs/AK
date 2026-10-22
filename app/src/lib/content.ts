@@ -29,12 +29,16 @@ export const photos = (photosJson as Partial<Photo>[]).filter((p): p is Photo =>
 const byId = new Map(photos.map((p) => [p.id, p]));
 
 export const site = siteJson;
-export type Logo = { id: string; file: string; w?: number; h?: number };
-/** The uploaded logo once the build has processed it, otherwise null (text monogram is shown). */
-export const logo: (Logo & { w: number; h: number }) | null = (() => {
-  const l = (siteJson as { logo?: Logo | null }).logo;
-  return l && l.w && l.h ? (l as Logo & { w: number; h: number }) : null;
-})();
+export type BrandImage = { id: string; file: string; w: number; h: number };
+/** A brand image from site.json once the build has processed it, otherwise null. */
+function brandImage(key: 'logo' | 'mascot'): BrandImage | null {
+  const v = (siteJson as Record<string, unknown>)[key] as Partial<BrandImage> | null | undefined;
+  return v && v.id && v.w && v.h ? (v as BrandImage) : null;
+}
+/** Header logo (null → the text monogram is shown). */
+export const logo = brandImage('logo');
+/** Home intro mascot, shown in front of the "01" (null → none). */
+export const mascot = brandImage('mascot');
 export const pricing = pricingJson;
 export const services = servicesJson;
 export const testimonials = testimonialsJson;
