@@ -68,12 +68,25 @@ table { border-collapse: collapse; }
 /* "01" (and the optional mascot sitting in front of it). Sized in em of the numeral. */
 .intro__badge { position: absolute; top: 0; right: 0; font-size: clamp(7rem, 22vw, 20rem); line-height: 1; pointer-events: none; z-index: 0; }
 .intro__badge .section__num { position: static; display: block; font-size: 1em; }
-.intro__mascot img { position: absolute; left: 50%; bottom: 0.1em; height: 0.74em; width: auto; max-width: none; transform: translateX(-50%); }
+.intro__mascot { position: absolute; left: 50%; bottom: 0.2em; height: 1em; transform: translateX(-50%); animation: mascot-float 3.6s ease-in-out infinite; will-change: transform; }
+.intro__mascot img { display: block; height: 100%; width: auto; max-width: none; }
+/* Faint glow on the "01" that shrinks as the mascot rises (reads as it hovering above). */
+.intro__shadow { position: absolute; left: 50%; bottom: 0.14em; width: 0.55em; height: 0.07em; border-radius: 50%; background: radial-gradient(closest-side, rgb(244 243 239 / 0.22), transparent); transform: translateX(-50%); animation: mascot-shadow 3.6s ease-in-out infinite; }
+/* Floats up and down like it is flying; at the top of the bounce the "01" behind is readable. */
+@keyframes mascot-float {
+  0%, 100% { transform: translate(-50%, 0) rotate(-1deg); }
+  50% { transform: translate(-50%, -0.4em) rotate(1deg); }
+}
+@keyframes mascot-shadow {
+  0%, 100% { transform: translateX(-50%) scale(1); opacity: 1; }
+  50% { transform: translateX(-50%) scale(0.55); opacity: 0.35; }
+}
+@media (prefers-reduced-motion: reduce) { .intro__mascot, .intro__shadow { animation: none; } }
 /* With a mascot, the "01" gets its own row (it is opaque and must not cover words or the label). */
-.intro__badge--mascot { position: relative; top: auto; right: auto; left: auto; justify-self: end; margin-block: -0.1em -0.2em; font-size: clamp(8.5rem, 34vw, 13rem); }
+.intro__badge--mascot { position: relative; top: auto; right: auto; left: auto; justify-self: end; margin-block: 0.6em -0.2em; font-size: clamp(8.5rem, 34vw, 13rem); }
 @media (min-width: 1024px) {
   .intro__badge:not(.intro__badge--mascot) { top: 0.25em; right: auto; left: calc(var(--gutter) - 0.06em); }
-  .intro__badge--mascot { grid-column: 1; grid-row: 2; justify-self: start; margin: 0 0 0 -0.04em; font-size: clamp(10rem, 15vw, 15rem); }
+  .intro__badge--mascot { grid-column: 1; grid-row: 2; justify-self: start; margin: 0.6em 0 0 -0.04em; font-size: clamp(10rem, 15vw, 15rem); }
   .intro:has(.intro__badge--mascot) > .eyebrow { grid-column: 1; grid-row: 1; }
   .intro:has(.intro__badge--mascot) > .scroll-words { grid-column: 2; grid-row: 1 / span 2; }
 }
