@@ -4,36 +4,32 @@
   "tagline": "Quiet images of *loud* moments.",
   "description": "AK Studio is a photography studio for weddings, portraits, fashion and commercial work. Minimal, honest images made with care.",
   "url": "https://www.akstudio.example",
-  "email": "hello@akstudio.example",
-  "phone": "+91 90000 00000",
+  "email": "akstudioannur@gmail.com",
+  "phone": "+91 6381138831",
   "address": {
-    "street": "12 Lake View Road",
-    "city": "Bengaluru",
-    "region": "Karnataka",
-    "postalCode": "560001",
+    "street": "Thennampalayam Road",
+    "city": "Coimbatore",
+    "region": "Tamil Nadu",
+    "postalCode": "641653",
     "country": "IN"
   },
   "geo": {
-    "lat": 12.9716,
+    "lat": 12.9714,
     "lng": 77.5946
   },
   "hours": [
     {
-      "days": "Monday – Friday",
-      "time": "10:00 – 19:00"
-    },
-    {
-      "days": "Saturday",
-      "time": "10:00 – 16:00"
+      "days": "Monday – Saturday",
+      "time": "10:00 – 21:00"
     },
     {
       "days": "Sunday",
-      "time": "By appointment"
+      "time": "16:00 - 21:00"
     }
   ],
-  "appointmentNote": "Studio visits are by appointment only.",
+  "appointmentNote": "Studio visits are non-appointments based.",
   "whatsapp": {
-    "number": "919000000000",
+    "number": "916381138831",
     "defaultMessage": "Hi AK Studio! I'd like to know more about a shoot."
   },
   "socials": {
