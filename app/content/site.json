@@ -99,5 +99,9 @@
   "logo": {
     "id": "logo-ak-studio-logo-b32ccf",
     "file": "logo-ak-studio-logo-b32ccf.png"
+  },
+  "mascot": {
+    "id": "mascot-ak-baby-7c41d2",
+    "file": "mascot-ak-baby-7c41d2.webp"
   }
 }

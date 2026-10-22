@@ -65,8 +65,18 @@ table { border-collapse: collapse; }
 }
 .section__head > :not(.section__num) { position: relative; z-index: 1; }
 .intro { position: relative; }
-.intro .section__num { top: 0; }
-@media (min-width: 1024px) { .intro .section__num { top: 0.25em; right: auto; left: calc(var(--gutter) - 0.06em); } }
+/* "01" (and the optional mascot sitting in front of it). Sized in em of the numeral. */
+.intro__badge { position: absolute; top: 0; right: 0; font-size: clamp(7rem, 22vw, 20rem); line-height: 1; pointer-events: none; z-index: 0; }
+.intro__badge .section__num { position: static; display: block; font-size: 1em; }
+.intro__mascot img { position: absolute; left: 50%; bottom: 0.1em; height: 0.74em; width: auto; max-width: none; transform: translateX(-50%); }
+/* With a mascot, the "01" gets its own row (it is opaque and must not cover words or the label). */
+.intro__badge--mascot { position: relative; top: auto; right: auto; left: auto; justify-self: end; margin-block: -0.1em -0.2em; font-size: clamp(8.5rem, 34vw, 13rem); }
+@media (min-width: 1024px) {
+  .intro__badge:not(.intro__badge--mascot) { top: 0.25em; right: auto; left: calc(var(--gutter) - 0.06em); }
+  .intro__badge--mascot { grid-column: 1; grid-row: 2; justify-self: start; margin: 0 0 0 -0.04em; font-size: clamp(10rem, 15vw, 15rem); }
+  .intro:has(.intro__badge--mascot) > .eyebrow { grid-column: 1; grid-row: 1; }
+  .intro:has(.intro__badge--mascot) > .scroll-words { grid-column: 2; grid-row: 1 / span 2; }
+}
 .section__head--row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--s-4); }
 .section__foot { margin-top: var(--s-6); display: flex; justify-content: flex-end; }
 

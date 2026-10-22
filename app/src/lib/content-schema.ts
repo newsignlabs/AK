@@ -15,6 +15,17 @@ const httpUrl = z
   .refine((v) => v === '' || /^https?:\/\/[^\s]+$/i.test(v), 'Must start with http:// or https://');
 const money = z.number().int().min(0).max(100_000_000);
 
+const brandImage = z
+  .object({
+    id,
+    file: z.string().regex(/^[a-z0-9][a-z0-9-]{0,62}\.(jpe?g|png|webp)$/i),
+    w: z.number().int().positive().optional(),
+    h: z.number().int().positive().optional(),
+  })
+  .strict()
+  .nullable()
+  .optional();
+
 export const siteSchema = z
   .object({
     name: text(80, 1),
@@ -59,18 +70,10 @@ export const siteSchema = z
     marquee: z.array(text(40, 1)).min(1).max(16),
     established: z.number().int().min(1900).max(2100),
     heroId: id,
-    // Optional logo (shown in the header instead of the text monogram).
-    // w/h are filled in by the image build.
-    logo: z
-      .object({
-        id,
-        file: z.string().regex(/^[a-z0-9][a-z0-9-]{0,62}\.(jpe?g|png|webp)$/i),
-        w: z.number().int().positive().optional(),
-        h: z.number().int().positive().optional(),
-      })
-      .strict()
-      .nullable()
-      .optional(),
+    // Optional logo (header, instead of the text monogram) and mascot (Home
+    // intro, in front of the "01"). w/h are filled in by the image build.
+    logo: brandImage,
+    mascot: brandImage,
   })
   .strict();
 

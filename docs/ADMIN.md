@@ -10,7 +10,7 @@ Every change is a normal Git commit, so it can be reviewed and undone.
 
 | Tab | Content |
 |---|---|
-| Studio | Name, monogram, hero tagline, description, hero photo, **logo**, website address, scrolling words |
+| Studio | Name, monogram, hero tagline, description, hero photo, **logo**, **intro mascot**, website address, scrolling words |
 | Contact & social | Email, phone, WhatsApp number and message, address, map position, opening hours, social links |
 | About | Heading, paragraphs, portrait, stats, process steps |
 | Services | Services list on Home and which gallery category each links to |
@@ -27,6 +27,11 @@ transparent borders). It replaces the text monogram and is shown in its own colo
 The header is always dark (see-through over the dark top of each page, solid black
 once you scroll), so a light logo is always readable. Remove it to go back to the
 monogram.
+
+**Intro mascot:** the illustration that sits in front of the large "01" in the Home
+intro. Upload a transparent PNG or WebP (about 1200 px tall) in the Studio tab; it keeps
+its own colours and empty borders are trimmed automatically. Remove it to show just the
+"01".
 
 Before committing, everything is checked against the same rules the site is built with:
 - Required fields and lengths.
