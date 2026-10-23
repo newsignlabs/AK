@@ -1,5 +1,13 @@
 [
   {
+    "id": "gemini-generated-image-wc321ywc321ywc32-fbe44f",
+    "file": "gemini-generated-image-wc321ywc321ywc32-fbe44f.jpg",
+    "alt": "Placeholder image: a couple posing for a photo",
+    "category": "weddings",
+    "caption": "Wedding — placeholder 1",
+    "featured": true
+  },
+  {
     "id": "pic-fr-insta-copy-9cd193",
     "file": "pic-fr-insta-copy-9cd193.jpg",
     "alt": "Placeholder hero image: soft light in the studio",
@@ -13,7 +21,7 @@
     "file": "wed-01.jpg",
     "alt": "Placeholder image: a couple walking through a garden at dusk",
     "category": "weddings",
-    "caption": "Wedding — placeholder 1",
+    "caption": "Wedding — placeholder 6",
     "featured": true,
     "w": 1600,
     "h": 2400,
@@ -30,7 +38,7 @@
     "alt": "Placeholder image: hands and rings in soft window light",
     "category": "weddings",
     "caption": "Wedding — placeholder 2",
-    "featured": true,
+    "featured": false,
     "w": 2400,
     "h": 1600,
     "widths": [
