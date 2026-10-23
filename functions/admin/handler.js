@@ -1,7 +1,7 @@
 'use strict';
 
 const crypto = require('node:crypto');
-const { validateBundle, BUNDLE_KEYS, ORIGINALS_DIR } = require('./lib/shared');
+const { validateBundle, BUNDLE_KEYS, ORIGINALS_DIR, KNOWN_TOP_LEVEL_KEYS } = require('./lib/shared');
 const { verifyPassword, sign, verifyToken } = require('./auth');
 const { hasAppConfig } = require('./app-auth');
 
@@ -129,11 +129,11 @@ function createHandler({ env, services, github, now = () => Date.now(), log = co
       if (name === 'publish' && req.method === 'POST') {
         const { content, shas } = body;
         if (!content || typeof content !== 'object' || !shas || typeof shas !== 'object') return send(400, { error: 'invalid_request' });
-        const issues = validateBundle(content);
-        if (issues.length) return send(400, { error: 'validation', issues });
-
         const tip = await github.head();
         const current = await github.readJson(Object.values(BUNDLE_KEYS));
+        const issues = validateBundle(withoutCarriedOverFields(content, current, log));
+        if (issues.length) return send(400, { error: 'validation', issues });
+
         const files = [];
         for (const [key, path] of Object.entries(BUNDLE_KEYS)) {
           // Compare content, not text, so files formatted differently by hand
@@ -173,6 +173,30 @@ function createHandler({ env, services, github, now = () => Date.now(), log = co
       return send(502, { error: 'github' });
     }
   };
+}
+
+/**
+ * Site updates can add new top-level fields (e.g. site.mascot) before this
+ * function is re-uploaded with rules that know them. Fields this version does
+ * not know are skipped during validation when they are unchanged from the
+ * repository, so publishing other edits keeps working. New or changed unknown
+ * fields are still validated, and refused.
+ */
+function withoutCarriedOverFields(content, current, log = console) {
+  const copy = { ...content };
+  for (const [key, known] of Object.entries(KNOWN_TOP_LEVEL_KEYS || {})) {
+    const next = content[key];
+    const prev = current[BUNDLE_KEYS[key]] && current[BUNDLE_KEYS[key]].data;
+    if (!next || typeof next !== 'object' || !prev || typeof prev !== 'object') continue;
+    const carried = Object.keys(next).filter(
+      (k) => !known.includes(k) && k in prev && JSON.stringify(next[k]) === JSON.stringify(prev[k]),
+    );
+    if (!carried.length) continue;
+    copy[key] = { ...next };
+    for (const k of carried) delete copy[key][k];
+    log.info('admin: unchanged field(s) not known to this version, kept as is:', key, carried.join(', '));
+  }
+  return copy;
 }
 
 /** Git's blob id for a utf-8 string, to detect unchanged files without a diff. */
