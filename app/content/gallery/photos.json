@@ -5,7 +5,7 @@
     "alt": "Placeholder image: a portrait of a women",
     "category": "portraits",
     "caption": "Portrait — placeholder 2",
-    "featured": false
+    "featured": true
   },
   {
     "id": "gemini-generated-image-tn6ywgtn6ywgtn6y-87fd7e",
@@ -13,7 +13,7 @@
     "alt": "Placeholder image: a portrait of a women",
     "category": "portraits",
     "caption": "Portrait — placeholder 1",
-    "featured": true
+    "featured": false
   },
   {
     "id": "gemini-generated-image-wc321ywc321ywc32-fbe44f",
