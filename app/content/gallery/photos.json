@@ -1,5 +1,21 @@
 [
   {
+    "id": "elegant-south-asian-bride-in-ivory-and-g-9494c7",
+    "file": "elegant-south-asian-bride-in-ivory-and-g-9494c7.jpg",
+    "alt": "Placeholder image: a portrait of a women",
+    "category": "portraits",
+    "caption": "Portrait — placeholder 2",
+    "featured": false
+  },
+  {
+    "id": "gemini-generated-image-tn6ywgtn6ywgtn6y-87fd7e",
+    "file": "gemini-generated-image-tn6ywgtn6ywgtn6y-87fd7e.jpg",
+    "alt": "Placeholder image: a portrait of a women",
+    "category": "portraits",
+    "caption": "Portrait — placeholder 1",
+    "featured": true
+  },
+  {
     "id": "gemini-generated-image-wc321ywc321ywc32-fbe44f",
     "file": "gemini-generated-image-wc321ywc321ywc32-fbe44f.jpg",
     "alt": "Placeholder image: a couple posing for a photo",
@@ -105,8 +121,8 @@
     "file": "por-01.jpg",
     "alt": "Placeholder image: a portrait in soft north light",
     "category": "portraits",
-    "caption": "Portrait — placeholder 1",
-    "featured": true,
+    "caption": "Portrait — placeholder 5",
+    "featured": false,
     "w": 1920,
     "h": 2400,
     "widths": [
@@ -122,7 +138,7 @@
     "file": "por-02.jpg",
     "alt": "Placeholder image: a profile against a plain wall",
     "category": "portraits",
-    "caption": "Portrait — placeholder 2",
+    "caption": "Portrait — placeholder 6",
     "featured": false,
     "w": 2400,
     "h": 1350,
