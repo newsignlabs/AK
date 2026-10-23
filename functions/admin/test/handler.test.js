@@ -207,3 +207,31 @@ test('is configured with GitHub App settings and no personal token', async () =>
   const none = setup({ GITHUB_TOKEN: '' });
   assert.equal((await call(none.handler, { body: { password: 'correct horse battery' } })).status, 503);
 });
+
+test('keeps unchanged fields this version does not know yet, refuses new or changed ones', async () => {
+  const { handler, github } = setup();
+  // The site gained a field newer than this function's rules (like site.mascot was).
+  const site = JSON.parse(github.repo['app/content/site.json']);
+  site.futureFeature = { id: 'x-1', on: true };
+  github.repo['app/content/site.json'] = text(site);
+  const token = await login(handler);
+
+  const load = async () => (await call(handler, { method: 'GET', url: '/content', token })).json;
+  let { content, shas } = await load();
+  content.faq[0].a = 'Edited while the site has a newer field.';
+  let r = await call(handler, { url: '/publish', token, body: { content, shas } });
+  assert.equal(r.status, 200, JSON.stringify(r.json));
+  assert.deepEqual(r.json.files, ['app/content/faq.json']);
+  assert.deepEqual(JSON.parse(github.repo['app/content/site.json']).futureFeature, { id: 'x-1', on: true }, 'field kept as is');
+
+  ({ content, shas } = await load());
+  content.site.futureFeature = { id: 'x-2', on: false };
+  r = await call(handler, { url: '/publish', token, body: { content, shas } });
+  assert.equal(r.status, 400, 'a changed unknown field is refused');
+
+  ({ content, shas } = await load());
+  content.site.injected = '<script>';
+  r = await call(handler, { url: '/publish', token, body: { content, shas } });
+  assert.equal(r.status, 400, 'a new unknown field is refused');
+  assert.ok(r.json.issues.some((i) => /injected/.test(i.message)));
+});

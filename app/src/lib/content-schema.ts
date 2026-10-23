@@ -147,6 +147,12 @@ export const CONTENT_FILES = {
 } as const;
 
 export type ContentPath = keyof typeof CONTENT_FILES;
+
+/** Top-level fields this version of the rules knows, for the object-shaped files. */
+export const KNOWN_TOP_LEVEL_KEYS: Record<string, string[]> = {
+  site: Object.keys(siteSchema.shape),
+  pricing: Object.keys(pricingSchema.shape),
+};
 export const CONTENT_PATHS = Object.keys(CONTENT_FILES) as ContentPath[];
 export const ORIGINALS_DIR = 'app/content/gallery/originals';
 
