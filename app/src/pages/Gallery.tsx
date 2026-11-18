@@ -101,17 +101,27 @@ export default function Gallery() {
                 key={p.id}
                 layout
                 className="masonry__item"
-                initial={mounted ? { opacity: 0, y: 30 } : false}
-                animate={{ opacity: 1, y: 0 }}
+                style={{ transformOrigin: '50% -30px' }}
+                // Prints hang in with a slight swing (M14).
+                initial={mounted ? { opacity: 0, y: -24, rotate: i % 2 ? 3 : -3 } : false}
+                animate={{ opacity: 1, y: 0, rotate: 0 }}
                 exit={{ opacity: 0, scale: 0.96 }}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: (i % BATCH) * 0.04 }}
+                transition={{
+                  opacity: { duration: 0.5, delay: (i % BATCH) * 0.04 },
+                  y: { type: 'spring', stiffness: 90, damping: 14, delay: (i % BATCH) * 0.04 },
+                  rotate: { type: 'spring', stiffness: 70, damping: 7, delay: (i % BATCH) * 0.04 },
+                }}
               >
                 <button
-                  className="masonry__btn"
+                  className="masonry__btn frame"
                   onClick={() => openAt(i)}
                   aria-label={`Open photo: ${p.alt}`}
                   data-cursor="view"
                 >
+                  <span className="masonry__label label glass" aria-hidden>
+                    <span className="label__no">No. {String(i + 1).padStart(3, '0')}</span>
+                    <strong>{p.caption || categories.find((c) => c.slug === p.category)?.title}</strong>
+                  </span>
                   <Img
                     photo={p}
                     priority={i < 3}

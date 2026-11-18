@@ -1,213 +1,254 @@
-import { AnimatePresence, m, useMotionValue, useSpring } from 'motion/react';
-import { useEffect, useState } from 'react';
+import { m } from 'motion/react';
+import type { ReactNode } from 'react';
 import { Link } from 'react-router';
 import { Img } from '../components/Img';
-import { FadeUp, Parallax, RevealImage, RevealText, ScrollWords } from '../components/Reveal';
+import { FadeUp, Hang, RevealText, ScrollWords, SlideLabel } from '../components/Reveal';
 import { Button, TextLink } from '../components/Button';
 import { Marquee } from '../components/Marquee';
 import { CountUp } from '../components/CountUp';
-import { Arrow, WhatsApp, ArrowLeft } from '../components/Icons';
+import { Arrow, WhatsApp } from '../components/Icons';
+import { Depth, Room, Walk, useWalk } from '../components/Walk';
 import { categories, featuredPhotos, galleryPhotos, getPhoto, instagram, mascot, services, site, testimonials } from '../lib/content';
 import { waLink } from '../lib/whatsapp';
 import { track } from '../lib/analytics';
-import { useFinePointer } from '../lib/hooks';
+import { accent } from '../lib/rich';
 import { ease } from '../lib/motion';
+
+/**
+ * Home is an exhibition: a walk through rooms. On desktop the rooms slide
+ * sideways as you scroll (see Walk); on tablets and phones they stack.
+ */
+const ROOMS = [
+  { id: 'entrance', label: 'Entrance' },
+  { id: 'statement', label: 'The studio' },
+  { id: 'works', label: 'Selected works' },
+  { id: 'services', label: 'Services' },
+  { id: 'artist', label: 'The artist' },
+  { id: 'process', label: 'Process' },
+  { id: 'guestbook', label: 'Guestbook' },
+  ...(site.socials.instagram && instagram.length ? [{ id: 'instagram', label: 'Instagram' }] : []),
+  { id: 'exit', label: 'Exit' },
+];
+
+const pad = (n: number, w = 2) => String(n).padStart(w, '0');
 
 export default function Home() {
   return (
     <>
-      <Hero />
-      <section className="section container intro" aria-label="Our philosophy">
-        <div className={`intro__badge ${mascot ? 'intro__badge--mascot' : ''}`}>
-          <Num n={1} />
-          {mascot && <span className="intro__shadow" aria-hidden />}
-          {mascot && (
-            // Brand mascot floating in front of the "01" (own colours, not greyscale).
-            <picture className="intro__mascot">
-              <source type="image/webp" srcSet={`/images/${mascot.id}-mascot.webp`} />
-              <img src={`/images/${mascot.id}-mascot.png`} width={mascot.w} height={mascot.h} alt="" loading="lazy" decoding="async" />
-            </picture>
-          )}
-        </div>
-        <p className="eyebrow">(01) — Studio</p>
-        <ScrollWords text="We make calm, considered photographs of weddings, people and the things they make. Less direction, more attention. Images that feel the way the moment felt." />
-      </section>
-      <SelectedWork />
-      <Services />
-      <About />
-      <Process />
-      <Testimonials />
-      <div className="invert">
-        <Marquee items={site.marquee} />
-      </div>
-      <InstagramStrip />
-      <Cta />
+      <Walk rooms={ROOMS}>
+        <Entrance />
+        <Statement />
+        <Works />
+        <Services />
+        <Artist />
+        <Process />
+        <Guestbook />
+        <InstagramRoom />
+        <Exit />
+      </Walk>
+      <Marquee items={site.marquee} />
     </>
   );
 }
 
-function Hero() {
+/** Room plaque: "Room 03" label, title, optional link. */
+function Plaque({ n, title, id, children }: { n: number; title: string; id: string; children?: ReactNode }) {
+  return (
+    <div className="plaque">
+      <Depth depth={0.18} className="plaque__num-layer">
+        <span className="plaque__num" aria-hidden>
+          {pad(n)}
+        </span>
+      </Depth>
+      <p className="eyebrow">Room {pad(n)}</p>
+      <RevealText id={id} lines={[title]} className="h2 plaque__title" />
+      {children}
+    </div>
+  );
+}
+
+function Entrance() {
   const [first, ...rest] = site.tagline.split(' ');
   const lines = [first + ' ' + rest.slice(0, 1).join(' '), rest.slice(1).join(' ')].filter(Boolean);
-  const total = String(galleryPhotos.length).padStart(3, '0');
+  const walk = useWalk();
   return (
-    <section className="hero">
-      <Parallax className="hero__media" speed={0.08}>
+    <Room id="entrance" label="Entrance">
+      <Depth depth={0.3} className="entrance__media">
         <Img photo={site.heroId} priority sizes="100vw" cover />
-      </Parallax>
-      <div className="hero__shade" aria-hidden />
-      <div className="hero__frame" aria-hidden>
+      </Depth>
+      <div className="entrance__shade" aria-hidden />
+      <div className="entrance__frame" aria-hidden>
         <span className="crop crop--tl" />
         <span className="crop crop--tr" />
         <span className="crop crop--bl" />
         <span className="crop crop--br" />
       </div>
-      <div className="hero__content container">
-        <m.div
-          className="hero__top"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6, duration: 0.8 }}
-        >
-          <span className="eyebrow">{site.name} — Photography</span>
-          <span className="eyebrow hero__counter">Fr. 001 / {total}</span>
-        </m.div>
-        <RevealText as="h1" className="display hero__title" lines={lines} immediate delay={0.2} />
-        <m.div
-          className="hero__meta"
-          initial={{ opacity: 0, y: 12 }}
+      <div className="entrance__card glass">
+        <p className="eyebrow">
+          {site.name} — An exhibition of photographs · {pad(galleryPhotos.length, 3)} works
+        </p>
+        <RevealText as="h1" className="display entrance__title" lines={lines} immediate delay={0.5} />
+        <m.p
+          className="entrance__meta"
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.1, duration: 0.8 }}
+          transition={{ delay: 1.3, duration: 0.8 }}
         >
-          <span>{site.address.city}, {site.address.country}</span>
-          <span>Est. {site.established}</span>
-          <span className="hero__services">{site.marquee.slice(0, 3).join(' · ')}</span>
-          <span className="hero__cue">
-            Scroll <span className="hero__cue-line" aria-hidden />
+          <span>
+            {site.address.city}, {site.address.country}
           </span>
-        </m.div>
+          <span>Est. {site.established}</span>
+          <span className="entrance__services">{site.marquee.slice(0, 3).join(' · ')}</span>
+        </m.p>
       </div>
-    </section>
+      <m.p
+        className="entrance__cue"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.8, duration: 0.8 }}
+        aria-hidden
+      >
+        {walk?.on ? 'Scroll to walk through' : 'Scroll'} <span className="entrance__cue-line" />
+      </m.p>
+      <div className="doors" aria-hidden>
+        <span className="doors__panel" />
+        <span className="doors__panel" />
+      </div>
+    </Room>
   );
 }
 
-/** Oversized outlined section numeral (decorative). */
-function Num({ n }: { n: number }) {
+const STATEMENT =
+  'We make calm, considered photographs of weddings, people and the things they make. Less direction, more attention. Images that feel the way the moment felt.';
+
+function Statement() {
+  const walk = useWalk();
   return (
-    <span className="section__num" aria-hidden>
-      {String(n).padStart(2, '0')}
-    </span>
+    <Room id="statement" label="The studio">
+      <div className={`statement__badge ${mascot ? 'statement__badge--mascot' : ''}`}>
+        <span className="statement__num" aria-hidden>
+          01
+        </span>
+        {mascot && <span className="statement__glow" aria-hidden />}
+        {mascot && (
+          // Brand mascot floating in front of the "01" (own colours, not greyscale).
+          <picture className="statement__mascot">
+            <source type="image/webp" srcSet={`/images/${mascot.id}-mascot.webp`} />
+            <img src={`/images/${mascot.id}-mascot.png`} width={mascot.w} height={mascot.h} alt="" loading="lazy" decoding="async" />
+          </picture>
+        )}
+      </div>
+      <div className="statement__body">
+        <p className="eyebrow">Room 01 — The studio</p>
+        {walk?.on ? (
+          // While walking, the words light up as the room arrives.
+          <m.p
+            className="scroll-words"
+            initial="hidden"
+            whileInView="shown"
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ staggerChildren: 0.035 }}
+          >
+            {STATEMENT.split(' ').map((w, i) => (
+              <m.span key={i} variants={{ hidden: { opacity: 0.15 }, shown: { opacity: 1 } }} transition={{ duration: 0.5 }}>
+                {w}{' '}
+              </m.span>
+            ))}
+          </m.p>
+        ) : (
+          <ScrollWords text={STATEMENT} />
+        )}
+      </div>
+    </Room>
   );
 }
 
-function SelectedWork() {
+function Works() {
   const items = featuredPhotos.slice(0, 7);
   return (
-    <section className="section container work" aria-labelledby="work-title">
-      <div className="section__head">
-        <Num n={2} />
-        <p className="eyebrow">(02) — Selected work</p>
-        <RevealText id="work-title" lines={['A few frames', 'we keep *returning* to.']} className="h2" />
-      </div>
-      <div className="work__grid">
+    <Room id="works" label="Selected works" labelledBy="works-title">
+      <Plaque n={2} title="Selected *works*" id="works-title">
+        <FadeUp className="plaque__text">
+          <p>A few frames we keep returning to. Hover a print to see it in colour.</p>
+          <TextLink to="/gallery">Visit the full gallery →</TextLink>
+        </FadeUp>
+      </Plaque>
+      <ol className="wall">
         {items.map((p, i) => {
           const cat = categories.find((c) => c.slug === p.category);
           return (
-            <Link key={p.id} to={`/gallery/${p.category}`} className={`work__item work__item--${i % 7}`} data-cursor="view">
-              <RevealImage>
-                <Img photo={p} sizes="(min-width: 1024px) 40vw, 90vw" cover />
-              </RevealImage>
-              <span className="work__label">
-                <span>Fr. {String(i + 1).padStart(3, '0')}</span>
-                <span>{cat?.title}</span>
-                <span>{p.w > p.h ? 'Landscape' : 'Portrait'}</span>
-              </span>
-            </Link>
+            <li
+              key={p.id}
+              className={`wall__item wall__item--${i % 4} ${p.w > p.h ? 'is-landscape' : 'is-portrait'}`}
+              style={{ ['--ar' as string]: (p.w / p.h).toFixed(4) }}
+            >
+              <Hang delay={0.05 * (i % 3)} tilt={i % 2 ? 4 : -5}>
+                <Link to={`/gallery/${p.category}`} className="frame wall__frame" data-cursor="view" aria-label={`${cat?.title ?? ''}: ${p.alt}`}>
+                  <Img photo={p} sizes="(min-width: 1024px) 40vw, 90vw" />
+                </Link>
+              </Hang>
+              <SlideLabel className="label glass wall__label">
+                <span className="label__no">No. {pad(i + 1, 3)}</span>
+                <strong>{p.caption || cat?.title}</strong>
+                <span>
+                  {cat?.title} · {p.w > p.h ? 'Landscape' : 'Portrait'}
+                </span>
+              </SlideLabel>
+            </li>
           );
         })}
-      </div>
-      <div className="section__foot">
-        <TextLink to="/gallery">View full gallery →</TextLink>
-      </div>
-    </section>
+      </ol>
+    </Room>
   );
 }
 
 function Services() {
-  const fine = useFinePointer();
-  const [active, setActive] = useState<number | null>(null);
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const sx = useSpring(x, { stiffness: 200, damping: 25 });
-  const sy = useSpring(y, { stiffness: 200, damping: 25 });
   const coverFor = (slug: string) => categories.find((c) => c.slug === slug)?.cover;
-
   return (
-    <section
-      className="section services invert"
-      aria-labelledby="services-title"
-      onPointerMove={(e) => {
-        x.set(e.clientX);
-        y.set(e.clientY);
-      }}
-    >
-      <div className="container">
-      <div className="section__head">
-        <Num n={3} />
-        <p className="eyebrow">(03) — Services</p>
-        <RevealText id="services-title" lines={['What we *photograph*']} className="h2" />
-      </div>
-      <ol className="services__list">
-        {services.map((s, i) => (
-          <FadeUp as="li" key={s.slug} delay={i * 0.05}>
-            <Link
-              to={`/gallery/${s.slug}`}
-              className="services__row"
-              onPointerEnter={() => setActive(i)}
-              onPointerLeave={() => setActive(null)}
-            >
-              <span className="services__num">{String(i + 1).padStart(2, '0')}</span>
-              <span className="services__name">{s.name}</span>
-              <span className="services__blurb">{s.blurb}</span>
-              <Arrow className="services__arrow" />
-            </Link>
-          </FadeUp>
-        ))}
+    <Room id="services" label="Services" labelledBy="services-title">
+      <Plaque n={3} title="What we *photograph*" id="services-title" />
+      <ol className="plaques">
+        {services.map((s, i) => {
+          const cover = coverFor(s.slug);
+          return (
+            <FadeUp as="li" key={s.slug} delay={0.06 * i} className="plaques__item">
+              <Link to={`/gallery/${s.slug}`} className="plaques__card glass bloom">
+                {cover && (
+                  <span className="plaques__img">
+                    <Img photo={cover} sizes="(min-width: 1024px) 14vw, 40vw" cover />
+                  </span>
+                )}
+                <span className="plaques__num">{pad(i + 1)}</span>
+                <span className="plaques__name">{s.name}</span>
+                <span className="plaques__blurb">{s.blurb}</span>
+                <Arrow className="plaques__arrow" />
+              </Link>
+            </FadeUp>
+          );
+        })}
       </ol>
-      </div>
-      {fine && (
-        <m.div className="services__preview" style={{ x: sx, y: sy }} aria-hidden>
-          <AnimatePresence>
-            {active !== null && coverFor(services[active].slug) && (
-              <m.div
-                key={active}
-                className="services__preview-img"
-                initial={{ opacity: 0, scale: 0.85, rotate: -3 }}
-                animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.35, ease: ease.out }}
-              >
-                <Img photo={coverFor(services[active].slug)!} sizes="280px" cover />
-              </m.div>
-            )}
-          </AnimatePresence>
-        </m.div>
-      )}
-    </section>
+    </Room>
   );
 }
 
-function About() {
+function Artist() {
+  const portrait = getPhoto(site.about.portraitId);
   return (
-    <section className="section container about" aria-labelledby="about-title">
-      <div className="about__media">
-        <RevealImage>
-          <Img photo={site.about.portraitId} sizes="(min-width: 1024px) 40vw, 90vw" />
-        </RevealImage>
+    <Room id="artist" label="The artist" labelledBy="about-title">
+      <div className="artist__portrait" style={{ ['--ar' as string]: (portrait.w / portrait.h).toFixed(4) }}>
+        <Hang tilt={3}>
+          <div className="frame bloom">
+            <Img photo={site.about.portraitId} sizes="(min-width: 1024px) 30vw, 90vw" />
+          </div>
+        </Hang>
+        <SlideLabel className="label glass">
+          <span className="label__no">Portrait</span>
+          <strong>{site.name}</strong>
+          <span>{site.address.city}</span>
+        </SlideLabel>
       </div>
-      <div className="about__body">
-        <Num n={4} />
-        <p className="eyebrow">(04) — About</p>
+      <div className="artist__panel glass glass--strong">
+        <p className="eyebrow">Room 04 — The artist</p>
         <RevealText id="about-title" lines={[site.about.heading]} className="h2" />
         {site.about.body.map((p, i) => (
           <FadeUp as="p" key={i} delay={0.1 * i} className="lead">
@@ -225,125 +266,121 @@ function About() {
           ))}
         </dl>
       </div>
-    </section>
+    </Room>
   );
 }
 
 function Process() {
   return (
-    <section className="section process invert" aria-labelledby="process-title">
-      <div className="container">
-      <div className="section__head">
-        <Num n={5} />
-        <p className="eyebrow">(05) — Process</p>
-        <RevealText id="process-title" lines={['How we *work*']} className="h2" />
-      </div>
-      <ol className="process__list">
+    <Room id="process" label="Process" labelledBy="process-title">
+      <Plaque n={5} title="How we *work*" id="process-title" />
+      <ol className="timeline">
+        <m.span
+          className="timeline__line"
+          aria-hidden
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.6, ease: ease.inOut }}
+        />
         {site.process.map((s, i) => (
-          <FadeUp as="li" key={s.title} delay={i * 0.08} className="process__step">
-            <span className="process__num">{String(i + 1).padStart(2, '0')}</span>
+          <FadeUp as="li" key={s.title} delay={0.25 + i * 0.15} className="timeline__step glass">
+            <span className="timeline__dot" aria-hidden />
+            <span className="timeline__num">{pad(i + 1)}</span>
             <h3 className="h3">{s.title}</h3>
             <p>{s.text}</p>
           </FadeUp>
         ))}
       </ol>
-      </div>
-    </section>
+    </Room>
   );
 }
 
-function Testimonials() {
-  const [i, setI] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const n = testimonials.length;
-  useEffect(() => {
-    if (paused) return;
-    const t = window.setInterval(() => setI((v) => (v + 1) % n), 6000);
-    return () => window.clearInterval(t);
-  }, [paused, n]);
-  const t = testimonials[i];
+function Guestbook() {
   return (
-    <section
-      className="section container testimonials"
-      aria-roledescription="carousel"
-      aria-label="Client testimonials"
-      onPointerEnter={() => setPaused(true)}
-      onPointerLeave={() => setPaused(false)}
-      onFocus={() => setPaused(true)}
-      onBlur={() => setPaused(false)}
-    >
-      <span className="testimonials__mark" aria-hidden>“</span>
-      <p className="eyebrow">(06) — Kind words</p>
-      <div className="testimonials__stage" aria-live={paused ? 'polite' : 'off'}>
-        <AnimatePresence mode="wait">
-          <m.figure
-            key={i}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.6, ease: ease.out }}
-          >
-            <blockquote className="display testimonials__quote">{t.quote}</blockquote>
-            <figcaption>
-              <strong>{t.name}</strong> — {t.role}
-            </figcaption>
-          </m.figure>
-        </AnimatePresence>
-      </div>
-      <div className="testimonials__controls">
-        <button className="icon-btn" onClick={() => setI((i - 1 + n) % n)} aria-label="Previous testimonial">
-          <ArrowLeft />
-        </button>
-        <span className="testimonials__count">
-          {String(i + 1).padStart(2, '0')} / {String(n).padStart(2, '0')}
-        </span>
-        <button className="icon-btn" onClick={() => setI((i + 1) % n)} aria-label="Next testimonial">
-          <Arrow />
-        </button>
-      </div>
-    </section>
-  );
-}
-
-function InstagramStrip() {
-  const handle = site.socials.instagram?.split('/').filter(Boolean).pop();
-  if (!site.socials.instagram || instagram.length === 0) return null;
-  return (
-    <section className="section instagram" aria-labelledby="ig-title">
-      <div className="container section__head section__head--row">
-        <h2 id="ig-title" className="eyebrow">On Instagram</h2>
-        <a className="text-link" href={site.socials.instagram} target="_blank" rel="noopener noreferrer" onClick={() => track('social_click', { network: 'instagram' })}>
-          @{handle}
-        </a>
-      </div>
-      <ul className="instagram__grid">
-        {instagram.slice(0, 6).map((item, i) => (
-          <FadeUp as="li" key={item.photoId} delay={i * 0.05}>
-            <a href={item.url} target="_blank" rel="noopener noreferrer" aria-label={`Instagram post: ${getPhoto(item.photoId).alt}`} data-cursor="view">
-              <Img photo={item.photoId} sizes="(min-width: 1024px) 16vw, 33vw" cover />
-            </a>
+    <Room id="guestbook" label="Guestbook" labelledBy="guestbook-title">
+      <Plaque n={6} title="The *guestbook*" id="guestbook-title" />
+      <ul className="guestbook">
+        {testimonials.map((t, i) => (
+          <FadeUp as="li" key={i} delay={0.08 * i} className="guestbook__entry glass">
+            <span className="guestbook__mark" aria-hidden>
+              “
+            </span>
+            <blockquote>{t.quote}</blockquote>
+            <p className="guestbook__by">
+              <strong>{t.name}</strong>
+              <span>{t.role}</span>
+            </p>
           </FadeUp>
         ))}
       </ul>
-    </section>
+    </Room>
   );
 }
 
-function Cta() {
+function InstagramRoom() {
+  const handle = site.socials.instagram?.split('/').filter(Boolean).pop();
+  if (!site.socials.instagram || instagram.length === 0) return null;
   return (
-    <section className="section container cta">
-      <RevealText lines={["Let's create", '*something.*']} className="display cta__title" />
-      <FadeUp className="cta__actions">
-        <Button to="/quote" icon={<Arrow />}>Get a quote</Button>
-        <Button
-          variant="ghost"
-          href={waLink()}
-          icon={<WhatsApp />}
-          onClick={() => track('whatsapp_click', { source: 'home_cta' })}
-        >
-          Chat on WhatsApp
-        </Button>
-      </FadeUp>
-    </section>
+    <Room id="instagram" label="Instagram" labelledBy="ig-title">
+      <Plaque n={7} title="On *Instagram*" id="ig-title">
+        <FadeUp className="plaque__text">
+          <a
+            className="text-link"
+            href={site.socials.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => track('social_click', { network: 'instagram' })}
+          >
+            @{handle} ↗
+          </a>
+        </FadeUp>
+      </Plaque>
+      <ul className="insta">
+        {instagram.slice(0, 6).map((item, i) => (
+          <li key={item.photoId}>
+            <Hang delay={0.06 * i} tilt={i % 2 ? 3 : -3}>
+              <a
+                href={item.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Instagram post: ${getPhoto(item.photoId).alt}`}
+                className="frame insta__frame"
+                data-cursor="view"
+              >
+                <span className="insta__img">
+                  <Img photo={item.photoId} sizes="(min-width: 1024px) 16vw, 33vw" cover />
+                </span>
+              </a>
+            </Hang>
+          </li>
+        ))}
+      </ul>
+    </Room>
+  );
+}
+
+function Exit() {
+  return (
+    <Room id="exit" label="Exit">
+      <div className="exit__panel">
+        <p className="eyebrow">Exit — Thank you for visiting</p>
+        <RevealText lines={["Let's create", '*something.*']} className="display exit__title" />
+        <FadeUp className="exit__actions">
+          <Button to="/quote" icon={<Arrow />}>
+            Get a quote
+          </Button>
+          <Button
+            variant="ghost"
+            href={waLink()}
+            icon={<WhatsApp />}
+            onClick={() => track('whatsapp_click', { source: 'home_cta' })}
+          >
+            Chat on WhatsApp
+          </Button>
+        </FadeUp>
+        <p className="exit__note">{accent(site.tagline)}</p>
+      </div>
+    </Room>
   );
 }

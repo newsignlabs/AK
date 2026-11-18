@@ -11,14 +11,16 @@
       (function (d) {
         d.className = d.className.replace('no-js', 'js');
         try {
+          // The doors reveal plays once per visit (first page load of the session).
           if (location.pathname.indexOf('/admin') === 0 || sessionStorage.getItem('ak:preloaded') || matchMedia('(prefers-reduced-motion: reduce)').matches)
             d.dataset.preloaded = 'true';
+          else sessionStorage.setItem('ak:preloaded', '1');
         } catch (e) {
           d.dataset.preloaded = 'true';
         }
       })(document.documentElement);
     </script>
-    <noscript><style>[data-reveal]{opacity:1!important;transform:none!important;clip-path:none!important}.preloader{display:none!important}</style></noscript>
+    <noscript><style>[data-reveal]{opacity:1!important;transform:none!important;clip-path:none!important}.doors{display:none!important}</style></noscript>
   </head>
   <body>
     <div id="root"><!--app-html--></div>

@@ -23,10 +23,25 @@ export function RevealText({
   /** Animate on mount instead of on entering the viewport (hero). */
   immediate?: boolean;
 }) {
-  const trigger = immediate ? { animate: 'shown' } : { whileInView: 'shown', viewport };
+  if (immediate) {
+    // Hero headline: a CSS animation that starts with the first paint, so it never waits on JS (keeps LCP early).
+    return (
+      <Tag id={id} className={`reveal-text ${className}`} aria-label={plain(lines.join(' '))}>
+        <span style={{ display: 'block' }} aria-hidden>
+          {lines.map((line, i) => (
+            <span className="reveal-text__mask" key={i}>
+              <span className="reveal-text__line reveal-text__line--css" style={{ animationDelay: `${delay + i * stagger}s` }}>
+                {accent(line)}
+              </span>
+            </span>
+          ))}
+        </span>
+      </Tag>
+    );
+  }
   return (
     <Tag id={id} className={`reveal-text ${className}`} aria-label={plain(lines.join(' '))}>
-      <m.span initial="hidden" {...trigger} transition={{ staggerChildren: stagger, delayChildren: delay }} style={{ display: 'block' }} aria-hidden>
+      <m.span initial="hidden" whileInView="shown" viewport={viewport} transition={{ staggerChildren: stagger, delayChildren: delay }} style={{ display: 'block' }} aria-hidden>
         {lines.map((line, i) => (
           <span className="reveal-text__mask" key={i}>
             <m.span
@@ -125,5 +140,41 @@ function Word({ children, progress, range }: { children: string; progress: Motio
     <m.span style={{ opacity: reduced ? 1 : opacity }} data-reveal>
       {children}{' '}
     </m.span>
+  );
+}
+
+/**
+ * M14 — a frame hung on the wall: swings in from a slight angle around its
+ * top edge and settles, like a picture just hung on its wire.
+ */
+export function Hang({ children, className = '', delay = 0, tilt = -5 }: { children: ReactNode; className?: string; delay?: number; tilt?: number }) {
+  return (
+    <m.div
+      className={`hang ${className}`}
+      data-reveal
+      style={{ transformOrigin: '50% -40px' }}
+      initial={{ opacity: 0, rotate: tilt, y: -30 }}
+      whileInView={{ opacity: 1, rotate: 0, y: 0 }}
+      viewport={{ once: true, margin: '0px -5% -5% 0px' }}
+      transition={{ opacity: { duration: 0.5, delay }, rotate: { type: 'spring', stiffness: 70, damping: 7, delay }, y: { type: 'spring', stiffness: 90, damping: 14, delay } }}
+    >
+      {children}
+    </m.div>
+  );
+}
+
+/** Museum label sliding out from behind its frame. */
+export function SlideLabel({ children, className = '', delay = 0.35 }: { children: ReactNode; className?: string; delay?: number }) {
+  return (
+    <m.div
+      className={className}
+      data-reveal
+      initial={{ opacity: 0, y: -18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.7, ease: ease.out, delay }}
+    >
+      {children}
+    </m.div>
   );
 }

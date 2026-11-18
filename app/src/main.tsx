@@ -9,6 +9,8 @@ import './styles/tokens.css';
 import './styles/base.css';
 import './styles/components.css';
 import './styles/pages.css';
+import './styles/home.css';
+import './styles/gallery.css';
 import App, { preloadRoute } from './App';
 
 const root = document.getElementById('root')!;

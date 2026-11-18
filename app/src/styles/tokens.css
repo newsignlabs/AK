@@ -1,6 +1,6 @@
-/* Rich black & white (spec §3, revised): a black stage with inverted ivory bands. */
+/* Glass gallery (spec §3): dark walls, warm light, frosted glass, B&W photos. */
 :root {
-  --black: #0a0a0a;
+  --black: #0b0b0c;
   --ink: #111111;
   --ivory: #f4f3ef;
   --white: #ffffff;
@@ -8,13 +8,23 @@
   --bg: var(--black);
   --bg-2: #161616;
   --fg: var(--ivory);
-  --muted: #8f8f8a;
+  --muted: #9a9994;
   --line: rgb(244 243 239 / 0.16);
   --line-strong: rgb(244 243 239 / 0.6);
   --accent: var(--ivory);
   --on-accent: var(--black);
   --overlay: rgb(8 8 8 / 0.96);
   --error: #ff8a7a;
+
+  /* Gallery wall, warm light and glass */
+  --wall: #0b0b0c;
+  --light: 255 238 214; /* warm white, used as rgb(var(--light) / a) */
+  --glass: rgb(22 22 24 / 0.55);
+  --glass-strong: rgb(16 16 18 / 0.78);
+  --glass-line: rgb(255 255 255 / 0.12);
+  --glass-hi: rgb(255 255 255 / 0.08);
+  --blur: 18px;
+  --frame-shadow: 0 30px 60px -20px rgb(0 0 0 / 0.75), 0 12px 24px -12px rgb(0 0 0 / 0.6);
 
   /* Type */
   --font-display: 'Fraunces Variable', 'Cormorant Garamond', Georgia, serif;

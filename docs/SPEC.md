@@ -35,26 +35,50 @@ Global elements on every page: header/nav, footer (socials, quick links, copyrig
 
 ---
 
-## 3. Design System (Rich Black & White)
+## 3. Design System (Glass Gallery)
+
+The site is an exhibition, not a template: every page is a wing of a gallery, and
+the visitor walks through it.
 
 ### 3.1 Principles
-- **Pure monochrome, high drama.** A black stage with inverted ivory bands; every photograph is rendered in true black & white.
-- **Editorial richness.** Oversized serif type with italic accent words, outlined numerals, crop marks, frame counters and film grain give depth without colour.
-- **Rhythm through contrast.** Sections alternate black ↔ ivory as you scroll; motion stays purposeful.
+- **Monochrome walls, warm light, frosted glass.** Dark gallery walls lit by soft,
+  slowly drifting pools of warm white light. Labels, menus and cards are frosted
+  glass panels over that light.
+- **Photographs are the artworks.** They hang in black & white and **bloom into full
+  colour** when hovered or opened in the lightbox, like a spotlight landing on them.
+- **Exhibition details instead of template chrome.** Museum labels (number, title,
+  category), frames that cast soft shadows, a "Room 03 / 08" counter with a progress
+  line, a cursor spotlight on the walls, hand-hung (slightly varied) frame heights.
+- **Every section moves on entry.** Frames hang in with a slight swing, labels slide
+  out from behind frames, text reveals line by line, layers drift at different depths.
 
-### 3.2 Colour tokens
+### 3.2 Colour, light and glass tokens
 
-| Token | Black stage (default) | Ivory band (`.invert`) |
+| Token | Value | Use |
 |---|---|---|
-| `--bg` | `#0A0A0A` | `#F4F3EF` |
-| `--fg` | `#F4F3EF` | `#0A0A0A` |
-| `--muted` | `#8F8F8A` | `#5C5C58` |
-| `--line` | ivory at 16% | black at 14% |
-| `--line-strong` | ivory at 60% | black at 60% |
+| `--wall` | `#0b0b0c` | Page background (gallery wall) |
+| `--fg` | `#f4f3ef` | Ivory text |
+| `--muted` | `#9a9994` | Secondary text (AA on wall and glass) |
+| `--light` | warm white `rgb(255 238 214)` | Ambient light pools and spotlight (low opacity) |
+| `--glass` | `rgb(22 22 24 / 0.55)` | Glass panel fill |
+| `--glass-strong` | `rgb(16 16 18 / 0.78)` | Glass behind body text / forms |
+| `--glass-line` | `rgb(255 255 255 / 0.12)` | Glass edge + top highlight |
+| `--blur` | `18px` (desktop), none on touch devices | `backdrop-filter` strength |
 
-No hues, no gradients except photographic vignettes. Photos use `grayscale(1) contrast(1.12)`. A fixed film-grain layer (SVG noise, 6% opacity, animated; static under reduced motion) sits over everything. Text meets WCAG AA on both grounds. The design is a fixed theme (no light/dark switch).
-
-Home page band order: hero (photo) → studio intro (black) → selected work (black) → services (ivory) → about + stats (black) → process (ivory) → testimonials (black) → marquee (ivory) → Instagram (black) → CTA (black) → footer (black).
+- **Ambient light:** a fixed layer of 3 large blurred radial gradients in warm white
+  (opacity ≤ 0.18) drifting slowly (transform-only CSS animation; static on mobile and
+  under reduced motion). Glass panels sit above it, so the glass reads as glass.
+- **Glass panel:** fill + `backdrop-filter: blur(var(--blur)) saturate(140%)`, 1px edge,
+  inset top highlight, soft shadow. On touch devices and without `backdrop-filter`
+  support the fill is simply more opaque (no blur) to keep scrolling smooth.
+- **Photos:** `grayscale(1) contrast(1.08)`; on hover / focus (and in the lightbox) the
+  filter transitions to none over 0.6 s. Frames get a thin ivory passe-partout edge and
+  a soft drop shadow.
+- **Cursor spotlight (desktop, fine pointer):** a large, faint warm radial light follows
+  the cursor across the walls (one fixed layer, CSS variables updated per frame).
+- The old ivory "inverted" bands are replaced by lit walls and glass; the film grain
+  stays (subtle).
+- Fixed theme (no light/dark switch). Text meets WCAG AA on wall and on glass.
 
 ### 3.3 Typography
 - **Display:** *Fraunces* (variable, light 300) at large sizes with tight tracking (−0.035em); words wrapped in `*asterisks*` in content render as **italic accents** (e.g. "Quiet images of *loud* moments.").
@@ -72,6 +96,26 @@ Home page band order: hero (photo) → studio intro (black) → selected work (b
 Header (ivory ink; see-through over the dark top of each page, solid black once scrolled, so the links and an uploaded light logo are always legible), Nav overlay (mobile, black), Button (square; solid / ghost with a fill that sweeps up on hover; text-link with animated underline), Input / Select / Date / Textarea, Stepper, Chip (filter), Image (black & white with blur-up placeholder, framed with offset outlines and "Fr. 001" captions), Lightbox, Toast, Social icon row (square), Floating WhatsApp button (ivory disc), Stats band (ruled grid), Footer (giant "AK *studio*" wordmark).
 
 ---
+
+### 3.6 Exhibition layout (horizontal on desktop)
+
+- **Home, desktop (≥ 1024 px wide, motion allowed):** a **horizontal walk through
+  rooms**, driven by normal vertical scrolling: the rooms are pinned (`position:
+  sticky`) and the track slides sideways (`transform: translateX`) as the visitor
+  scrolls. Mouse wheel, trackpad, keyboard, scrollbar, back/forward and scroll
+  restoration all keep working; no scroll hijacking.
+  - Rooms: Entrance (hero) → Statement (01, mascot) → Selected works wall → Services
+    (plaques) → About (artist statement + stats) → Process (timeline wall) →
+    Guestbook (testimonials) → Instagram → Exit (call to action). The footer follows
+    the walk vertically.
+  - Room counter "Room 03 / 09" and a progress line (fixed, glass).
+  - Depth: elements inside a room drift at different speeds relative to the track.
+  - Keyboard: focusing an element in an off-screen room scrolls the page so that room
+    is in view.
+- **Home, tablet and mobile, or reduced motion:** the same rooms stacked vertically.
+- **All other pages:** vertical everywhere (Gallery = a long hanging wall).
+- No layout shift: the walk's height is set once from the measured track width
+  before it becomes visible, and room sizes are fixed in CSS (vw/vh).
 
 ## 4. Motion Specification
 
@@ -98,7 +142,7 @@ Only `transform` and `opacity` are animated (GPU-friendly; no layout thrash).
 
 | # | Where | Behaviour |
 |---|---|---|
-| M1 | Preloader (first visit only, max 1.5 s) | Studio monogram draws in (SVG stroke), counter 0→100, then wipes up to reveal the hero. Skipped on repeat visits (sessionStorage) and with reduced motion. |
+| M1 | Doors reveal (Home, first visit) | Two frosted-glass doors slide apart over the already-visible hero (CSS only, ~1.1 s, never blocks the page or the main image). Replaces the old blocking preloader. Skipped on repeat visits and under reduced motion. |
 | M2 | Page transitions | Full-screen `--fg` panel slides up over the old page, page title flashes, panel slides out. ~900 ms total. |
 | M3 | Headline reveal | Lines split into masked spans; each line slides up 100% → 0 with stagger. |
 | M4 | Image reveal | Clip-path inset `inset(100% 0 0 0)` → `inset(0)` plus scale 1.15 → 1 on enter viewport. |
@@ -110,9 +154,13 @@ Only `transform` and `opacity` are animated (GPU-friendly; no layout thrash).
 | M10 | Marquee | Slow infinite horizontal marquee of services / client names on Home; pauses on hover. |
 | M11 | Quotation stepper | Steps slide horizontally; live price counter animates numerically between values. |
 | M12 | WhatsApp button | Fades in after 2 s, gentle pulse once every 10 s (stops after 3 pulses). |
+| M13 | Exhibition walk (Home, desktop) | Vertical scroll drives the horizontal track; rooms' layers move at different depths; room counter updates. |
+| M14 | Hanging frames | Frames swing in from a slight angle (transform-origin top) and settle; museum labels slide out from behind them. |
+| M15 | Colour bloom | Photos go from black & white to full colour on hover / focus and in the lightbox. |
+| M16 | Ambient light + cursor spotlight | Warm light pools drift slowly behind the glass; a faint spotlight follows the cursor on desktop. |
 
 ### 4.4 Accessibility of motion
-- Respect `prefers-reduced-motion: reduce`: disable M1, M5, M8, M10, Lenis; replace slides/clip reveals with simple 200 ms fades.
+- Respect `prefers-reduced-motion: reduce`: disable M1, M5, M8, M10, M13 (Home stacks vertically), M16 drift, Lenis; replace slides/clip reveals with simple 200 ms fades.
 - Nothing flashes more than 3 times per second.
 - Animations never block interaction; content is in the DOM and readable before reveal (no-JS fallback shows content).
 
