@@ -5,15 +5,7 @@
     "alt": "Placeholder image: a portrait of a women",
     "category": "portraits",
     "caption": "Portrait — placeholder 2",
-    "featured": true,
-    "w": 1024,
-    "h": 1536,
-    "widths": [
-      480,
-      960,
-      1024
-    ],
-    "lqip": "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAAeABQDASIAAhEBAxEB/8QAGQAAAgMBAAAAAAAAAAAAAAAAAAUDBAYC/8QAIxAAAQQCAQQDAQAAAAAAAAAAAQACAwQFERITIjFRFCEjQv/EABUBAQEAAAAAAAAAAAAAAAAAAAME/8QAGBEAAwEBAAAAAAAAAAAAAAAAAAECESH/2gAMAwEAAhEDEQA/ANfnbM1XEzy1x+gGmpFgX34b0AlsvmZM3vDv5K0GTcDUfGRvkEuxuopQ54JIHlHV5WCTOy2PkLmOQSMDm+ChIGL7dhnLpkEknWgoSWwP4OPFgGwSo7o6FoybPsaVeyPkVTM9ziHfQHpTU3pQp4PKz2mEcSCEKvjIC2mzu2hPO4C0tP/Z"
+    "featured": true
   },
   {
     "id": "gemini-generated-image-tn6ywgtn6ywgtn6y-87fd7e",
@@ -21,15 +13,7 @@
     "alt": "Placeholder image: a portrait of a women",
     "category": "portraits",
     "caption": "Portrait — placeholder 1",
-    "featured": false,
-    "w": 1408,
-    "h": 768,
-    "widths": [
-      480,
-      960,
-      1408
-    ],
-    "lqip": "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAALABQDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAUGBP/EAB8QAAEDBAMBAAAAAAAAAAAAAAEAAhEDBAUxBiEyQv/EABYBAQEBAAAAAAAAAAAAAAAAAAEAAv/EABcRAQEBAQAAAAAAAAAAAAAAAAABMQL/2gAMAwEAAhEDEQA/AK1kAJbjL4V7u5pREGdpgzypXjhJy+R7+iq6ecqmcWyULO4mdoSw/9k="
+    "featured": false
   },
   {
     "id": "gemini-generated-image-wc321ywc321ywc32-fbe44f",
@@ -37,15 +21,7 @@
     "alt": "Placeholder image: a couple posing for a photo",
     "category": "weddings",
     "caption": "Wedding — placeholder 1",
-    "featured": true,
-    "w": 1408,
-    "h": 768,
-    "widths": [
-      480,
-      960,
-      1408
-    ],
-    "lqip": "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAALABQDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAQFBv/EACAQAAEEAgEFAAAAAAAAAAAAAAEAAgMRBBIhBQYiNHL/xAAVAQEBAAAAAAAAAAAAAAAAAAABAv/EABcRAQEBAQAAAAAAAAAAAAAAAAABMTL/2gAMAwEAAhEDEQA/ANVJIIoHvq9Ran9IyWZT5JbJcPHlM5foTfBUDs9xONOSed0XTOa0btbKEu4mzyhUh//Z"
+    "featured": true
   },
   {
     "id": "pic-fr-insta-copy-9cd193",
@@ -54,16 +30,7 @@
     "category": "weddings",
     "caption": "",
     "featured": false,
-    "hidden": true,
-    "w": 2400,
-    "h": 1600,
-    "widths": [
-      480,
-      960,
-      1600,
-      2400
-    ],
-    "lqip": "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAANABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAUDBAb/xAAgEAACAwACAQUAAAAAAAAAAAABAgADEQQFMQYhIjJB/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AMb1fXP2FjKmfEfpjC/05dVSz6hwb9olpvsoJNTlSfOSRudyWUqbmw+feBXIw5CEIH//2Q=="
+    "hidden": true
   },
   {
     "id": "wed-01",
