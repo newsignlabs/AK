@@ -1,0 +1,228 @@
+/* ==========================================================================
+   Home — the exhibition (spec §3.6).
+   Base styles: rooms stacked vertically (tablet, mobile, reduced motion, no JS).
+   Bottom of file: the horizontal walk for wide screens.
+   ========================================================================== */
+
+.walk { position: relative; }
+.room { position: relative; padding: var(--section) var(--gutter); }
+.depth { will-change: transform; }
+
+/* Room plaque: "Room 02" + title, with a big outlined numeral behind. */
+.plaque { position: relative; display: grid; gap: var(--s-3); margin-bottom: var(--s-6); max-width: 34rem; }
+.plaque > :not(.plaque__num-layer) { position: relative; z-index: 1; }
+.plaque__num-layer { position: absolute; top: -0.35em; right: -0.1em; font-size: clamp(7rem, 22vw, 14rem); pointer-events: none; z-index: 0; }
+.plaque__num {
+  display: block; font-family: var(--font-display); font-weight: 300; line-height: 1;
+  color: transparent; -webkit-text-stroke: 1px rgb(var(--light) / 0.35); opacity: 0.6; user-select: none;
+}
+.plaque__title { font-size: clamp(2.5rem, 7vw, 4.5rem); }
+.plaque__text { display: grid; gap: var(--s-3); justify-items: start; color: var(--muted); max-width: 26rem; }
+
+/* ---------- Entrance (hero) ---------- */
+.room--entrance { height: 100svh; min-height: 620px; padding: 0; overflow: hidden; color: var(--ivory); background: #000; }
+.entrance__media { position: absolute; inset: 0; }
+.entrance__media .img { position: absolute; inset: 0; filter: grayscale(1) contrast(1.08) brightness(0.92); }
+.entrance__shade {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(120% 90% at 60% 40%, rgb(0 0 0 / 0) 30%, rgb(0 0 0 / 0.55) 100%),
+    linear-gradient(180deg, rgb(0 0 0 / 0.55) 0%, rgb(0 0 0 / 0) 30%, rgb(0 0 0 / 0) 50%, rgb(0 0 0 / 0.65) 100%);
+}
+.entrance__frame { position: absolute; inset: calc(var(--header-h) + var(--s-2)) var(--gutter) var(--s-4); pointer-events: none; }
+.crop { position: absolute; width: 28px; height: 28px; border-color: rgb(244 243 239 / 0.7); border-style: solid; border-width: 0; }
+.crop--tl { top: 0; left: 0; border-top-width: 1px; border-left-width: 1px; }
+.crop--tr { top: 0; right: 0; border-top-width: 1px; border-right-width: 1px; }
+.crop--bl { bottom: 0; left: 0; border-bottom-width: 1px; border-left-width: 1px; }
+.crop--br { bottom: 0; right: 0; border-bottom-width: 1px; border-right-width: 1px; }
+.entrance__card {
+  position: absolute; left: var(--gutter); right: var(--gutter); bottom: calc(var(--s-6) + var(--s-3));
+  display: grid; gap: var(--s-3); padding: var(--s-4); border-radius: 4px; max-width: 46rem;
+}
+.entrance__card .eyebrow { color: rgb(244 243 239 / 0.75); }
+.entrance__title { font-size: clamp(2.8rem, 10vw, 6.5rem); }
+.entrance__meta { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-4); font-size: 0.6875rem; letter-spacing: var(--tracking); text-transform: uppercase; color: rgb(244 243 239 / 0.8); }
+.entrance__services { display: none; }
+@media (min-width: 768px) { .entrance__services { display: inline; } .entrance__card { padding: var(--s-5); right: auto; } }
+.entrance__cue { position: absolute; right: var(--gutter); bottom: var(--s-4); display: flex; align-items: center; gap: var(--s-3); font-size: 0.6875rem; letter-spacing: var(--tracking); text-transform: uppercase; color: rgb(244 243 239 / 0.8); }
+.entrance__cue-line { width: 64px; height: 1px; background: currentColor; transform-origin: left; animation: cue 2.4s var(--ease-in-out) infinite; }
+@keyframes cue { 0% { transform: scaleX(0); } 50% { transform: scaleX(1); transform-origin: left; } 51% { transform-origin: right; } 100% { transform: scaleX(0); transform-origin: right; } }
+@media (max-width: 767px) { .entrance__cue { display: none; } }
+
+/* ---------- Statement (01 + mascot) ---------- */
+.room--statement { display: grid; gap: var(--s-5); max-width: var(--max); margin-inline: auto; }
+.statement__badge { position: relative; justify-self: end; font-size: clamp(8.5rem, 34vw, 13rem); line-height: 1; pointer-events: none; }
+.statement__badge--mascot { margin-top: 0.55em; }
+.statement__num { display: block; font-family: var(--font-display); font-weight: 300; color: transparent; -webkit-text-stroke: 1px rgb(var(--light) / 0.45); }
+.statement__mascot { position: absolute; left: 50%; bottom: 0.2em; height: 1em; transform: translateX(-50%); animation: mascot-float 3.6s ease-in-out infinite; will-change: transform; }
+.statement__mascot img { display: block; height: 100%; width: auto; max-width: none; filter: drop-shadow(0 18px 24px rgb(0 0 0 / 0.5)); }
+.statement__glow { position: absolute; left: 50%; bottom: 0.14em; width: 0.6em; height: 0.08em; border-radius: 50%; background: radial-gradient(closest-side, rgb(var(--light) / 0.35), transparent); transform: translateX(-50%); animation: mascot-shadow 3.6s ease-in-out infinite; }
+@keyframes mascot-float { 0%, 100% { transform: translate(-50%, 0) rotate(-1deg); } 50% { transform: translate(-50%, -0.4em) rotate(1deg); } }
+@keyframes mascot-shadow { 0%, 100% { transform: translateX(-50%) scale(1); opacity: 1; } 50% { transform: translateX(-50%) scale(0.55); opacity: 0.35; } }
+@media (prefers-reduced-motion: reduce) { .statement__mascot, .statement__glow { animation: none; } }
+.statement__body { display: grid; gap: var(--s-4); }
+@media (min-width: 1024px) {
+  .room--statement { grid-template-columns: auto 1fr; align-items: center; gap: var(--s-7); }
+  .statement__badge { font-size: clamp(10rem, 15vw, 15rem); justify-self: start; }
+}
+
+/* ---------- Works wall ---------- */
+.wall { display: grid; gap: var(--s-7) var(--s-5); }
+.wall__item { display: grid; gap: var(--s-3); justify-items: start; }
+.wall__frame { width: 100%; }
+.wall__frame .img { width: 100%; }
+.wall__label { min-width: 14rem; }
+.wall__frame:hover .img img { transform: scale(1.03); }
+.wall__frame .img img { transition: transform 1.2s var(--ease-out), opacity 0.6s; }
+@media (min-width: 640px) {
+  .wall { grid-template-columns: 1fr 1fr; }
+  .wall__item:nth-child(even) { margin-top: var(--s-8); }
+}
+
+/* ---------- Services: glass plaques ---------- */
+.plaques { display: grid; gap: var(--s-3); }
+@media (min-width: 640px) { .plaques { grid-template-columns: 1fr 1fr; } }
+.plaques__card {
+  position: relative; display: grid; grid-template-columns: auto 1fr auto; grid-template-rows: auto auto; align-items: center;
+  gap: var(--s-2) var(--s-3); padding: var(--s-3); border-radius: 4px; height: 100%;
+  transition: transform 0.5s var(--ease-out), border-color 0.4s;
+}
+.plaques__card:hover { transform: translateY(-4px); border-color: rgb(var(--light) / 0.35); }
+.plaques__img { position: relative; grid-row: 1 / 3; width: 84px; aspect-ratio: 4 / 5; overflow: hidden; }
+.plaques__num { font-size: 0.6875rem; letter-spacing: var(--tracking); color: rgb(var(--light) / 0.8); align-self: end; }
+.plaques__name { grid-column: 2; font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 300; line-height: 1.05; letter-spacing: -0.02em; }
+.plaques__blurb { grid-column: 2; color: var(--muted); font-size: 0.9375rem; }
+.plaques__arrow { grid-column: 3; grid-row: 1 / 3; transition: transform 0.5s var(--ease-out); }
+.plaques__card:hover .plaques__arrow { transform: rotate(-45deg); }
+.plaques__card:hover .plaques__name { font-style: italic; }
+
+/* ---------- The artist ---------- */
+.room--artist { display: grid; gap: var(--s-6); align-items: center; max-width: var(--max); margin-inline: auto; }
+.artist__portrait { display: grid; gap: var(--s-3); justify-items: start; max-width: 420px; margin-top: 40px; }
+.artist__panel { display: grid; gap: var(--s-4); padding: clamp(var(--s-4), 4vw, var(--s-6)); border-radius: 6px; }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: var(--s-2); border-top: 1px solid var(--glass-line); }
+.stats__item { display: flex; flex-direction: column-reverse; gap: var(--s-2); padding: var(--s-4) var(--s-3) 0 0; }
+.stats dt { font-size: 0.6875rem; letter-spacing: var(--tracking); text-transform: uppercase; color: var(--muted); }
+.stats dd { font-size: clamp(2.2rem, 5vw, 4rem); font-variant-numeric: tabular-nums; line-height: 1; color: rgb(var(--light)); }
+@media (min-width: 1024px) { .room--artist { grid-template-columns: 5fr 7fr; gap: var(--s-7); } }
+
+/* ---------- Process: timeline ---------- */
+.timeline { position: relative; display: grid; gap: var(--s-4); padding-left: var(--s-5); }
+.timeline__line { position: absolute; left: 12px; top: 0; bottom: 0; width: 1px; background: linear-gradient(rgb(var(--light) / 0.6), rgb(var(--light) / 0.1)); transform-origin: top; }
+.timeline__step { position: relative; display: grid; gap: var(--s-2); padding: var(--s-4); border-radius: 4px; }
+.timeline__dot { position: absolute; left: calc(-1 * var(--s-5) + 7px); top: var(--s-5); width: 11px; height: 11px; border-radius: 50%; background: rgb(var(--light)); box-shadow: 0 0 0 6px rgb(var(--light) / 0.12), 0 0 24px rgb(var(--light) / 0.6); }
+.timeline__num { font-family: var(--font-display); font-style: italic; font-size: 2.6rem; line-height: 1; color: transparent; -webkit-text-stroke: 1px rgb(var(--light) / 0.7); }
+.timeline__step .h3 { font-size: clamp(1.4rem, 2.2vw, 1.8rem); font-weight: 300; }
+.timeline__step p { color: var(--muted); }
+
+/* ---------- Guestbook ---------- */
+.guestbook { display: grid; gap: var(--s-4); }
+@media (min-width: 768px) { .guestbook { grid-template-columns: 1fr 1fr; } .guestbook__entry:nth-child(even) { margin-top: var(--s-6); } }
+.guestbook__entry { position: relative; display: grid; gap: var(--s-4); padding: var(--s-5) var(--s-4) var(--s-4); border-radius: 6px; overflow: hidden; }
+.guestbook__mark { position: absolute; top: -0.25em; right: 0.1em; font-family: var(--font-display); font-style: italic; font-size: 9rem; line-height: 1; color: rgb(var(--light) / 0.12); pointer-events: none; }
+.guestbook__entry blockquote { position: relative; margin: 0; font-family: var(--font-display); font-style: italic; font-weight: 300; font-size: clamp(1.35rem, 2.3vw, 1.9rem); line-height: 1.3; }
+.guestbook__by { display: grid; gap: 2px; font-size: 0.8125rem; }
+.guestbook__by strong { font-weight: 500; }
+.guestbook__by span { color: var(--muted); }
+
+/* ---------- Instagram ---------- */
+.insta { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s-6) var(--s-4); padding-top: 40px; }
+@media (min-width: 640px) { .insta { grid-template-columns: repeat(3, 1fr); } }
+.insta__frame { display: block; }
+.insta__img { position: relative; display: block; aspect-ratio: 1; overflow: hidden; }
+.insta__frame .img img { transition: transform 1s var(--ease-out), opacity 0.6s; }
+.insta__frame:hover .img img { transform: scale(1.06); }
+
+/* ---------- Exit ---------- */
+.room--exit { display: grid; place-items: center; text-align: center; }
+.exit__panel { display: grid; gap: var(--s-5); justify-items: center; }
+.exit__title { font-size: clamp(3.2rem, 12vw, 10rem); }
+.exit__actions { display: flex; flex-wrap: wrap; gap: var(--s-3); justify-content: center; }
+.exit__note { color: var(--muted); font-family: var(--font-display); font-size: 1.25rem; }
+
+/* ---------- Containers for stacked rooms ---------- */
+.room--works, .room--services, .room--process, .room--guestbook, .room--instagram { max-width: var(--max); margin-inline: auto; }
+
+/* ==========================================================================
+   Horizontal walk (desktop, motion allowed, JS on): rooms pinned in a row.
+   ========================================================================== */
+@media (min-width: 1024px) and (min-height: 640px) and (prefers-reduced-motion: no-preference) {
+  /* Height before the walk measures itself (avoids a jump; corrected on load). */
+  .js .walk { height: calc(100vh + 900vw); }
+  .js .walk__sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; overflow: clip; }
+  .js .walk__track { display: flex; height: 100%; width: max-content; will-change: transform; }
+  .js .room {
+    flex: none; height: 100vh; max-width: none; margin: 0;
+    padding: calc(var(--header-h) + 4vh) 6vw 12vh;
+    display: flex; align-items: center; gap: 6vw;
+  }
+  .js .plaque { flex: none; width: 26vw; margin: 0; max-width: none; }
+  .js .plaque__num-layer { top: -0.6em; right: auto; left: -0.08em; font-size: min(32vh, 22vw); }
+  .js .plaque__title { font-size: clamp(2.6rem, 4.2vw, 4.8rem); }
+
+  /* Entrance */
+  .js .room--entrance { width: 100vw; padding: 0; display: block; }
+  .js .entrance__media { inset: 0 -8vw 0 0; }
+  .js .entrance__card { left: 6vw; bottom: 14vh; max-width: min(46rem, 52vw); }
+  .js .entrance__title { font-size: clamp(3.4rem, 6.4vw, 7rem); }
+
+  /* Statement */
+  .js .room--statement { width: 110vw; display: flex; justify-content: center; gap: 7vw; }
+  .js .statement__badge { font-size: min(36vh, 17vw); justify-self: auto; margin-top: 0.3em; }
+  .js .statement__body { width: min(52vw, 60rem); }
+  .js .room--statement .scroll-words { font-size: clamp(2rem, 3.4vw, 3.6rem); }
+
+  /* Works: frames hung across the wall at varied heights */
+  .js .room--works { align-items: flex-start; padding-top: calc(var(--header-h) + 9vh); }
+  .js .room--works .plaque { align-self: center; }
+  .js .wall { display: flex; align-items: flex-start; gap: 5.5vw; padding-right: 4vw; }
+  .js .wall__item { margin: 0 !important; width: calc(var(--fh) * var(--ar, 0.75)); }
+  .js .wall__item { --fh: 48vh; }
+  .js .wall__item.is-landscape { --fh: 40vh; }
+  .js .wall__item--1 { padding-top: 8vh; }
+  .js .wall__item--2 { padding-top: 2vh; --fh: 42vh; }
+  .js .wall__item--3 { padding-top: 12vh; }
+  .js .wall__frame .img { height: var(--fh); width: auto; }
+  .js .wall__label { min-width: 0; width: max-content; max-width: 22vw; }
+
+  /* Services: two rows of glass plaques */
+  .js .plaques { display: grid; grid-auto-flow: column; grid-template-rows: repeat(2, 1fr); grid-template-columns: none; grid-auto-columns: 23vw; gap: 2.4vh 1.6vw; height: min(68vh, 640px); }
+  .js .plaques__card { grid-template-columns: 1fr auto; grid-template-rows: 1fr auto auto; padding: 2.2vh 1.4vw; align-items: start; }
+  .js .plaques__img { grid-column: 1 / -1; grid-row: 1; width: 100%; height: 100%; aspect-ratio: auto; min-height: 0; }
+  .js .plaques__num { grid-column: 1; grid-row: 2; align-self: center; }
+  .js .plaques__name { grid-column: 1; grid-row: 3; font-size: clamp(1.3rem, 1.8vw, 1.9rem); }
+  .js .plaques__blurb { display: none; }
+  .js .plaques__arrow { grid-column: 2; grid-row: 2 / 4; align-self: end; }
+
+  /* The artist */
+  .js .room--artist { width: auto; display: flex; gap: 5vw; padding-left: 8vw; padding-right: 8vw; }
+  .js .artist__portrait { --ph: min(58vh, calc(38vw / var(--ar, 0.7))); width: calc(var(--ph) * var(--ar, 0.7)); max-width: none; flex: none; }
+  .js .artist__portrait .frame .img { height: var(--ph); width: auto; }
+  .js .artist__panel { width: min(44vw, 46rem); gap: 2vh; padding: 4vh 3vw; max-height: calc(100vh - var(--header-h) - 16vh); }
+  .js .artist__panel .h2 { font-size: clamp(2rem, 3.2vw, 3.4rem); }
+  .js .artist__panel .lead { font-size: clamp(0.95rem, 1.05vw, 1.1rem); line-height: 1.55; }
+  .js .stats dd { font-size: clamp(2rem, 3.2vw, 3.4rem); }
+
+  /* Process: a timeline across the wall */
+  .js .timeline { display: flex; align-items: center; gap: 2vw; padding: 0; height: 64vh; }
+  .js .timeline__line { left: 0; right: 0; top: 50%; bottom: auto; width: auto; height: 1px; background: linear-gradient(90deg, rgb(var(--light) / 0.6), rgb(var(--light) / 0.1)); transform-origin: left; }
+  .js .timeline__step { width: 21vw; flex: none; }
+  .js .timeline__step:nth-child(odd) { top: -17vh; }
+  .js .timeline__step:nth-child(even) { top: 17vh; }
+  .js .timeline__dot { left: 50%; top: auto; }
+  .js .timeline__step:nth-child(odd) .timeline__dot { bottom: calc(-17vh + 10px); }
+  .js .timeline__step:nth-child(even) .timeline__dot { top: calc(-17vh - 5px); }
+
+  /* Guestbook */
+  .js .guestbook { display: flex; align-items: center; gap: 2.4vw; }
+  .js .guestbook__entry { width: 25vw; flex: none; margin: 0 !important; }
+  .js .guestbook__entry:nth-child(even) { top: 8vh; }
+  .js .guestbook__entry:nth-child(odd) { top: -6vh; }
+
+  /* Instagram */
+  .js .insta { display: grid; grid-template-columns: repeat(3, 30vh); gap: 6vh 2vw; padding: 0; }
+
+  /* Exit */
+  .js .room--exit { width: 100vw; justify-content: center; }
+  .js .exit__title { font-size: clamp(4rem, 9vw, 10rem); }
+}

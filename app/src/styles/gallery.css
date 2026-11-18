@@ -1,0 +1,159 @@
+/* ==========================================================================
+   Glass gallery layer (spec §3): ambient light, glass panels, frames,
+   colour bloom on photos, hanging motion. Loaded after the other styles.
+   ========================================================================== */
+
+body { background: var(--wall); }
+
+/* ---------- Ambient warm light behind everything ---------- */
+.ambient { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.ambient__light {
+  position: absolute; border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(var(--light) / 0.16), rgb(var(--light) / 0.05) 55%, transparent);
+  will-change: transform;
+}
+.ambient__light--a { width: 70vmax; height: 70vmax; left: -18vmax; top: -22vmax; animation: drift-a 38s ease-in-out infinite alternate; }
+.ambient__light--b { width: 60vmax; height: 60vmax; right: -20vmax; top: 20vh; animation: drift-b 46s ease-in-out infinite alternate; opacity: 0.8; }
+.ambient__light--c { width: 55vmax; height: 55vmax; left: 25vw; bottom: -30vmax; animation: drift-c 52s ease-in-out infinite alternate; opacity: 0.6; }
+@keyframes drift-a { to { transform: translate3d(18vw, 14vh, 0) scale(1.1); } }
+@keyframes drift-b { to { transform: translate3d(-22vw, -12vh, 0) scale(0.92); } }
+@keyframes drift-c { to { transform: translate3d(14vw, -18vh, 0) scale(1.08); } }
+/* Touch devices and reduced motion: still light, no drifting (cheap to paint). */
+@media (pointer: coarse), (prefers-reduced-motion: reduce) { .ambient__light { animation: none; } }
+
+/* Cursor spotlight (desktop): one fixed layer, position from CSS variables. */
+.spotlight {
+  position: fixed; inset: 0; z-index: 2; pointer-events: none;
+  background: radial-gradient(520px circle at var(--sx, -999px) var(--sy, -999px), rgb(var(--light) / 0.07), transparent 60%);
+  mix-blend-mode: screen;
+  transition: opacity 0.6s;
+}
+
+/* ---------- Glass panels ---------- */
+.glass {
+  background: var(--glass);
+  border: 1px solid var(--glass-line);
+  box-shadow: inset 0 1px 0 var(--glass-hi), 0 20px 50px -24px rgb(0 0 0 / 0.7);
+}
+.glass--strong { background: var(--glass-strong); }
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  @media (pointer: fine) {
+    .glass {
+      -webkit-backdrop-filter: blur(var(--blur)) saturate(140%);
+      backdrop-filter: blur(var(--blur)) saturate(140%);
+    }
+  }
+}
+/* Touch devices: no blur (keeps scrolling smooth); the fill carries the look. */
+@media (pointer: coarse) { .glass { background: rgb(24 24 26 / 0.82); } }
+
+/* ---------- Frames: photos hung on the wall ---------- */
+.frame {
+  position: relative; display: block;
+  padding: clamp(6px, 0.7vw, 12px);
+  background: linear-gradient(145deg, rgb(255 255 255 / 0.09), rgb(255 255 255 / 0.02));
+  border: 1px solid rgb(255 255 255 / 0.1);
+  box-shadow: var(--frame-shadow);
+}
+.frame::before { /* the wire it hangs from */
+  content: ''; position: absolute; left: 50%; top: -38px; width: 1px; height: 38px;
+  background: linear-gradient(rgb(255 255 255 / 0), rgb(255 255 255 / 0.25));
+}
+
+/* Museum label (number, title, category) */
+.label {
+  display: grid; gap: 2px; padding: 10px 14px;
+  font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted);
+  border-radius: 2px;
+}
+.label strong { color: var(--fg); font-weight: 500; letter-spacing: 0.08em; text-transform: none; font-family: var(--font-display); font-size: 1rem; font-style: italic; }
+.label__no { font-variant-numeric: tabular-nums; color: rgb(var(--light) / 0.9); }
+
+/* ---------- Colour bloom: B&W photos turn to colour on hover / focus ---------- */
+.img { filter: grayscale(1) contrast(1.08); transition: filter 0.7s var(--ease-out); }
+a:hover .img, a:focus-visible .img, button:hover .img, button:focus-visible .img,
+.bloom:hover .img, .lightbox .img, .img--colour { filter: none; }
+
+/* ---------- Room counter / progress (Home walk, desktop) ---------- */
+.walk-hud {
+  position: fixed; left: var(--gutter); bottom: var(--s-4); z-index: 40;
+  display: flex; align-items: center; gap: var(--s-3);
+  padding: 10px 16px; border-radius: 999px;
+  font-size: 0.6875rem; letter-spacing: 0.16em; text-transform: uppercase;
+}
+.walk-hud__count { font-variant-numeric: tabular-nums; color: var(--fg); }
+.walk-hud__name { color: var(--muted); min-width: 9em; }
+.walk-hud__bar { position: relative; width: 120px; height: 1px; background: rgb(255 255 255 / 0.18); overflow: hidden; }
+.walk-hud__fill { position: absolute; inset: 0; background: rgb(var(--light)); transform-origin: left; }
+
+/* ---------- Doors reveal over the hero (first visit, CSS only) ---------- */
+.doors { position: absolute; inset: 0; z-index: 3; display: flex; pointer-events: none; }
+.doors__panel {
+  flex: 1; background: rgb(14 14 16 / 0.72);
+  border-inline: 1px solid rgb(255 255 255 / 0.08);
+  animation: door-left 1.25s 0.15s var(--ease-in-out) both;
+}
+.doors__panel + .doors__panel { animation-name: door-right; }
+@supports (backdrop-filter: blur(1px)) { .doors__panel { backdrop-filter: blur(14px); background: rgb(14 14 16 / 0.45); } }
+@keyframes door-left { to { transform: translateX(-101%); } }
+@keyframes door-right { to { transform: translateX(101%); } }
+[data-preloaded='true'] .doors, .no-js .doors { display: none; }
+@media (prefers-reduced-motion: reduce) { .doors { display: none; } }
+
+/* ---------- Header: frosted glass once scrolled ---------- */
+.header--scrolled { background: rgb(11 11 12 / 0.74); border-bottom-color: var(--glass-line); }
+@supports (backdrop-filter: blur(1px)) {
+  @media (pointer: fine) { .header--scrolled { background: rgb(11 11 12 / 0.55); backdrop-filter: blur(20px) saturate(140%); } }
+}
+.mobile-menu { background: rgb(11 11 12 / 0.96); }
+
+/* ==========================================================================
+   Pages: glass and gallery treatment
+   ========================================================================== */
+
+/* Buttons: ghost buttons are glass */
+.btn--ghost { background: rgb(255 255 255 / 0.04); }
+@supports (backdrop-filter: blur(1px)) { @media (pointer: fine) { .btn--ghost { backdrop-filter: blur(12px); } } }
+
+/* Gallery: a hanging wall of framed prints */
+.filters { background: rgb(11 11 12 / 0.6); border-color: var(--glass-line); }
+@supports (backdrop-filter: blur(1px)) { @media (pointer: fine) { .filters { background: rgb(11 11 12 / 0.45); backdrop-filter: blur(18px) saturate(140%); } } }
+.masonry { column-gap: var(--s-5); padding-top: var(--s-7); }
+.masonry__item { margin-bottom: var(--s-7); break-inside: avoid; }
+.masonry__btn { position: relative; }
+.masonry__btn .img img { transition: transform 1s var(--ease-out), opacity 0.6s; }
+.masonry__btn:hover .img img { transform: scale(1.025); }
+.masonry__label {
+  position: absolute; left: 50%; bottom: 0; transform: translate(-50%, 55%);
+  white-space: nowrap; max-width: 90%; overflow: hidden; text-overflow: ellipsis;
+  opacity: 0; transition: opacity 0.4s var(--ease-out), transform 0.5s var(--ease-out);
+}
+.masonry__label strong { font-size: 0.9rem; overflow: hidden; text-overflow: ellipsis; }
+.masonry__btn:hover .masonry__label, .masonry__btn:focus-visible .masonry__label { opacity: 1; transform: translate(-50%, 70%); }
+@media (pointer: coarse) { .masonry__label { display: none; } }
+
+/* Quote */
+.quote__form { padding: clamp(var(--s-4), 3vw, var(--s-5)); border-radius: 6px; background: var(--glass-strong); border: 1px solid var(--glass-line); box-shadow: inset 0 1px 0 var(--glass-hi), 0 20px 50px -24px rgb(0 0 0 / 0.7); }
+.estimate { background: var(--glass); color: var(--fg); --muted: #9a9994; --line: var(--glass-line); border: 1px solid var(--glass-line); border-radius: 6px; box-shadow: inset 0 1px 0 var(--glass-hi); }
+.estimate__value { color: rgb(var(--light)); }
+@supports (backdrop-filter: blur(1px)) { @media (pointer: fine) { .estimate, .quote__form { backdrop-filter: blur(var(--blur)) saturate(140%); } } }
+.service-card__img { outline-offset: 3px; box-shadow: var(--frame-shadow); }
+.service-card__img .img { filter: grayscale(1) contrast(1.08) brightness(0.8); }
+.service-card:hover .img, .service-card.is-selected .img { filter: none; }
+.service-card.is-selected .service-card__img { outline-color: rgb(var(--light)); }
+
+/* Contact */
+.contact__form-wrap { padding: clamp(var(--s-4), 3vw, var(--s-5)); border-radius: 6px; background: var(--glass-strong); border: 1px solid var(--glass-line); box-shadow: inset 0 1px 0 var(--glass-hi), 0 20px 50px -24px rgb(0 0 0 / 0.7); align-self: start; }
+@supports (backdrop-filter: blur(1px)) { @media (pointer: fine) { .contact__form-wrap { backdrop-filter: blur(var(--blur)) saturate(140%); } } }
+.map-placeholder { background: var(--glass); border-color: var(--glass-line); border-radius: 6px; }
+.contact__map iframe { border-radius: 6px; }
+.accordion__item { border-color: var(--glass-line); }
+
+/* Footer: a lit wall */
+.footer { border-top-color: var(--glass-line); background: linear-gradient(rgb(var(--light) / 0.03), transparent 40%); }
+.footer__cta-text { transition: color 0.4s; }
+.footer__cta:hover .footer__cta-text { color: rgb(var(--light)); }
+
+/* Fields on glass */
+.field input:not([type='checkbox'], [type='radio'], [type='range']), .field select, .field textarea { border-bottom-color: rgb(255 255 255 / 0.18); }
+.field input:focus, .field select:focus, .field textarea:focus { border-bottom-color: rgb(var(--light)); }

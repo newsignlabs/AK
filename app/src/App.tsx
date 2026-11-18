@@ -3,7 +3,7 @@ import { Suspense, useEffect, useRef, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router';
 import { Header, NAV } from './components/Header';
 import { Footer } from './components/Footer';
-import { Preloader } from './components/Preloader';
+import { Ambient } from './components/Ambient';
 import { Cursor } from './components/Cursor';
 import { WhatsAppButton } from './components/WhatsAppButton';
 import { UIProvider, useUI } from './components/UI';
@@ -90,7 +90,7 @@ function Shell() {
   return (
     <>
       <a className="skip-link" href="#main">Skip to content</a>
-      <Preloader />
+      <Ambient />
       <Cursor />
       <Header />
       <AnimatePresence mode="wait" initial={false} onExitComplete={() => scrollTo(0, true)}>

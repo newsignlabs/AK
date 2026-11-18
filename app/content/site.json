@@ -98,10 +98,14 @@
   "heroId": "pic-fr-insta-copy-9cd193",
   "logo": {
     "id": "logo-ak-studio-logo-b32ccf",
-    "file": "logo-ak-studio-logo-b32ccf.png"
+    "file": "logo-ak-studio-logo-b32ccf.png",
+    "w": 800,
+    "h": 200
   },
   "mascot": {
     "id": "mascot-ak-baby-7c41d2",
-    "file": "mascot-ak-baby-7c41d2.webp"
+    "file": "mascot-ak-baby-7c41d2.webp",
+    "w": 600,
+    "h": 710
   }
 }
